@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class Game extends ApplicationAdapter implements InputProcessor{
@@ -20,7 +21,7 @@ public class Game extends ApplicationAdapter implements InputProcessor{
     float y = 0;
     TiledMap tiledMap;
     OrthographicCamera camera;
-    TiledMapRenderer tiledMapRenderer;
+    IsometricTiledMapRenderer tiledMapRenderer;
 
     @Override
     public void create() {
@@ -30,8 +31,8 @@ public class Game extends ApplicationAdapter implements InputProcessor{
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, w, h);
 		camera.update();
-		tiledMap = new TmxMapLoader().load("C:\\Program Files\\JetBrains\\IntelliJ IDEA 2019.2.4\\Game\\core\\assets\\Water.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+		tiledMap = new TmxMapLoader().load("Water.tmx");
+		tiledMapRenderer = new IsometricTiledMapRenderer(tiledMap, 1/4F);
 		Gdx.input.setInputProcessor(this);
     }
 
@@ -58,24 +59,24 @@ public class Game extends ApplicationAdapter implements InputProcessor{
 
 	@Override
 	public boolean keyUp(int keycode) {
-		if(keycode == Input.Keys.LEFT)
-			camera.translate(-32,0);
-		if(keycode == Input.Keys.RIGHT)
-			camera.translate(32,0);
-		if(keycode == Input.Keys.UP)
-			camera.translate(0,32);
-		if(keycode == Input.Keys.DOWN)
-			camera.translate(0,-32);
-		if(keycode == Input.Keys.NUM_1)
-			tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
-		if(keycode == Input.Keys.NUM_2)
-			tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
 		return false;
 	}
 
 	@Override
 	public boolean keyTyped(char character) {
-		return false;
+		if(character == 'a')
+			camera.translate(-32,0);
+		if(character == 'd')
+			camera.translate(32,0);
+		if(character == 'w')
+			camera.translate(0,32);
+		if(character == 's')
+			camera.translate(0,-32);
+		if(character == Input.Keys.NUM_1)
+			tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
+		if(character == Input.Keys.NUM_2)
+			tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+    	return false;
 	}
 
 	@Override
