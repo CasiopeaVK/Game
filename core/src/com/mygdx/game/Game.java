@@ -44,6 +44,18 @@ public class Game extends ApplicationAdapter implements InputProcessor{
 		camera.update();
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
+		if(Gdx.input.isKeyPressed(Input.Keys.A)){
+			camera.translate(-10,0);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.D)){
+			camera.translate(10,0);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.W)){
+			camera.translate(0,10);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.S)){
+			camera.translate(0,-10);
+		}
     }
 
     @Override
@@ -64,18 +76,6 @@ public class Game extends ApplicationAdapter implements InputProcessor{
 
 	@Override
 	public boolean keyTyped(char character) {
-		if(character == 'a')
-			camera.translate(-32,0);
-		if(character == 'd')
-			camera.translate(32,0);
-		if(character == 'w')
-			camera.translate(0,32);
-		if(character == 's')
-			camera.translate(0,-32);
-		if(character == Input.Keys.NUM_1)
-			tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
-		if(character == Input.Keys.NUM_2)
-			tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
     	return false;
 	}
 
