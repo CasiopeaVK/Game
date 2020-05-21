@@ -9,8 +9,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 public class Game extends ApplicationAdapter{
     SpriteBatch batch;
     Texture img;
-    float x = 0;
-    float y = 0;
     CameraViewProcessor cameraViewProcessor;
 
     @Override
