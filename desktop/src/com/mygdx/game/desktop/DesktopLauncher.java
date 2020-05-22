@@ -2,7 +2,7 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mygdx.game.Game;
+import com.mygdx.game.GameContext;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -12,6 +12,6 @@ public class DesktopLauncher {
 		config.title = "Vlad soset";
 
 		config.forceExit = false;
-		new LwjglApplication(new Game(), config);
+		new LwjglApplication(new GameContext(), config);
 	}
 }

@@ -46,7 +46,7 @@ project(":desktop") {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        
+        compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
     }
 }
 
@@ -58,5 +58,6 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         compileOnly 'org.projectlombok:lombok:1.18.12'
         annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
     }
 }
