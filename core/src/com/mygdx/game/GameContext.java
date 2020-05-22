@@ -30,8 +30,7 @@ public class GameContext extends Game {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
-    Stage stage;
-    QuestTable questTable;
+
 
     @Override
     public void create() {
@@ -84,26 +83,6 @@ public class GameContext extends Game {
         }
     }
 
-    //TODO remove
-    private void questTestListener() {
-        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            questTable.updateQuest();
-        }
-    }
 
-    //TODO remove
-    private void questTest() {
-        stage = new Stage();
-
-        QuestLine questLine = new QuestLine("Sample quest");
-        questLine.addQuest(new Quest("Sample quest", "Something big description.\n All is usual, Vlad soset", false));
-        questLine.addQuest(new Quest("Sample quest2", "Something big description.\n All is usual, Vlad soset*2", true));
-
-        questTable = new QuestTable(questLine);
-        questTable.setX(stage.getWidth() - 170);
-        questTable.setY(stage.getHeight() - 100);
-        questTable.left().top();
-        stage.addActor(questTable);
-    }
 }
 
