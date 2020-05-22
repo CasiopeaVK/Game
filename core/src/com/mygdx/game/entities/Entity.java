@@ -26,13 +26,14 @@ public class Entity extends BodyDef {
         batch = new SpriteBatch();
         img = new Texture("hero/durislav.png");
         sprite = new Sprite(img);
-        sprite.scale(0.05f);
+        sprite.setScale(0.6f, 0.6f);
         sprite.setPosition(300, 300);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
+
 
         body = world.createBody(bodyDef);
 
@@ -77,12 +78,12 @@ public class Entity extends BodyDef {
         }
         world.step(Gdx.graphics.getDeltaTime(), 6, 6);
         body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(speedX, speedY)));
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 4);
+        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
         camera.position.set(body.getPosition().x, body.getPosition().y, 0);
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(sprite, sprite.getX(), sprite.getY());
+        sprite.draw(batch);
         batch.end();
     }
 }
