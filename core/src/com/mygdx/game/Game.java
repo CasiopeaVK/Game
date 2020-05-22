@@ -1,104 +1,69 @@
 package com.mygdx.game;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.quest.Quest;
+import com.mygdx.game.quest.QuestLine;
+import com.mygdx.game.quest.QuestTable;
 
-public class Game extends ApplicationAdapter implements InputProcessor{
+public class Game extends ApplicationAdapter{
     SpriteBatch batch;
     Texture img;
-    float x = 0;
-    float y = 0;
-    TiledMap tiledMap;
-    OrthographicCamera camera;
-    IsometricTiledMapRenderer tiledMapRenderer;
+    CameraViewProcessor cameraViewProcessor;
+
+    //TODO remove
+    Stage stage;
+    QuestTable questTable;
 
     @Override
     public void create() {
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+        TiledMap tiledMap = new TmxMapLoader().load("Water.tmx");
+        cameraViewProcessor = new CameraViewProcessor(tiledMap);
 
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, w, h);
-		camera.update();
-		tiledMap = new TmxMapLoader().load("Water.tmx");
-		tiledMapRenderer = new IsometricTiledMapRenderer(tiledMap, 1/4F);
-		Gdx.input.setInputProcessor(this);
+        //TODO remove
+        questTest();
+    }
+
+    //TODO remove
+    private void questTest(){
+        stage = new Stage();
+
+        QuestLine questLine = new QuestLine("Sample quest");
+        questLine.addQuest(new Quest("Sample quest","Something big description.\n All is usual, Vlad soset",false));
+        questLine.addQuest(new Quest("Sample quest2","Something big description.\n All is usual, Vlad soset*2",true));
+
+        questTable = new QuestTable(questLine);
+        questTable.setX(stage.getWidth()-170);
+        questTable.setY(stage.getHeight()-100);
+        questTable.left().top();
+        stage.addActor(questTable);
     }
 
     @Override
     public void render() {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		camera.update();
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
-		if(Gdx.input.isKeyPressed(Input.Keys.A)){
-			camera.translate(-10,0);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.D)){
-			camera.translate(10,0);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.W)){
-			camera.translate(0,10);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.S)){
-			camera.translate(0,-10);
-		}
+        cameraViewProcessor.process();
+        stage.act();
+        stage.draw();
+
+        //TODO remove
+        questTestListener();
     }
 
+    //TODO remove
+    private void questTestListener(){
+        if(Gdx.input.isKeyPressed(Input.Keys.E)){
+            questTable.updateQuest();
+        }
+    }
     @Override
     public void dispose() {
         batch.dispose();
         img.dispose();
     }
 
-	@Override
-	public boolean keyDown(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-    	return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		return false;
-	}
 }
