@@ -10,7 +10,7 @@ public class QuestTable extends Table {
     QuestLine questLine;
     Quest currentQuest;
 
-    Skin tableSkin = new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
+    Skin tableSkin = new Skin(Gdx.files.internal("flat-earth/flat-earth-ui.json"));
 
     Label header = new Label("Current quest:", tableSkin, "default");
     Label currentName;
@@ -18,11 +18,14 @@ public class QuestTable extends Table {
     CheckBox isPerformedCheckBox = new CheckBox("", tableSkin, "default");
 
     public QuestTable(QuestLine questLine) {
+        super(new Skin(Gdx.files.internal("flat-earth/flat-earth-ui.json")));
         this.questLine = questLine;
         initialization();
     }
 
     private void initialization() {
+        this.background("Semi-gray").setSize(200,100);
+
         this.currentQuest = questLine.getQuest();
         this.currentName = new Label(currentQuest.getName(), tableSkin, "default");
         this.currentDescription = new Label(currentQuest.getDescription(), tableSkin, "default");
