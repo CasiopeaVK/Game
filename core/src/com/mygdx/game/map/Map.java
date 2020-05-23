@@ -31,6 +31,10 @@ public class Map {
         return objects.get(objectName);
     }
 
+    public TiledMap getTiledMap() {
+        return tiledMap;
+    }
+
     public MapProperties getProperties(){
         return tiledMap.getProperties();
     }

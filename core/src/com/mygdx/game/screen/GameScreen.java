@@ -19,46 +19,41 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.Quest;
 import com.mygdx.game.quest.QuestLine;
 import com.mygdx.game.quest.QuestTable;
+import com.mygdx.game.view.GameRenderer;
 
 public class GameScreen extends AbstractScreen {
 
-    private final IsometricOrderRenderer mapRenderer;
-    private Box2DDebugRenderer debugRenderer;
+   // private final IsometricOrderRenderer mapRenderer;
     private OrthographicCamera camera;
 
-    private Player player;
     private World world;
     private TiledMap tiledMap;
     private Map map;
-
+    private GameRenderer gameRenderer;
     Stage stage;
     QuestTable questTable;
 
     public GameScreen(final GameContext context) {
         super(context);
-        world = new World(new Vector2(0, 0), true);
+        world = context.getWorld();
         tiledMap = this.assetManager.get("Water.tmx", TiledMap.class);
         map = new Map(tiledMap, world);
-        player = new Player(world, map, "hero/durislav.png");
-        mapRenderer = new IsometricOrderRenderer(tiledMap, Constants.UNIT_SCALE, context.getSpriteBatch());
-        mapRenderer.addSprite(player.getSprite());
+        gameRenderer.setPlayer(new Player(world, map, "hero/durislav.png"));
+//        mapRenderer = new IsometricOrderRenderer(tiledMap, Constants.UNIT_SCALE, context.getSpriteBatch());
+//        mapRenderer.addSprite(player.getSprite());
+        gameRenderer = context.getGameRenderer();
 
-        OrthogonalTiledMapRenderer render = new OrthogonalTiledMapRenderer(tiledMap);
+//        OrthogonalTiledMapRenderer render = new OrthogonalTiledMapRenderer(tiledMap);
 
         camera = context.getCamera();
-
-        debugRenderer = new Box2DDebugRenderer();
-        debugRenderer.SHAPE_STATIC.set(0, 0, 0, 1);
-
-
     }
 
     @Override
     public void show() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        mapRenderer.setMap(this.assetManager.get("Water.tmx", TiledMap.class));
-
+        gameRenderer.mapChange(map);
+//        mapRenderer.setMap(this.assetManager.get("Water.tmx", TiledMap.class));
         map.parseCollisionLayer();
         camera.setToOrtho(false, w, h);
         camera.update();
@@ -68,22 +63,17 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 1, 0, 1);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//        Gdx.gl.glClearColor(0, 1, 0, 1);
+//        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//
+//        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+//            camera.translate(0, -10);
+//        }
+//        mapRenderer.setView(camera);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-            camera.translate(0, -10);
-        }
-        camera.update();
-
-        mapRenderer.setView(camera);
-        player.update(camera);
-        mapRenderer.render();
-
-
-        debugRenderer.render(world, camera.combined);
-
+//        mapRenderer.render();
+        gameRenderer.render(1f);
         //TODO remove
         stage.act();
         stage.draw();

@@ -11,14 +11,18 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.map.MapManager;
 import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.screen.ScreenType;
+import com.mygdx.game.view.GameRenderer;
 
 import java.util.EnumMap;
 
@@ -31,21 +35,30 @@ public class GameContext extends Game {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Skin skin;
+    private World world;
+    private MapManager mapManager;
+    private GameRenderer gameRenderer;
 
 
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
+        //Initialize asset manager
+        assetManager = new AssetManager();
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+
         //Set first screen
         camera = new OrthographicCamera();
         viewport = new FitViewport(16, 9, camera);
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
         batch = new SpriteBatch();
+        world = new World(new Vector2(0, 0), true);
+        mapManager = new MapManager(this);
+        gameRenderer = new GameRenderer(this);
 
-        //Initialize asset manager
-        assetManager = new AssetManager();
-        assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+
+
         initializeSkin();
         setScreen(ScreenType.MENU);
     }
@@ -64,6 +77,18 @@ public class GameContext extends Game {
 
     public OrthographicCamera getCamera() {
         return camera;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public MapManager getMapManager() {
+        return mapManager;
+    }
+
+    public GameRenderer getGameRenderer(){
+        return gameRenderer;
     }
 
     public void setScreen(final ScreenType screenType) {
