@@ -16,6 +16,7 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.map.IsometricOrderRenderer;
 import com.mygdx.game.map.Map;
+import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.Quest;
 import com.mygdx.game.quest.QuestLine;
 import com.mygdx.game.quest.QuestTable;
@@ -99,13 +100,8 @@ public class GameScreen extends AbstractScreen {
     //TODO remove
     private void questTest() {
         stage = new Stage();
-        QuestLine questLine = new QuestLine("Sample quest");
-        questLine.addQuest(new Quest("Sample quest", "Something big description.\n All is usual, Vlad soset", false));
-        questLine.addQuest(new Quest("Sample quest2", "Something big description.\n All is usual, Vlad soset*2", true));
 
-        questTable = new QuestTable(questLine);
-//        questTable.setX(stage.getWidth() - 170);
-//        questTable.setY(stage.getHeight() - 100);
+        questTable = GenerateQuests.generateQuests();
         questTable.left().top();
         stage.addActor(questTable);
     }
