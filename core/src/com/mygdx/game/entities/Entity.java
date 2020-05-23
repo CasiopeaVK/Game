@@ -10,53 +10,26 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.utils.IsoUtils;
 
-public class Entity extends BodyDef {
+public abstract class Entity extends BodyDef {
     protected SpriteBatch batch;
     protected Sprite sprite;
     protected Texture img;
     protected Body body;
     protected World world;
 
-    public Entity(World world) {
+    public Entity(World world,String texturePath) {
         this.world = world;
-        initialize();
+        initialize(texturePath);
     }
 
-    private void initialize() {
+    private void initialize(String texturePath) {
         batch = new SpriteBatch();
-        img = new Texture("hero/durislav.png");
+        img = new Texture(texturePath);
         sprite = new Sprite(img);
-        sprite.setScale(0.6f, 0.6f);
-        sprite.setPosition(300, 300);
 
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyType.DynamicBody;
-        bodyDef.fixedRotation = true;
-        bodyDef.position.set(sprite.getX(), sprite.getY());
-
-
-        body = world.createBody(bodyDef);
-
-        Vector2[] vertices = {
-                new Vector2(-sprite.getWidth() / 2, 0),
-                new Vector2(0, sprite.getWidth() / 4),
-                new Vector2(sprite.getWidth() / 2, 0),
-                new Vector2(0, -sprite.getWidth() / 4),
-                new Vector2(-sprite.getWidth() / 2, 0),
-        };
-
-
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.set(vertices);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = polygonShape;
-        fixtureDef.density = 1f;
-
-        Fixture fixture = body.createFixture(fixtureDef);
     }
 
-    public void update(Camera camera) {
+    abstract public void update(Camera camera); /*{
 
         float speedX;
         float speedY;
@@ -85,6 +58,6 @@ public class Entity extends BodyDef {
         batch.begin();
         sprite.draw(batch);
         batch.end();
-    }
+    }*/
 }
 
