@@ -50,6 +50,7 @@ public class GameContext extends Game {
 
         //Set first screen
         camera = new OrthographicCamera();
+        camera.far = 550;
         viewport = new FitViewport(16, 9, camera);
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
         batch = new SpriteBatch();

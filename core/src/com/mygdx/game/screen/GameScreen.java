@@ -2,19 +2,12 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.game.Constants;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
-import com.mygdx.game.map.IsometricOrderRenderer;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.Quest;
@@ -33,29 +26,28 @@ public class GameScreen extends AbstractScreen {
     private GameRenderer gameRenderer;
     Stage stage;
     QuestTable questTable;
+    Player player;
 
     public GameScreen(final GameContext context) {
         super(context);
         world = context.getWorld();
         tiledMap = this.assetManager.get("Water.tmx", TiledMap.class);
         map = new Map(tiledMap, world);
-        gameRenderer.setPlayer(new Player(world, map, "hero/durislav.png"));
-//        mapRenderer = new IsometricOrderRenderer(tiledMap, Constants.UNIT_SCALE, context.getSpriteBatch());
-//        mapRenderer.addSprite(player.getSprite());
+
+        player = new Player(world, map, "hero/durislav.png");
         gameRenderer = context.getGameRenderer();
-
-//        OrthogonalTiledMapRenderer render = new OrthogonalTiledMapRenderer(tiledMap);
-
+        gameRenderer.addSprite(player.getSprite());
         camera = context.getCamera();
+
+
     }
 
     @Override
     public void show() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        gameRenderer.mapChange(map);
-//        mapRenderer.setMap(this.assetManager.get("Water.tmx", TiledMap.class));
         map.parseCollisionLayer();
+        gameRenderer.mapChange(map);
         camera.setToOrtho(false, w, h);
         camera.update();
         allUiRender();
@@ -64,32 +56,10 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-//        Gdx.gl.glClearColor(0, 1, 0, 1);
-//        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//
-//        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-//            camera.translate(0, -10);
-//        }
-//        mapRenderer.setView(camera);
-
-//        mapRenderer.render();
+        camera.update();
         gameRenderer.render(1f);
-        //TODO remove
-//        Gdx.gl.glClearColor(0, 1, 0, 1);
-//        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//
-//        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-//            camera.translate(0, -10);
-//        }
-//
-//        camera.update();
-//        mapRenderer.setView(camera);
-//        mapRenderer.render();
-//        player.update(camera);
-//
-//        debugRenderer.render(world, camera.combined);
+        player.update(camera);
+
 
         stage.act();
         stage.draw();
