@@ -9,12 +9,12 @@ public enum  AnimationType {
     private final String atlasPath;
     private final String atlasKey;
     private final float frameTime;
-    private final int index;
+    private final int rowIndex;
 
-    AnimationType(final String atlasPath, String atlasKey, float frameTime, int index) {
+    AnimationType(final String atlasPath, String atlasKey, float frameTime, int rowIndex) {
         this.atlasPath = atlasPath;
         this.atlasKey = atlasKey;
         this.frameTime = frameTime;
-        this.index = index;
+        this.rowIndex = rowIndex;
     }
 }
