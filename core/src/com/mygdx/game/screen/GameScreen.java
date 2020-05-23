@@ -17,8 +17,7 @@ import com.mygdx.game.entities.Player;
 import com.mygdx.game.map.IsometricOrderRenderer;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.GenerateQuests;
-import com.mygdx.game.quest.Quest;
-import com.mygdx.game.quest.QuestLine;
+
 import com.mygdx.game.quest.QuestTable;
 
 public class GameScreen extends AbstractScreen {

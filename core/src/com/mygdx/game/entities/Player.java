@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
 
@@ -25,8 +27,14 @@ public class Player extends Entity{
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
-
-
+        this.setBounds(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
+        this.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("kek");
+                super.clicked(event, x, y);
+            }
+        });
         body = world.createBody(bodyDef);
 
         Vector2[] vertices = {
