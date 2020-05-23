@@ -22,7 +22,7 @@ public class Player extends Entity{
         sprite.setScale(0.6f, 0.6f);
         calculateSpawnPosition(map);
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyType.DynamicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
 
@@ -53,17 +53,17 @@ public class Player extends Entity{
         float speedY;
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            speedX = -200;
+            speedX = -400;
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            speedX = 200;
+            speedX = 400;
         } else {
             speedX = 0;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            speedY = -200;
+            speedY = -400;
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            speedY = 200;
+            speedY = 400;
         } else {
             speedY = 0;
         }
@@ -71,11 +71,6 @@ public class Player extends Entity{
         body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(speedX, speedY)));
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
         camera.position.set(body.getPosition().x, body.getPosition().y, 0);
-
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        sprite.draw(batch);
-        batch.end();
     }
 
     private void calculateSpawnPosition(Map map){
