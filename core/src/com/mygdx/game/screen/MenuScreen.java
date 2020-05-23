@@ -19,6 +19,7 @@ public class MenuScreen extends AbstractScreen {
     Stage menuStage;
     Table menuTable;
     ImageTextButton gameButton;
+    ImageTextButton exitButton;
 
     public MenuScreen(final GameContext context) {
         super(context);
@@ -32,17 +33,28 @@ public class MenuScreen extends AbstractScreen {
 
         menuStage = new Stage();
         gameButton = new ImageTextButton("Start game", menuSkin,"default");
+        exitButton = new ImageTextButton("Exit", menuSkin,"default");
         startGameListener();
-        menuTable.add(gameButton);
+        menuTable.add(gameButton).padBottom(5);
+        menuTable.row();
+        menuTable.add(exitButton).fill();
         menuStage.addActor(menuTable);
         Gdx.input.setInputProcessor(menuStage);
     }
 
     private void startGameListener(){
+
         gameButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 context.setScreen(ScreenType.LOADING);
+            }
+        });
+
+        exitButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
             }
         });
     }
