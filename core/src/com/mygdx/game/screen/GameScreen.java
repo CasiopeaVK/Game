@@ -10,8 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.Constants;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.entities.Player;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.Quest;
 import com.mygdx.game.quest.QuestLine;
@@ -25,7 +27,7 @@ public class GameScreen extends AbstractScreen {
     private Box2DDebugRenderer debugRenderer;
     private OrthographicCamera camera;
 
-    private Entity player;
+    private Player player;
     private World world;
     private Map map;
 
@@ -34,12 +36,13 @@ public class GameScreen extends AbstractScreen {
 
     public GameScreen(final GameContext context) {
         super(context);
-        mapRenderer = new IsometricTiledMapRenderer(null, 1/4f, context.getSpriteBatch());
+        mapRenderer = new IsometricTiledMapRenderer(null, Constants.UNIT_SCALE, context.getSpriteBatch());
         camera = context.getCamera();
         world = new World(new Vector2(0, 0), true);
         debugRenderer = new Box2DDebugRenderer();
         debugRenderer.SHAPE_STATIC.set(0, 0, 0, 1);
-        player = new Entity(world);
+        map = new Map(this.assetManager.get("Water.tmx", TiledMap.class), world);
+        player = new Player(world,map,"hero/durislav.png");
     }
 
     @Override
@@ -48,10 +51,7 @@ public class GameScreen extends AbstractScreen {
         float h = Gdx.graphics.getHeight();
         mapRenderer.setMap(this.assetManager.get("Water.tmx", TiledMap.class));
 
-
-        map = new Map(this.assetManager.get("Water.tmx", TiledMap.class), world);
         map.parseCollisionLayer();
-        System.out.println(map.getStartPoint());
         camera.setToOrtho(false, w, h);
         camera.update();
         questTest();
