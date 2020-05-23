@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
-public abstract class Entity extends BodyDef {
+public abstract class Entity {
     protected SpriteBatch batch;
     protected Sprite sprite;
     protected Texture img;

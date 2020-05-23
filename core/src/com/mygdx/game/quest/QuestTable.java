@@ -13,7 +13,7 @@ public class QuestTable extends Table {
 
     Skin tableSkin = new Skin(Gdx.files.internal(Constants.SKIN_JSON));
 
-    Label header = new Label("Current quest:", tableSkin, "default");
+    Label header = new Label("Current quest:", tableSkin, "button");
     Label currentName;
     Label currentDescription;
     CheckBox isPerformedCheckBox = new CheckBox("", tableSkin, "default");
@@ -25,8 +25,9 @@ public class QuestTable extends Table {
     }
 
     private void initialization() {
-        this.background("Semi-gray").setSize(200,100);
-
+        this.background("Semi-gray").setSize(250,150);
+        this.setPosition(Gdx.graphics.getWidth()-getWidth(), Gdx.graphics.getHeight()-getHeight());
+        this.pad(10,10,10,10);
         this.currentQuest = questLine.getQuest();
         this.currentName = new Label(currentQuest.getName(), tableSkin, "default");
         this.currentDescription = new Label(currentQuest.getDescription(), tableSkin, "default");

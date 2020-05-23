@@ -16,6 +16,7 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.map.IsometricOrderRenderer;
 import com.mygdx.game.map.Map;
+import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.Quest;
 import com.mygdx.game.quest.QuestLine;
 import com.mygdx.game.quest.QuestTable;
@@ -60,7 +61,7 @@ public class GameScreen extends AbstractScreen {
         map.parseCollisionLayer();
         camera.setToOrtho(false, w, h);
         camera.update();
-        questTest();
+        allUiRender();
 
     }
 
@@ -81,9 +82,14 @@ public class GameScreen extends AbstractScreen {
 
         debugRenderer.render(world, camera.combined);
 
-        //TODO remove
         stage.act();
         stage.draw();
+    }
+
+    //Method for render all UI-elements
+    private void allUiRender(){
+        stage = new Stage();
+        addQuestTable();
     }
 
     //TODO remove
@@ -103,6 +109,10 @@ public class GameScreen extends AbstractScreen {
         questTable = new QuestTable(questLine);
         questTable.setX(stage.getWidth() - 170);
         questTable.setY(stage.getHeight() - 100);
+    }
+    //Render quests table in UI
+    private void addQuestTable() {
+        questTable = GenerateQuests.generateQuests();
         questTable.left().top();
         stage.addActor(questTable);
     }
