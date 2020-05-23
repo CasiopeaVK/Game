@@ -1,14 +1,12 @@
 package com.mygdx.game.entities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.utils.IsoUtils;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.World;
 
 public abstract class Entity extends BodyDef {
     protected SpriteBatch batch;
@@ -17,7 +15,7 @@ public abstract class Entity extends BodyDef {
     protected Body body;
     protected World world;
 
-    public Entity(World world,String texturePath) {
+    public Entity(World world, String texturePath) {
         this.world = world;
         initialize(texturePath);
     }
@@ -27,6 +25,14 @@ public abstract class Entity extends BodyDef {
         img = new Texture(texturePath);
         sprite = new Sprite(img);
 
+    }
+
+    public SpriteBatch getSpriteBatch() {
+        return batch;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
     }
 
     abstract public void update(Camera camera); /*{
