@@ -20,7 +20,7 @@ public class Player extends Entity{
 
     private void initialize(Map map){
         sprite.setScale(0.6f, 0.6f);
-        calculatePosition(map);
+        calculateSpawnPosition(map);
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
@@ -78,7 +78,7 @@ public class Player extends Entity{
         batch.end();
     }
 
-    private void calculatePosition(Map map){
+    private void calculateSpawnPosition(Map map){
         MapObject spawnPoint = map.getObject("Markers","spawn");
         Rectangle spawnPointRect = ((RectangleMapObject) spawnPoint).getRectangle();
         Vector2 iso = new Vector2(spawnPointRect.x,spawnPointRect.y);
