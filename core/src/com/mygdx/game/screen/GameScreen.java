@@ -43,8 +43,6 @@ public class GameScreen extends AbstractScreen {
         mapRenderer = new IsometricOrderRenderer(tiledMap, Constants.UNIT_SCALE, context.getSpriteBatch());
         mapRenderer.addSprite(player.getSprite());
 
-        OrthogonalTiledMapRenderer render = new OrthogonalTiledMapRenderer(tiledMap);
-
         camera = context.getCamera();
 
         debugRenderer = new Box2DDebugRenderer();
@@ -75,17 +73,17 @@ public class GameScreen extends AbstractScreen {
         if (Gdx.input.isKeyPressed(Input.Keys.F)) {
             camera.translate(0, -10);
         }
+
         camera.update();
-
         mapRenderer.setView(camera);
-        player.update(camera);
         mapRenderer.render();
-
+        player.update(camera);
 
         debugRenderer.render(world, camera.combined);
 
         stage.act();
         stage.draw();
+        questTestListener();
     }
 
     //Method for render all UI-elements
@@ -96,7 +94,7 @@ public class GameScreen extends AbstractScreen {
 
     //TODO remove
     private void questTestListener() {
-        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             questTable.updateQuest();
         }
     }
