@@ -10,8 +10,7 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.GenerateQuests;
-import com.mygdx.game.quest.Quest;
-import com.mygdx.game.quest.QuestLine;
+
 import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.view.GameRenderer;
 
@@ -63,6 +62,7 @@ public class GameScreen extends AbstractScreen {
 
         stage.act();
         stage.draw();
+        questTestListener();
     }
 
     //Method for render all UI-elements
@@ -73,22 +73,11 @@ public class GameScreen extends AbstractScreen {
 
     //TODO remove
     private void questTestListener() {
-        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             questTable.updateQuest();
         }
     }
 
-    //TODO remove
-    private void questTest() {
-        stage = new Stage();
-        QuestLine questLine = new QuestLine("Sample quest");
-        questLine.addQuest(new Quest("Sample quest", "Something big description.\n All is usual, Stas soset", false));
-        questLine.addQuest(new Quest("Sample quest2", "Something big description.\n All is usual, Stas soset*2", true));
-
-        questTable = new QuestTable(questLine);
-        questTable.setX(stage.getWidth() - 170);
-        questTable.setY(stage.getHeight() - 100);
-    }
     //Render quests table in UI
     private void addQuestTable() {
         questTable = GenerateQuests.generateQuests();
