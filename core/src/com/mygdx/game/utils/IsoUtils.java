@@ -13,7 +13,6 @@ public class IsoUtils {
     }
 
     public static Vector2 IsoTo2d(Vector2 isoVector, Vector2 tileDimensions) {
-        System.out.println("tile: " + tileDimensions);
         float x = (isoVector.x + isoVector.y) * Constants.UNIT_SCALE;
         float y = ((isoVector.y - isoVector.x) * Constants.UNIT_SCALE) / 2;
         return new Vector2(x, y);
