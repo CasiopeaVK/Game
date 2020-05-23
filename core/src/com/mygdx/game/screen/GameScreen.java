@@ -104,8 +104,8 @@ public class GameScreen extends AbstractScreen {
         questLine.addQuest(new Quest("Sample quest2", "Something big description.\n All is usual, Vlad soset*2", true));
 
         questTable = new QuestTable(questLine);
-        questTable.setX(stage.getWidth() - 170);
-        questTable.setY(stage.getHeight() - 100);
+//        questTable.setX(stage.getWidth() - 170);
+//        questTable.setY(stage.getHeight() - 100);
         questTable.left().top();
         stage.addActor(questTable);
     }
