@@ -10,11 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.game.Constants;
 import com.mygdx.game.GameContext;
 
 public class MenuScreen extends AbstractScreen {
 
-    Skin menuSkin = new Skin(Gdx.files.internal("flat-earth/flat-earth-ui.json"));
+    Skin menuSkin = new Skin(Gdx.files.internal(Constants.SKIN_JSON));
     Stage menuStage;
     Table menuTable;
     ImageTextButton gameButton;

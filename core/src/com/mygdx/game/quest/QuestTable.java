@@ -5,12 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.mygdx.game.Constants;
 
 public class QuestTable extends Table {
     QuestLine questLine;
     Quest currentQuest;
 
-    Skin tableSkin = new Skin(Gdx.files.internal("flat-earth/flat-earth-ui.json"));
+    Skin tableSkin = new Skin(Gdx.files.internal(Constants.SKIN_JSON));
 
     Label header = new Label("Current quest:", tableSkin, "default");
     Label currentName;
@@ -18,7 +19,7 @@ public class QuestTable extends Table {
     CheckBox isPerformedCheckBox = new CheckBox("", tableSkin, "default");
 
     public QuestTable(QuestLine questLine) {
-        super(new Skin(Gdx.files.internal("flat-earth/flat-earth-ui.json")));
+        super(new Skin(Gdx.files.internal(Constants.SKIN_JSON)));
         this.questLine = questLine;
         initialization();
     }
