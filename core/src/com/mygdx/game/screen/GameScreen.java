@@ -16,6 +16,7 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.map.IsometricOrderRenderer;
 import com.mygdx.game.map.Map;
+import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.Quest;
 import com.mygdx.game.quest.QuestLine;
 import com.mygdx.game.quest.QuestTable;
@@ -57,7 +58,7 @@ public class GameScreen extends AbstractScreen {
         map.parseCollisionLayer();
         camera.setToOrtho(false, w, h);
         camera.update();
-        questTest();
+        allUiRender();
 
     }
 
@@ -75,8 +76,29 @@ public class GameScreen extends AbstractScreen {
 //        mapRenderer.render();
         gameRenderer.render(1f);
         //TODO remove
+//        Gdx.gl.glClearColor(0, 1, 0, 1);
+//        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//
+//        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+//            camera.translate(0, -10);
+//        }
+//
+//        camera.update();
+//        mapRenderer.setView(camera);
+//        mapRenderer.render();
+//        player.update(camera);
+//
+//        debugRenderer.render(world, camera.combined);
+
         stage.act();
         stage.draw();
+    }
+
+    //Method for render all UI-elements
+    private void allUiRender(){
+        stage = new Stage();
+        addQuestTable();
     }
 
     //TODO remove
@@ -90,12 +112,16 @@ public class GameScreen extends AbstractScreen {
     private void questTest() {
         stage = new Stage();
         QuestLine questLine = new QuestLine("Sample quest");
-        questLine.addQuest(new Quest("Sample quest", "Something big description.\n All is usual, Vlad soset", false));
-        questLine.addQuest(new Quest("Sample quest2", "Something big description.\n All is usual, Vlad soset*2", true));
+        questLine.addQuest(new Quest("Sample quest", "Something big description.\n All is usual, Stas soset", false));
+        questLine.addQuest(new Quest("Sample quest2", "Something big description.\n All is usual, Stas soset*2", true));
 
         questTable = new QuestTable(questLine);
-//        questTable.setX(stage.getWidth() - 170);
-//        questTable.setY(stage.getHeight() - 100);
+        questTable.setX(stage.getWidth() - 170);
+        questTable.setY(stage.getHeight() - 100);
+    }
+    //Render quests table in UI
+    private void addQuestTable() {
+        questTable = GenerateQuests.generateQuests();
         questTable.left().top();
         stage.addActor(questTable);
     }
