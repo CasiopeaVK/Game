@@ -3,6 +3,7 @@ package com.mygdx.game.map;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -24,17 +25,14 @@ public class Map {
         this.bodies = new ArrayList<>();
     }
 
-    public Vector2 getStartPoint() {
-        final MapObjects points = tiledMap.getLayers().get("playerStartLocation").getObjects();
-        if (points.get(0) instanceof RectangleMapObject) {
-            RectangleMapObject point = (RectangleMapObject) points.get(0);
-            Vector2 worldPos = new Vector2(point.getRectangle().x, point.getRectangle().y);
-            worldPos.x = worldPos.x - worldPos.y;
-            worldPos.y = (worldPos.x + worldPos.y) / 2;
+    public MapObject getObject(String layerName, String objectName) {
+        MapLayer layer = tiledMap.getLayers().get(layerName);
+        MapObjects objects = layer.getObjects();
+        return objects.get(objectName);
+    }
 
-            return worldPos;
-        }
-        return null;
+    public MapProperties getProperties(){
+        return tiledMap.getProperties();
     }
 
     public ArrayList<Body> parseCollisionLayer() {
