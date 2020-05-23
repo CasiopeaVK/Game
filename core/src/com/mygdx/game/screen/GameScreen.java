@@ -43,8 +43,6 @@ public class GameScreen extends AbstractScreen {
         mapRenderer = new IsometricOrderRenderer(tiledMap, Constants.UNIT_SCALE, context.getSpriteBatch());
         mapRenderer.addSprite(player.getSprite());
 
-        OrthogonalTiledMapRenderer render = new OrthogonalTiledMapRenderer(tiledMap);
-
         camera = context.getCamera();
 
         debugRenderer = new Box2DDebugRenderer();
@@ -75,12 +73,11 @@ public class GameScreen extends AbstractScreen {
         if (Gdx.input.isKeyPressed(Input.Keys.F)) {
             camera.translate(0, -10);
         }
+
         camera.update();
-
         mapRenderer.setView(camera);
-        player.update(camera);
         mapRenderer.render();
-
+        player.update(camera);
 
         debugRenderer.render(world, camera.combined);
 
@@ -100,8 +97,8 @@ public class GameScreen extends AbstractScreen {
     private void questTest() {
         stage = new Stage();
         QuestLine questLine = new QuestLine("Sample quest");
-        questLine.addQuest(new Quest("Sample quest", "Something big description.\n All is usual, Vlad soset", false));
-        questLine.addQuest(new Quest("Sample quest2", "Something big description.\n All is usual, Vlad soset*2", true));
+        questLine.addQuest(new Quest("Sample quest", "Something big description.\n All is usual, Stas soset", false));
+        questLine.addQuest(new Quest("Sample quest2", "Something big description.\n All is usual, Stas soset*2", true));
 
         questTable = new QuestTable(questLine);
         questTable.setX(stage.getWidth() - 170);
