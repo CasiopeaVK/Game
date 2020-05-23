@@ -63,7 +63,7 @@ public class GameScreen extends AbstractScreen {
         map.parseCollisionLayer();
         camera.setToOrtho(false, w, h);
         camera.update();
-        questTest();
+        allUiRender();
 
     }
 
@@ -85,9 +85,14 @@ public class GameScreen extends AbstractScreen {
 
         debugRenderer.render(world, camera.combined);
 
-        //TODO remove
         stage.act();
         stage.draw();
+    }
+
+    //Method for render all UI-elements
+    private void allUiRender(){
+        stage = new Stage();
+        addQuestTable();
     }
 
     //TODO remove
@@ -97,10 +102,8 @@ public class GameScreen extends AbstractScreen {
         }
     }
 
-    //TODO remove
-    private void questTest() {
-        stage = new Stage();
-
+    //Render quests table in UI
+    private void addQuestTable() {
         questTable = GenerateQuests.generateQuests();
         questTable.left().top();
         stage.addActor(questTable);
