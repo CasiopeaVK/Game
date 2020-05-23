@@ -68,7 +68,7 @@ public class MenuScreen extends AbstractScreen {
 
     @Override
     public void hide() {
-
+        menuStage.dispose();
     }
 
     @Override
