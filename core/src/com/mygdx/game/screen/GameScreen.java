@@ -87,6 +87,7 @@ public class GameScreen extends AbstractScreen {
 
         stage.act();
         stage.draw();
+        questTestListener();
     }
 
     //Method for render all UI-elements
@@ -97,7 +98,7 @@ public class GameScreen extends AbstractScreen {
 
     //TODO remove
     private void questTestListener() {
-        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             questTable.updateQuest();
         }
     }
