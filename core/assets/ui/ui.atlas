@@ -1,0 +1,27 @@
+
+ui.png
+size: 128,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+knob
+  rotate: false
+  xy: 72, 2
+  size: 9, 27
+  orig: 9, 27
+  offset: 0, 0
+  index: -1
+knobAfter
+  rotate: false
+  xy: 2, 2
+  size: 33, 27
+  orig: 33, 27
+  offset: 0, 0
+  index: -1
+knobBefore
+  rotate: false
+  xy: 37, 2
+  size: 33, 27
+  orig: 33, 27
+  offset: 0, 0
+  index: -1

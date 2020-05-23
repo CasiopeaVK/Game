@@ -1,24 +1,25 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.game.quest.Quest;
-import com.mygdx.game.quest.QuestLine;
-import com.mygdx.game.quest.QuestTable;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.screen.ScreenType;
+
 import java.util.EnumMap;
 
 public class GameContext extends Game {
@@ -29,7 +30,7 @@ public class GameContext extends Game {
     private AssetManager assetManager;
     private OrthographicCamera camera;
     private SpriteBatch batch;
-
+    private Skin skin;
 
 
     @Override
@@ -45,7 +46,7 @@ public class GameContext extends Game {
         //Initialize asset manager
         assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
-
+        initializeSkin();
         setScreen(ScreenType.MENU);
     }
 
@@ -61,7 +62,7 @@ public class GameContext extends Game {
         return this.batch;
     }
 
-    public OrthographicCamera getCamera(){
+    public OrthographicCamera getCamera() {
         return camera;
     }
 
@@ -83,6 +84,24 @@ public class GameContext extends Game {
         }
     }
 
+    public void initializeSkin() {
+        final ObjectMap<String, Object> resources = new ObjectMap<String, Object>();
+        final FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("ui/font.ttf"));
+        final FreeTypeFontGenerator.FreeTypeFontParameter fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        fontParameter.minFilter = Texture.TextureFilter.Linear;
+        fontParameter.magFilter = Texture.TextureFilter.Linear;
+        final int[] sizesToCreate = {16, 20, 26, 32};
+        for (int size : sizesToCreate) {
+            fontParameter.size = size;
+            resources.put("font_" + size, fontGenerator.generateFont(fontParameter));
 
+        }
+        fontGenerator.dispose();
+
+        final SkinLoader.SkinParameter skinParameter = new SkinLoader.SkinParameter("ui/ui.atlas", resources);
+        assetManager.load("ui/hud.json", Skin.class, skinParameter);
+        assetManager.finishLoading();
+        skin = assetManager.get("ui/hud.json", Skin.class);
+    }
 }
 
