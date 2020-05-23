@@ -3,20 +3,25 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
 
 public class Player extends Entity{
-    public Player(World world, Map map, String texturePath) {
-        super(world,texturePath);
+    public Player(World world, Map map, Camera camera, String texturePath) {
+        super(world,camera,texturePath);
         initialize(map);
     }
 
@@ -27,14 +32,8 @@ public class Player extends Entity{
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
-        this.setBounds(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
-        this.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("kek");
-                super.clicked(event, x, y);
-            }
-        });
+        System.out.println(new Vector2(sprite.getWidth(),sprite.getHeight()));
+
         body = world.createBody(bodyDef);
 
         Vector2[] vertices = {
@@ -91,9 +90,9 @@ public class Player extends Entity{
         int tileWidth = prop.get("tilewidth", Integer.class);
         int tileHeight = prop.get("tileheight", Integer.class);
 
-        System.out.println(iso);
         Vector2 res = IsoUtils.IsoTo2d(iso,new Vector2(tileWidth,tileHeight));
-        System.out.println(res);
-        sprite.setPosition(res.x,res.y);
+        System.out.println("res "+res);
+        sprite.setPosition(0,0);
     }
+
 }

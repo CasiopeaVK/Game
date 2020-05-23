@@ -10,7 +10,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Constants;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
@@ -37,13 +41,24 @@ public class GameScreen extends AbstractScreen {
     public GameScreen(final GameContext context) {
         super(context);
         world = new World(new Vector2(0, 0), true);
+        camera = context.getCamera();
         tiledMap = this.assetManager.get("Water.tmx", TiledMap.class);
         map = new Map(tiledMap, world);
-        player = new Player(world, map, "hero/durislav.png");
+        player = new Player(world, map,camera, "hero/durislav.png");
+        stage = new Stage(new ScreenViewport());
+        stage.addActor(player);
+        Gdx.input.setInputProcessor(stage);
+        stage.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("clicked");
+                System.out.println(new Vector2(x,y));
+                super.clicked(event, x, y);
+            }
+        });
         mapRenderer = new IsometricOrderRenderer(tiledMap, Constants.UNIT_SCALE, context.getSpriteBatch());
         mapRenderer.addSprite(player.getSprite());
 
-        camera = context.getCamera();
 
         debugRenderer = new Box2DDebugRenderer();
         debugRenderer.SHAPE_STATIC.set(0, 0, 0, 1);
@@ -80,7 +95,6 @@ public class GameScreen extends AbstractScreen {
         player.update(camera);
 
         debugRenderer.render(world, camera.combined);
-
         stage.act();
         stage.draw();
         questTestListener();
@@ -88,7 +102,6 @@ public class GameScreen extends AbstractScreen {
 
     //Method for render all UI-elements
     private void allUiRender(){
-        stage = new Stage();
         addQuestTable();
     }
 

@@ -10,13 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class Entity extends Actor {
     protected SpriteBatch batch;
+    protected Camera camera;
     protected Sprite sprite;
     protected Texture img;
     protected Body body;
     protected World world;
 
-    public Entity(World world, String texturePath) {
+    public Entity(World world, Camera camera, String texturePath) {
         this.world = world;
+        this.camera = camera;
         initialize(texturePath);
     }
 
