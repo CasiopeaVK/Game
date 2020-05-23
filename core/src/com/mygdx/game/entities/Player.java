@@ -22,7 +22,7 @@ public class Player extends Entity{
         sprite.setScale(0.6f, 0.6f);
         calculateSpawnPosition(map);
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyType.DynamicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
 
