@@ -27,12 +27,11 @@ public class Player extends Entity{
 
     private void initialize(Map map){
         sprite.setScale(0.6f, 0.6f);
-        calculateSpawnPosition(map);
+        calculateSpawnPosition(map,"spawn");
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
-        System.out.println(new Vector2(sprite.getWidth(),sprite.getHeight()));
 
         body = world.createBody(bodyDef);
 
@@ -58,7 +57,6 @@ public class Player extends Entity{
     public void update(Camera camera){
         float speedX;
         float speedY;
-
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             speedX = -400;
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -79,20 +77,4 @@ public class Player extends Entity{
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
         camera.position.set(body.getPosition().x, body.getPosition().y, 0);
     }
-
-    private void calculateSpawnPosition(Map map){
-        MapObject spawnPoint = map.getObject("Markers","spawn");
-        Rectangle spawnPointRect = ((RectangleMapObject) spawnPoint).getRectangle();
-        Vector2 iso = new Vector2(spawnPointRect.x,spawnPointRect.y);
-
-        MapProperties prop = map.getProperties();
-
-        int tileWidth = prop.get("tilewidth", Integer.class);
-        int tileHeight = prop.get("tileheight", Integer.class);
-
-        Vector2 res = IsoUtils.IsoTo2d(iso,new Vector2(tileWidth,tileHeight));
-        System.out.println("res "+res);
-        sprite.setPosition(0,0);
-    }
-
 }

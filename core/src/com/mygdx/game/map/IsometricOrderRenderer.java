@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.entities.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +31,16 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
     private Vector2 topLeft = new Vector2();
     private Vector2 bottomRight = new Vector2();
 
-    private List<Sprite> sprites;
+    private List<Entity> entities;
 
     public IsometricOrderRenderer(TiledMap map, float UNIT_SCALE, SpriteBatch spriteBatch) {
         super(map, UNIT_SCALE, spriteBatch);
-        sprites = new ArrayList<Sprite>();
+        entities = new ArrayList<Entity>();
         init();
     }
 
-    public void addSprite(Sprite sprite) {
-        sprites.add(sprite);
+    public void addEntity(Entity entity) {
+        entities.add(entity);
     }
 
     private void init() {
@@ -118,7 +119,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
         int col2 = (int) (translateScreenToIso(topRight).x / tileWidth) + 2;
 
         //Sprite cord
-        Vector2 vec = new Vector2(sprites.get(0).getX(), sprites.get(0).getY());
+        Vector2 vec = new Vector2(entities.get(0).getX(), entities.get(0).getY());
 
         float spriteRowCord = translateScreenToIso(vec).y;
         float spriteColCord = translateScreenToIso(vec).x;
@@ -247,8 +248,8 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
     }
 
     private void drawSprites() {
-        for (Sprite sprite : sprites) {
-            sprite.draw(batch);
+        for (Entity entity:entities) {
+            entity.getSprite().draw(batch);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.mygdx.game.utils;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Constants;
 
 public class IsoUtils {
@@ -16,5 +17,9 @@ public class IsoUtils {
         float x = (isoVector.x + isoVector.y) * Constants.UNIT_SCALE;
         float y = ((isoVector.y - isoVector.x) * Constants.UNIT_SCALE) / 2;
         return new Vector2(x, y);
+    }
+
+    public static boolean Vector3Equals(Vector3 v1, Vector3 v2) {
+        return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
     }
 }

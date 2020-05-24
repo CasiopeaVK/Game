@@ -2,6 +2,7 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,19 +11,26 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Constants;
 import com.mygdx.game.GameContext;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.npc.TestNPC;
 import com.mygdx.game.map.IsometricOrderRenderer;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.GenerateQuests;
 
 import com.mygdx.game.quest.QuestTable;
+import com.mygdx.game.stage.SmartStage;
+
+import java.util.List;
 
 public class GameScreen extends AbstractScreen {
 
@@ -35,7 +43,7 @@ public class GameScreen extends AbstractScreen {
     private TiledMap tiledMap;
     private Map map;
 
-    Stage stage;
+    SmartStage stage;
     QuestTable questTable;
 
     public GameScreen(final GameContext context) {
@@ -45,21 +53,14 @@ public class GameScreen extends AbstractScreen {
         tiledMap = this.assetManager.get("Water.tmx", TiledMap.class);
         map = new Map(tiledMap, world);
         player = new Player(world, map,camera, "hero/durislav.png");
-        stage = new Stage(new ScreenViewport());
-        stage.addActor(player);
+        TestNPC testNPC = new TestNPC(world, map,camera, "hero/durislav.png");
+        stage = new SmartStage();
+        stage.addEntity(testNPC);
+        stage.addEntity(player);
         Gdx.input.setInputProcessor(stage);
-        stage.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("clicked");
-                System.out.println(new Vector2(x,y));
-                super.clicked(event, x, y);
-            }
-        });
         mapRenderer = new IsometricOrderRenderer(tiledMap, Constants.UNIT_SCALE, context.getSpriteBatch());
-        mapRenderer.addSprite(player.getSprite());
-
-
+        mapRenderer.addEntity(player);
+        mapRenderer.addEntity(testNPC);
         debugRenderer = new Box2DDebugRenderer();
         debugRenderer.SHAPE_STATIC.set(0, 0, 0, 1);
 
@@ -92,10 +93,9 @@ public class GameScreen extends AbstractScreen {
         camera.update();
         mapRenderer.setView(camera);
         mapRenderer.render();
-        player.update(camera);
 
         debugRenderer.render(world, camera.combined);
-        stage.act();
+        stage.act(camera);
         stage.draw();
         questTestListener();
     }
