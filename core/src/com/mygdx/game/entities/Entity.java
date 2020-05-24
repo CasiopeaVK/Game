@@ -20,6 +20,7 @@ public abstract class Entity extends Actor {
     protected Texture img;
     protected Body body;
     protected World world;
+    protected float spriteScale = 0.6f;
 
     public Entity(World world, Camera camera, String texturePath) {
         this.world = world;
@@ -51,6 +52,14 @@ public abstract class Entity extends Actor {
 
     public Sprite getSprite() {
         return sprite;
+    }
+
+    public float getHeight(){
+        return sprite.getHeight()*spriteScale;
+    }
+
+    public  float getWidth(){
+        return sprite.getWidth()*spriteScale;
     }
 
     abstract public void update();

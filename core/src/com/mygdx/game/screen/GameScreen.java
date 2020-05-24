@@ -4,11 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.TestNPC;
@@ -16,6 +12,9 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.GenerateQuests;
 
 import com.mygdx.game.quest.QuestTable;
+import com.mygdx.game.Time.TimeManager;
+import com.mygdx.game.Time.TimeTable;
+import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 
@@ -30,8 +29,10 @@ public class GameScreen extends AbstractScreen {
     private GameRenderer gameRenderer;
     SmartStage stage;
     QuestTable questTable;
+    TimeTable timeTable;
     Player player;
-
+    TestNPC testNPC;
+    GameUI gameUI;
     public GameScreen(final GameContext context) {
         super(context);
         world = context.getWorld();
@@ -40,14 +41,16 @@ public class GameScreen extends AbstractScreen {
         camera = context.getCamera();
         stage = new SmartStage();
         player = new Player(world, map, camera,"hero/durislav.png");
-        TestNPC testNPC = new TestNPC(world, map, camera,"hero/durislav.png");
+         testNPC = new TestNPC(world, map, camera,"hero/durislav.png");
         stage.addEntity(player);
         stage.addEntity(testNPC);
+
         gameRenderer = context.getGameRenderer();
         gameRenderer.addEntity(player);
         gameRenderer.addEntity(testNPC);
         Gdx.input.setInputProcessor(stage);
 
+        gameUI = new GameUI();
     }
 
     @Override
@@ -58,34 +61,27 @@ public class GameScreen extends AbstractScreen {
         gameRenderer.mapChange(map);
         camera.setToOrtho(false, w, h);
         camera.update();
-        allUiRender();
+
+        /*stage.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Vector3 v3 = camera.unproject(new Vector3(x,y,0));
+                System.out.println("click"+v3);
+                testNPC.getSprite().setPosition(v3.x,-v3.y);
+                super.clicked(event, x, y);
+            }
+        });*/
+//        allUiRender();
+        stage.addActor(gameUI);
     }
 
     @Override
     public void render(float delta) {
+        TimeManager.getTime();
         camera.update();
         gameRenderer.render(1f);
+        gameUI.updateTime();
         stage.update();
-        questTestListener();
-    }
-
-    //Method for render all UI-elements
-    private void allUiRender(){
-        addQuestTable();
-    }
-
-    //TODO remove
-    private void questTestListener() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            questTable.updateQuest();
-        }
-    }
-
-    //Render quests table in UI
-    private void addQuestTable() {
-        questTable = GenerateQuests.generateQuests();
-        questTable.left().top();
-        stage.addActor(questTable);
     }
 
     @Override

@@ -15,7 +15,6 @@ import com.mygdx.game.GameContext;
 
 public class MenuScreen extends AbstractScreen {
 
-    Skin menuSkin = new Skin(Gdx.files.internal(Constants.SKIN_JSON));
     Stage menuStage;
     Table menuTable;
     ImageTextButton gameButton;
@@ -32,8 +31,8 @@ public class MenuScreen extends AbstractScreen {
         menuTable.setPosition(0,0);
 
         menuStage = new Stage();
-        gameButton = new ImageTextButton("Start game", menuSkin,"default");
-        exitButton = new ImageTextButton("Exit", menuSkin,"default");
+        gameButton = new ImageTextButton("Start game", Constants.APP_SKIN,"default");
+        exitButton = new ImageTextButton("Exit", Constants.APP_SKIN,"default");
         startGameListener();
         menuTable.add(gameButton).padBottom(5);
         menuTable.row();
