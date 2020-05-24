@@ -30,7 +30,7 @@ public class QuestTable extends Table {
         this.currentQuest = questLine.getQuest();
         this.currentName = new Label(currentQuest.getName(), Constants.APP_SKIN, "default");
         this.currentDescription = new Label(currentQuest.getDescription(), Constants.APP_SKIN, "default");
-
+        this.isPerformedCheckBox.setDisabled(true);
         this.add(header).left();
         this.row();
         this.add(currentName).left();
