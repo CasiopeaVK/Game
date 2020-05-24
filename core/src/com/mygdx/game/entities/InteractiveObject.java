@@ -24,22 +24,7 @@ public class InteractiveObject extends Entity {
         updateClickListener();
     }
 
-<<<<<<< HEAD
-    protected void updateClickListener(){
-        Vector3 spriteWindowPosition = camera.project(new Vector3(sprite.getX(),sprite.getY(),0));
-        if(!IsoUtils.Vector3Equals(spriteWindowPosition,lastSpriteWindowPosition)){
-            this.setBounds(spriteWindowPosition.x,spriteWindowPosition.y,sprite.getWidth(),sprite.getHeight());
-            this.setTouchable(Touchable.enabled);
-            this.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    //TODO uncommit System.out.println("lol");
-                }
-            });
-        }
-        lastSpriteWindowPosition = spriteWindowPosition;
-=======
+
     protected void updateClickListener() {
         setBounds();
         this.setTouchable(Touchable.enabled);
@@ -50,7 +35,6 @@ public class InteractiveObject extends Entity {
             }
         });
 
->>>>>>> 42ad84e9329a56ae19c34b16211f71fde5ff9d6b
     }
 
     public void setBounds() {
