@@ -16,6 +16,8 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.GenerateQuests;
 
 import com.mygdx.game.quest.QuestTable;
+import com.mygdx.game.quest.TimeManager;
+import com.mygdx.game.quest.TimeTable;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 
@@ -30,6 +32,7 @@ public class GameScreen extends AbstractScreen {
     private GameRenderer gameRenderer;
     SmartStage stage;
     QuestTable questTable;
+    TimeTable timeTable;
     Player player;
 
     public GameScreen(final GameContext context) {
@@ -58,13 +61,16 @@ public class GameScreen extends AbstractScreen {
         gameRenderer.mapChange(map);
         camera.setToOrtho(false, w, h);
         camera.update();
+
         allUiRender();
     }
 
     @Override
     public void render(float delta) {
+        TimeManager.getTime();
         camera.update();
         gameRenderer.render(1f);
+        timeTable.updateTime();
         stage.update();
         questTestListener();
     }
@@ -72,6 +78,7 @@ public class GameScreen extends AbstractScreen {
     //Method for render all UI-elements
     private void allUiRender(){
         addQuestTable();
+        addTimeTable();
     }
 
     //TODO remove
@@ -79,6 +86,11 @@ public class GameScreen extends AbstractScreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             questTable.updateQuest();
         }
+    }
+
+    private void addTimeTable(){
+        timeTable = new TimeTable();
+        stage.addActor(timeTable);
     }
 
     //Render quests table in UI

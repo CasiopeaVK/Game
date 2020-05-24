@@ -18,7 +18,7 @@ public class TestNPC extends InteractiveObject {
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
-        System.out.println(new Vector2(sprite.getWidth(),sprite.getHeight()));
+        //TODO uncommit System.out.println(new Vector2(sprite.getWidth(),sprite.getHeight()));
 
         body = world.createBody(bodyDef);
         Vector2[] vertices = {

@@ -31,7 +31,7 @@ public class InteractiveObject extends  Entity{
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    System.out.println("lol");
+                    //TODO uncommit System.out.println("lol");
                 }
             });
         }
