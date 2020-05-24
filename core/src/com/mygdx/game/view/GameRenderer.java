@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
@@ -14,10 +15,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.GameContext;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.map.IsometricOrderRenderer;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.map.MapListener;
+
+import java.util.EnumMap;
 
 import static com.mygdx.game.Constants.UNIT_SCALE;
 
@@ -27,8 +31,9 @@ public class GameRenderer implements Disposable, MapListener {
     private AssetManager assetManager;
     private OrthographicCamera camera;
     private SpriteBatch batch;
+    private final EnumMap<AnimationType, Animation<Sprite>> animationCache;
+
     private final IsometricOrderRenderer mapRenderer;
-   // private final GLProfiler profiler;
     public final Box2DDebugRenderer box2DDebugRenderer;
     private final World world;
 
@@ -42,6 +47,7 @@ public class GameRenderer implements Disposable, MapListener {
         box2DDebugRenderer = new Box2DDebugRenderer();
         box2DDebugRenderer.SHAPE_STATIC.set(0, 0, 0, 1);
         world = context.getWorld();
+        animationCache = new EnumMap<AnimationType, Animation<Sprite>>(AnimationType.class);
     }
 
     public void render(final float alpha) {
@@ -68,7 +74,8 @@ public class GameRenderer implements Disposable, MapListener {
     public void mapChange(Map map) {
         mapRenderer.setMap(map.getTiledMap());
     }
-    public void addSprite(Sprite sprite){
-        mapRenderer.addSprite(sprite);
+
+    public void addEntity(Entity entity) {
+        mapRenderer.addEntity(entity);
     }
 }

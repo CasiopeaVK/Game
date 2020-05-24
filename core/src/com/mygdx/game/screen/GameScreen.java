@@ -4,14 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.npc.TestNPC;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.GenerateQuests;
 
 import com.mygdx.game.quest.QuestTable;
+import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 
 public class GameScreen extends AbstractScreen {
@@ -23,7 +28,7 @@ public class GameScreen extends AbstractScreen {
     private TiledMap tiledMap;
     private Map map;
     private GameRenderer gameRenderer;
-    Stage stage;
+    SmartStage stage;
     QuestTable questTable;
     Player player;
 
@@ -32,12 +37,16 @@ public class GameScreen extends AbstractScreen {
         world = context.getWorld();
         tiledMap = this.assetManager.get("Water.tmx", TiledMap.class);
         map = new Map(tiledMap, world);
-
-        player = new Player(world, map, "hero/durislav.png");
-        gameRenderer = context.getGameRenderer();
-        gameRenderer.addSprite(player.getSprite());
         camera = context.getCamera();
-
+        stage = new SmartStage();
+        player = new Player(world, map, camera,"hero/durislav.png");
+        TestNPC testNPC = new TestNPC(world, map, camera,"hero/durislav.png");
+        stage.addEntity(player);
+        stage.addEntity(testNPC);
+        gameRenderer = context.getGameRenderer();
+        gameRenderer.addEntity(player);
+        gameRenderer.addEntity(testNPC);
+        Gdx.input.setInputProcessor(stage);
 
     }
 
@@ -51,23 +60,19 @@ public class GameScreen extends AbstractScreen {
         camera.update();
         allUiRender();
 
+
     }
 
     @Override
     public void render(float delta) {
         camera.update();
         gameRenderer.render(1f);
-        player.update(camera);
-
-
-        stage.act();
-        stage.draw();
+        stage.update();
         questTestListener();
     }
 
     //Method for render all UI-elements
     private void allUiRender(){
-        stage = new Stage();
         addQuestTable();
     }
 

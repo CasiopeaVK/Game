@@ -3,38 +3,36 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
 
 public class Player extends Entity{
-    public Player(World world, Map map, String texturePath) {
-        super(world,texturePath);
+    public Player(World world, Map map, Camera camera, String texturePath) {
+        super(world,camera,texturePath);
         initialize(map);
     }
 
     private void initialize(Map map){
         sprite.setScale(0.6f, 0.6f);
-        calculateSpawnPosition(map);
+        calculateSpawnPosition(map,"spawn");
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
-        this.setBounds(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
-        this.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("kek");
-                super.clicked(event, x, y);
-            }
-        });
+
         body = world.createBody(bodyDef);
 
         Vector2[] vertices = {
@@ -56,10 +54,9 @@ public class Player extends Entity{
         Fixture fixture = body.createFixture(fixtureDef);
     }
 
-    public void update(Camera camera){
+    public void update(){
         float speedX;
         float speedY;
-
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             speedX = -400;
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -79,21 +76,5 @@ public class Player extends Entity{
         body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(speedX, speedY)));
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
         camera.position.set(body.getPosition().x, body.getPosition().y, 0);
-    }
-
-    private void calculateSpawnPosition(Map map){
-        MapObject spawnPoint = map.getObject("Markers","spawn");
-        Rectangle spawnPointRect = ((RectangleMapObject) spawnPoint).getRectangle();
-        Vector2 iso = new Vector2(spawnPointRect.x,spawnPointRect.y);
-
-        MapProperties prop = map.getProperties();
-
-        int tileWidth = prop.get("tilewidth", Integer.class);
-        int tileHeight = prop.get("tileheight", Integer.class);
-
-        System.out.println(iso);
-        Vector2 res = IsoUtils.IsoTo2d(iso,new Vector2(tileWidth,tileHeight));
-        System.out.println(res);
-        sprite.setPosition(res.x,res.y);
     }
 }
