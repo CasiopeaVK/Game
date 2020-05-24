@@ -11,11 +11,12 @@ import java.util.List;
 
 public class SmartStage extends Stage {
     List<Entity> entityList = new ArrayList<>();
-    public void act(Camera camera){
+    public void update(){
         act();
         for(Entity entity:entityList){
-           entity.update(camera);
+           entity.update();
         }
+        draw();
     }
 
     public void addEntity(Entity entity){

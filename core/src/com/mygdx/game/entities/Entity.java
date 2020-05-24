@@ -53,6 +53,6 @@ public abstract class Entity extends Actor {
         return sprite;
     }
 
-    abstract public void update(Camera camera);
+    abstract public void update();
 }
 

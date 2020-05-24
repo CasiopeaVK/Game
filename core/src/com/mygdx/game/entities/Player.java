@@ -54,7 +54,7 @@ public class Player extends Entity{
         Fixture fixture = body.createFixture(fixtureDef);
     }
 
-    public void update(Camera camera){
+    public void update(){
         float speedX;
         float speedY;
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {

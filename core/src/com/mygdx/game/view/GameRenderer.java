@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.GameContext;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.map.IsometricOrderRenderer;
 import com.mygdx.game.map.Map;
@@ -74,7 +75,7 @@ public class GameRenderer implements Disposable, MapListener {
         mapRenderer.setMap(map.getTiledMap());
     }
 
-    public void addSprite(Sprite sprite) {
-        mapRenderer.addSprite(sprite);
+    public void addEntity(Entity entity) {
+        mapRenderer.addEntity(entity);
     }
 }
