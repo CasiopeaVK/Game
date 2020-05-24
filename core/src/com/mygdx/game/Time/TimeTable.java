@@ -14,16 +14,15 @@ public class TimeTable extends Table {
     private static final String TIME_TEXT = "Time: ";
 
     private Label time;
-    private Skin tableSkin = new Skin(Gdx.files.internal(Constants.SKIN_JSON));
 
     public TimeTable() {
-        super(new Skin(Gdx.files.internal(Constants.SKIN_JSON)));
+        super(Constants.APP_SKIN);
         initialize();
     }
 
     private void initialize() {
 
-        time = new Label(TIME_TEXT + TimeManager.getTime(), tableSkin, TIME_STYLE);
+        time = new Label(TIME_TEXT + TimeManager.getTime(), Constants.APP_SKIN, TIME_STYLE);
 
         this.setSize(time.getPrefWidth(), time.getPrefHeight());
         this.background(TABLE_STYLE);
