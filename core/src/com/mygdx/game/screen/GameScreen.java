@@ -59,8 +59,6 @@ public class GameScreen extends AbstractScreen {
         camera.setToOrtho(false, w, h);
         camera.update();
         allUiRender();
-
-
     }
 
     @Override

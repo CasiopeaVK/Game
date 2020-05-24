@@ -1,7 +1,6 @@
 package com.mygdx.game.map;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
@@ -14,9 +13,9 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.utils.IsoUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import static com.badlogic.gdx.graphics.g2d.Batch.*;
 
@@ -31,16 +30,16 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
     private Vector2 topLeft = new Vector2();
     private Vector2 bottomRight = new Vector2();
 
-    private List<Entity> entities;
+    private HashMap<Entity, Vector2> entities;
 
     public IsometricOrderRenderer(TiledMap map, float UNIT_SCALE, SpriteBatch spriteBatch) {
         super(map, UNIT_SCALE, spriteBatch);
-        entities = new ArrayList<Entity>();
+        entities = new HashMap<>();
         init();
     }
 
     public void addEntity(Entity entity) {
-        entities.add(entity);
+        entities.put(entity, new Vector2());
     }
 
     private void init() {
@@ -64,6 +63,10 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
         return screenPos;
     }
 
+    private Vector3 translateScreenToIso(float x, float y) {
+        return translateScreenToIso(new Vector2(x, y));
+    }
+
     @Override
     public void render() {
         beginRender();
@@ -73,7 +76,6 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
                     if (layer.getName().equals("Walls")) {
                         drawSprites();
                         renderTileLayer((TiledMapTileLayer) layer);
-
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {
@@ -118,11 +120,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
         int col1 = (int) (translateScreenToIso(bottomLeft).x / tileWidth) - 2;
         int col2 = (int) (translateScreenToIso(topRight).x / tileWidth) + 2;
 
-        //Sprite cord
-        Vector2 vec = new Vector2(entities.get(0).getX(), entities.get(0).getY());
-
-        float spriteRowCord = translateScreenToIso(vec).y;
-        float spriteColCord = translateScreenToIso(vec).x;
+        calculateCord();
 
         for (int row = row2; row >= row1; row--) {
             for (int col = col1; col <= col2; col++) {
@@ -239,8 +237,13 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
                     }
 
                     batch.draw(region.getTexture(), vertices, 0, NUM_VERTICES);
-                    if (spriteColCord >= col * tileWidth && spriteRowCord <= row * tileWidth) {
-                        drawSprites();
+
+                    for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
+                        System.out.println(entry.getValue());
+                        if (entry.getValue().x >= col * tileWidth && entry.getValue().y <= row * tileWidth) {
+                            entry.getKey().getSprite().draw(batch);
+                            System.out.println("kek");
+                        }
                     }
                 }
             }
@@ -248,8 +251,16 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
     }
 
     private void drawSprites() {
-        for (Entity entity:entities) {
-            entity.getSprite().draw(batch);
+        for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
+            entry.getKey().getSprite().draw(batch);
+        }
+    }
+
+    private void calculateCord() {
+        for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
+            float xCord = entry.getKey().getSprite().getX();
+            float yCord = entry.getKey().getSprite().getY();
+            entry.getValue().set(IsoUtils.Vector3ToVector2(translateScreenToIso(xCord, yCord)));
         }
     }
 }
