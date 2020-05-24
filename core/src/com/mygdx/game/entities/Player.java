@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.EllipseShapeBuilder;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -35,14 +37,14 @@ public class Player extends Entity{
 
         body = world.createBody(bodyDef);
 
-        Vector2[] vertices = {
-                new Vector2(-sprite.getWidth() / 2, 0),
-                new Vector2(0, sprite.getWidth() / 4),
-                new Vector2(sprite.getWidth() / 2, 0),
-                new Vector2(0, -sprite.getWidth() / 4),
-                new Vector2(-sprite.getWidth() / 2, 0),
-        };
-
+        int STEPS = 7;
+        Vector2[] vertices = new Vector2[STEPS + 1];
+        for(int i = 0; i < STEPS; i++)
+        {
+            float t = (float)(i*2*Math.PI)/STEPS;
+            vertices[i] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(t), sprite.getWidth() / 6 * (float)Math.sin(t));
+        }
+        vertices[STEPS] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(0), 0);
 
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.set(vertices);

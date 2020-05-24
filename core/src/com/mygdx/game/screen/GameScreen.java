@@ -41,13 +41,13 @@ public class GameScreen extends AbstractScreen {
         camera = context.getCamera();
         stage = new SmartStage();
         player = new Player(world, map, camera,"hero/durislav.png");
-         testNPC = new TestNPC(world, map, camera,"hero/durislav.png");
+        //testNPC = new TestNPC(world, map, camera,"hero/durislav.png");
         stage.addEntity(player);
-        stage.addEntity(testNPC);
+        //stage.addEntity(testNPC);
 
         gameRenderer = context.getGameRenderer();
         gameRenderer.addEntity(player);
-        gameRenderer.addEntity(testNPC);
+        //gameRenderer.addEntity(testNPC);
         Gdx.input.setInputProcessor(stage);
 
         gameUI = new GameUI();
