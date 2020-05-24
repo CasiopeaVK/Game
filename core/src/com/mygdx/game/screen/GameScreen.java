@@ -4,11 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.TestNPC;
@@ -16,8 +12,8 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.GenerateQuests;
 
 import com.mygdx.game.quest.QuestTable;
-import com.mygdx.game.quest.TimeManager;
-import com.mygdx.game.quest.TimeTable;
+import com.mygdx.game.Time.TimeManager;
+import com.mygdx.game.Time.TimeTable;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 
