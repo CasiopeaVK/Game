@@ -1,17 +1,19 @@
 package com.mygdx.game.Time;
 
 import com.badlogic.gdx.Gdx;
-
+import lombok.Getter;
 public class TimeManager {
     private static String currentTime = "";
 
     private static String minuteBlock = "";
     private static String hoursBlock = "";
 
+
+    @Getter
     private static int minutes = 0;
     private static int hours = 0;
-    private static float accumulator = 0;
 
+    private static float accumulator = 0;
     private static final float TIME_SCALE = 0.7f;
 
     public static String getTime() {
