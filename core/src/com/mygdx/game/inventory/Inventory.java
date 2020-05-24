@@ -24,7 +24,7 @@ public class Inventory extends HorizontalGroup {
     private void initializeCell(){
         for(int i =0; i<COUNT_CELL;i++){
             cells[i] = new InventoryCell();
-            cells[i].setOffset(i*31);
+            cells[i].setOffset(i*cells[i].getCELL_SIZE());
             this.addActor(cells[i]);
         }
 

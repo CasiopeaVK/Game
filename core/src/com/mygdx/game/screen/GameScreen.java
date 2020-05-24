@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.TestNPC;
+import com.mygdx.game.items.Item;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.quest.GenerateQuests;
 
@@ -81,6 +82,12 @@ public class GameScreen extends AbstractScreen {
         camera.update();
         gameRenderer.render(1f);
         gameUI.updateTime();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+            gameUI.addItem(new Item("spoon"));
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+            gameUI.addItem(new Item("dirt"));
+        }
         stage.update();
     }
 

@@ -12,7 +12,7 @@ import lombok.Setter;
 public class InventoryCell extends Widget {
 
     @Getter
-    private static final int CELL_SIZE = 30;
+    private static final int CELL_SIZE = 60;
     private Item item;
     private int offset =0;
     public InventoryCell(){
@@ -37,8 +37,10 @@ public class InventoryCell extends Widget {
     @Override
     public void draw(Batch batch, float parentAlpha){
         batch.setColor(1,1,1,parentAlpha);
-        Constants.APP_SKIN.getDrawable("Semi-gray").draw(batch,offset,3,CELL_SIZE,CELL_SIZE);
-        Constants.APP_SKIN.getDrawable("black").draw(batch,offset+10,13,10,10);
+        Constants.APP_SKIN.getDrawable("cell-draw").draw(batch,offset,3,CELL_SIZE,CELL_SIZE);
+        if(item!=null){
+            Constants.APP_SKIN.getDrawable(item.getName()).draw(batch,offset+5,8,50,50);
+        }
         batch.setColor(1,1,1,1);
         super.draw(batch,parentAlpha);
     }
