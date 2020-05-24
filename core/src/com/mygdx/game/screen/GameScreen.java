@@ -14,6 +14,7 @@ import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.Time.TimeManager;
 import com.mygdx.game.Time.TimeTable;
+import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 
@@ -31,7 +32,7 @@ public class GameScreen extends AbstractScreen {
     TimeTable timeTable;
     Player player;
     TestNPC testNPC;
-
+    GameUI gameUI;
     public GameScreen(final GameContext context) {
         super(context);
         world = context.getWorld();
@@ -49,6 +50,7 @@ public class GameScreen extends AbstractScreen {
         gameRenderer.addEntity(testNPC);
         Gdx.input.setInputProcessor(stage);
 
+        gameUI = new GameUI();
     }
 
     @Override
@@ -69,7 +71,8 @@ public class GameScreen extends AbstractScreen {
                 super.clicked(event, x, y);
             }
         });*/
-        allUiRender();
+//        allUiRender();
+        stage.addActor(gameUI);
     }
 
     @Override
@@ -77,34 +80,8 @@ public class GameScreen extends AbstractScreen {
         TimeManager.getTime();
         camera.update();
         gameRenderer.render(1f);
-        timeTable.updateTime();
+        gameUI.updateTime();
         stage.update();
-        questTestListener();
-    }
-
-    //Method for render all UI-elements
-    private void allUiRender(){
-        addQuestTable();
-        addTimeTable();
-    }
-
-    //TODO remove
-    private void questTestListener() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            questTable.updateQuest();
-        }
-    }
-
-    private void addTimeTable(){
-        timeTable = new TimeTable();
-        stage.addActor(timeTable);
-    }
-
-    //Render quests table in UI
-    private void addQuestTable() {
-        questTable = GenerateQuests.generateQuests();
-        questTable.left().top();
-        stage.addActor(questTable);
     }
 
     @Override
