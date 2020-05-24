@@ -31,7 +31,18 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        final GameKeys gameKey = keyMapping[keycode];
+        if (gameKey == null) {
+            return false;
+        }
         return false;
+    }
+
+    public void notifyKeyDown(final GameKeys gameKey) {
+        keyState[gameKey.ordinal()] = true;
+        for (final InputListener listener : listeners) {
+            //listener.keyDown(this, gameKey);
+        }
     }
 
     @Override
