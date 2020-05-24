@@ -22,9 +22,10 @@ public class Inventory extends HorizontalGroup {
     }
 
     private void initializeCell(){
-        for(InventoryCell cell:cells){
-            cell = new InventoryCell();
-            this.addActor(cell);
+        for(int i =0; i<COUNT_CELL;i++){
+            cells[i] = new InventoryCell();
+            cells[i].setOffset(i*31);
+            this.addActor(cells[i]);
         }
 
     }
