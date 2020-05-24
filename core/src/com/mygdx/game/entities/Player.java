@@ -26,7 +26,7 @@ public class Player extends Entity{
     }
 
     private void initialize(Map map){
-        sprite.setScale(0.6f, 0.6f);
+        sprite.setScale(spriteScale);
         calculateSpawnPosition(map,"spawn");
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;

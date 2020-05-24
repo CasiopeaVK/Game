@@ -13,6 +13,8 @@ public class TestNPC extends InteractiveObject {
     }
 
     private void initialize(Map map){
+        spriteScale = 0.6f;
+        sprite.setScale(spriteScale);
         calculateSpawnPosition(map,"testNpc");
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -38,6 +40,7 @@ public class TestNPC extends InteractiveObject {
         fixtureDef.density = 1f;
 
         Fixture fixture = body.createFixture(fixtureDef);
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 4);
+        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
+        System.out.println(sprite.getY());
     }
 }

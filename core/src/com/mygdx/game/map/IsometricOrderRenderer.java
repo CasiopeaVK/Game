@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.utils.IsoUtils;
 
-import java.util.HashMap;
+import java.util.*;
 
 import static com.badlogic.gdx.graphics.g2d.Batch.*;
 
@@ -239,10 +239,15 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
                     batch.draw(region.getTexture(), vertices, 0, NUM_VERTICES);
 
                     for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
+<<<<<<< HEAD
                         //TODO uncommit System.out.println(entry.getValue());
                         if (entry.getValue().x >= col * tileWidth && entry.getValue().y <= row * tileWidth) {
                             entry.getKey().getSprite().draw(batch);
                             //TODO uncommit System.out.println("kek");
+=======
+                        if (entry.getValue().x >= col * tileWidth && entry.getValue().y <= row * tileWidth) {
+                            entry.getKey().getSprite().draw(batch);
+>>>>>>> 42ad84e9329a56ae19c34b16211f71fde5ff9d6b
                         }
                     }
                 }
@@ -251,8 +256,15 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
     }
 
     private void drawSprites() {
-        for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
-            entry.getKey().getSprite().draw(batch);
+        List<Entity> entityList = new ArrayList<>(entities.keySet());
+        Collections.sort(entityList, new Comparator<Entity>() {
+            @Override
+            public int compare(Entity o1, Entity o2) {
+                return (int) (o2.getSprite().getY() - o1.getSprite().getY());
+            }
+        });
+        for (Entity entity:entityList) {
+            entity.getSprite().draw(batch);
         }
     }
 
