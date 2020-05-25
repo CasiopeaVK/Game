@@ -21,13 +21,15 @@ public class InventoryCell extends Table {
 
     @Getter
     private static final int CELL_SIZE = 60;
+    private static final int CELL_ITEM_SIZE = 50;
     private Item item;
-    private int offset = 0;
+    private int dy;
     private boolean current = false;
 
-    public InventoryCell(boolean current, final int offset) {
+    public InventoryCell(boolean current,  int offset, int dY) {
         super(Constants.APP_SKIN);
 
+        this.dy = dY;
         this.setPosition(offset, 3);
         this.setSize(CELL_SIZE, CELL_SIZE);
 
@@ -39,17 +41,15 @@ public class InventoryCell extends Table {
             public void clicked(InputEvent event, float x, float y) {
                 if (item == null && Item.selectedItem == null) {
                     super.clicked(event, x, y);
-                } else if (item == null && Item.selectedItem != null) {
+                } else if (item == null) {
                     item = Item.selectedItem;
                     Item.selectedItem = null;
                     super.clicked(event, x, y);
-                } else if (item != null && Item.selectedItem == null) {
+                } else if (Item.selectedItem == null) {
                     Item.selectedItem = item;
                     item = null;
-                    if (Item.selectedItem != null)
-                        System.out.println(Item.selectedItem.getName());
                     super.clicked(event, x, y);
-                }else if (item != null && Item.selectedItem != null){
+                }else {
                     Item type = item;
                     item = Item.selectedItem;
                     Item.selectedItem = type;
@@ -60,17 +60,11 @@ public class InventoryCell extends Table {
     }
 
     public boolean isEmpty() {
-        if (item == null)
-            return true;
-        return false;
+        return item == null;
     }
 
     public void setItem(Item item) {
         this.item = item;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
     }
 
     public void setCurrent(boolean isCurrent) {
@@ -82,7 +76,7 @@ public class InventoryCell extends Table {
         batch.setColor(1, 1, 1, parentAlpha);
         Constants.APP_SKIN.getDrawable(current ? "selectCell" : "cell-draw").draw(batch, this.getX(), this.getY(), CELL_SIZE, CELL_SIZE);
         if (item != null) {
-            Constants.APP_SKIN.getDrawable(item.getName()).draw(batch, this.getX() + 5, this.getY() + 3, 50, 50);
+            Constants.APP_SKIN.getDrawable(item.getName()).draw(batch, this.getX() + (CELL_SIZE-CELL_ITEM_SIZE)/2, this.getY() + dy, CELL_ITEM_SIZE, CELL_ITEM_SIZE);
         }
         batch.setColor(1, 1, 1, 1);
     }
