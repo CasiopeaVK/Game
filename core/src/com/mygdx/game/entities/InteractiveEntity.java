@@ -10,13 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 
-abstract public class InteractiveObject extends Entity {
+abstract public class InteractiveEntity extends AnimatedEntity {
     protected Stage stage;
 
-    private Vector3 lastSpriteWindowPosition = new Vector3(0, 0, 0);
-
-    public InteractiveObject(World world, Camera camera, String texturePath) {
-
+    public InteractiveEntity(World world, Camera camera, String texturePath) {
         super(world, camera, texturePath);
     }
 
@@ -44,7 +41,7 @@ abstract public class InteractiveObject extends Entity {
 
     abstract protected void onClick(InputEvent event, float x, float y);
 
-    public void setBounds() {
+    private void setBounds() {
         Vector3 spriteWindowCorners = camera.project(new Vector3(sprite.getX() + getWidth(), sprite.getY() + getHeight(), 0));
         Vector3 spriteWindowPosition = camera.project(new Vector3(sprite.getX(), sprite.getY(), 0));
         Vector2 spriteWindowSize = new Vector2(spriteWindowCorners.x - spriteWindowPosition.x, spriteWindowCorners.y - spriteWindowPosition.y);

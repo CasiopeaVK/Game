@@ -7,10 +7,11 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.game.entities.InteractiveObject;
+import com.mygdx.game.entities.InteractiveEntity;
+import com.mygdx.game.entities.InteractiveEntity;
 import com.mygdx.game.map.Map;
 
-public class TestNPC extends InteractiveObject {
+public class TestNPC extends InteractiveEntity {
     public TestNPC(World world, Map map, Camera camera, String texturePath) {
         super(world, camera, texturePath);
         initialize(map);
