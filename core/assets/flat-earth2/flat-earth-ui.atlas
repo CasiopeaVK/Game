@@ -141,6 +141,13 @@ select-box-pressed
   orig: 39, 20
   offset: 0, 0
   index: -1
+selectCell
+  rotate: false
+  xy: 374, 727
+  size: 285, 285
+  orig: 285, 285
+  offset: 0, 0
+  index: -1
 slider-fancy
   rotate: false
   xy: 1, 421
@@ -265,12 +272,5 @@ window
   split: 2, 2, 32, 2
   pad: 2, 2, 34, 2
   orig: 76, 67
-  offset: 0, 0
-  index: -1
-selectCell
-  rotate: false
-  xy: 374, 727
-  size: 285, 285
-  orig: 285, 285
   offset: 0, 0
   index: -1

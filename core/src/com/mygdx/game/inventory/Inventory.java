@@ -2,8 +2,6 @@ package com.mygdx.game.inventory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.mygdx.game.Constants;
 import com.mygdx.game.items.Item;
 
 public class Inventory extends HorizontalGroup {

@@ -92,6 +92,7 @@ public class GameScreen extends AbstractScreen {
             gameUI.addItem(GameItems.DIRT.getItem());
         if(Gdx.input.isKeyJustPressed(Input.Keys.R))
             gameUI.addItem(GameItems.SPOON.getItem());
+
     }
     @Override
     public void resize(int width, int height) {
