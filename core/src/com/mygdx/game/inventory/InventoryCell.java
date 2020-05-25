@@ -1,9 +1,14 @@
 package com.mygdx.game.inventory;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 import com.mygdx.game.items.Item;
 import lombok.Getter;
@@ -20,6 +25,13 @@ public class InventoryCell extends Widget {
     public InventoryCell(boolean current){
         this.setSize(CELL_SIZE,CELL_SIZE);
         this.current = current;
+        this.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                System.out.println(1);
+                return super.keyDown(event, keycode);
+            }
+        });
     }
 
     public boolean isEmpty(){
@@ -47,5 +59,7 @@ public class InventoryCell extends Widget {
         batch.setColor(1,1,1,1);
         super.draw(batch,parentAlpha);
     }
+
+
 
 }
