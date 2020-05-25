@@ -6,19 +6,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.utils.Executor;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
-public class AnimatedEntity extends Entity {
+abstract public class AnimatedEntity extends Entity {
 
-    float xFactor;
-    float yFactor;
-    int lastDirection;
-    boolean firstStep;
-    int idleNumber;
-    int animationStep;
-    int framesCounter;
-    ArrayList<ArrayList<Sprite>> sprites;
+    protected float xFactor;
+    protected float yFactor;
+    private int lastDirection;
+    protected boolean firstStep;
+    private int idleNumber;
+    private int animationStep;
+    private int framesCounter;
+    private ArrayList<ArrayList<Sprite>> sprites;
 
     public AnimatedEntity(World world, Camera camera, String texturePath) {
         super(world, camera, texturePath);
@@ -44,10 +47,16 @@ public class AnimatedEntity extends Entity {
         sprite.set(sprites.get(0).get(0));
     }
 
-    @Override
-    public void update() {
-
+    public void update(Executor clickHandler){
+        if (framesCounter == 10) {
+            clickHandler.execute();
+            handleMovement();
+            firstStep = false;
+            framesCounter = 0;
+        } else
+            framesCounter++;
     }
+
     //this method is setting the appropriate sprite according to the xFactor and yFactor values
     void handleMovement() {
         //rightDown

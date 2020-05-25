@@ -28,8 +28,6 @@ public class GameScreen extends AbstractScreen {
     private Map map;
     private GameRenderer gameRenderer;
     SmartStage stage;
-    QuestTable questTable;
-    TimeTable timeTable;
     Player player;
     TestNPC testNPC;
     GameUI gameUI;
@@ -62,16 +60,6 @@ public class GameScreen extends AbstractScreen {
         camera.setToOrtho(false, w, h);
         camera.update();
 
-        /*stage.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Vector3 v3 = camera.unproject(new Vector3(x,y,0));
-                System.out.println("click"+v3);
-                testNPC.getSprite().setPosition(v3.x,-v3.y);
-                super.clicked(event, x, y);
-            }
-        });*/
-//        allUiRender();
         stage.addActor(gameUI);
     }
 
