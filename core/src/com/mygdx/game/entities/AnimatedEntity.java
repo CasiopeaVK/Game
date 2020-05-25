@@ -58,7 +58,7 @@ abstract public class AnimatedEntity extends Entity {
     }
 
     //this method is setting the appropriate sprite according to the xFactor and yFactor values
-    void handleMovement() {
+    protected void handleMovement() {
         //rightDown
         if (xFactor == 1 && yFactor == 1) {
             lastDirection = 4;
