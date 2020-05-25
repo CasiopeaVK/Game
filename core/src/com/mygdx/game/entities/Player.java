@@ -3,17 +3,10 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
-import sun.java2d.pipe.SpanClipRenderer;
-
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.mygdx.game.Constants.PLAYER_SPEED;
 
@@ -25,24 +18,10 @@ public class Player extends AnimatedEntity {
     }
 
     private void initialize(Map map) {
+        sprite.setScale(spriteScale);
         calculateSpawnPosition(map, "spawn");
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.fixedRotation = true;
-        bodyDef.position.set(sprite.getX(), sprite.getY());
-        body = world.createBody(bodyDef);
-
-
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.set(generatePlayerVerticles());
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = polygonShape;
-        fixtureDef.density = 1f;
-
-        body.createFixture(fixtureDef);
+        initCharacterBody(BodyDef.BodyType.DynamicBody);
     }
-
 
     public void update() {
         if (framesCounter == 10) {
@@ -77,16 +56,5 @@ public class Player extends AnimatedEntity {
         } else {
             yFactor = 0;
         }
-    }
-
-    private Vector2[] generatePlayerVerticles() {
-        int STEPS = 7;
-        Vector2[] vertices = new Vector2[STEPS + 1];
-        for (int i = 0; i < STEPS; i++) {
-            float t = (float) (i * 2 * Math.PI) / STEPS;
-            vertices[i] = new Vector2(sprite.getWidth() / 3 * (float) Math.cos(t), sprite.getWidth() / 6 * (float) Math.sin(t));
-        }
-        vertices[STEPS] = new Vector2(sprite.getWidth() / 3 * (float) Math.cos(0), 0);
-        return vertices;
     }
 }

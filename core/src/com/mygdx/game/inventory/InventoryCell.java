@@ -15,8 +15,11 @@ public class InventoryCell extends Widget {
     private static final int CELL_SIZE = 60;
     private Item item;
     private int offset =0;
-    public InventoryCell(){
+    private boolean current = false;
+
+    public InventoryCell(boolean current){
         this.setSize(CELL_SIZE,CELL_SIZE);
+        this.current = current;
     }
 
     public boolean isEmpty(){
@@ -27,17 +30,17 @@ public class InventoryCell extends Widget {
 
     public void setItem(Item item){
         this.item = item;
-        //TODO сделать метод установки картинки айтема в клетку
     }
 
     public void setOffset(int offset) {
         this.offset = offset;
     }
+    public void setCurrent(boolean isCurrent){this.current = isCurrent;}
 
     @Override
     public void draw(Batch batch, float parentAlpha){
         batch.setColor(1,1,1,parentAlpha);
-        Constants.APP_SKIN.getDrawable("cell-draw").draw(batch,offset,3,CELL_SIZE,CELL_SIZE);
+        Constants.APP_SKIN.getDrawable(current?"selectCell":"cell-draw").draw(batch,offset,3,CELL_SIZE,CELL_SIZE);
         if(item!=null){
             Constants.APP_SKIN.getDrawable(item.getName()).draw(batch,offset+5,8,50,50);
         }

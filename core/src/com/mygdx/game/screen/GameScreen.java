@@ -8,9 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.TestNPC;
-import com.mygdx.game.items.Item;
+import com.mygdx.game.items.GameItems;
 import com.mygdx.game.map.Map;
-import com.mygdx.game.quest.GenerateQuests;
 
 import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.Time.TimeManager;
@@ -42,13 +41,13 @@ public class GameScreen extends AbstractScreen {
         camera = context.getCamera();
         stage = new SmartStage();
         player = new Player(world, map, camera,"hero/hero.png");
-        //testNPC = new TestNPC(world, map, camera,"hero/durislav.png");
+        testNPC = new TestNPC(world, map, camera,"hero/durislav.png");
         stage.addEntity(player);
-        //stage.addEntity(testNPC);
+        stage.addEntity(testNPC);
 
         gameRenderer = context.getGameRenderer();
         gameRenderer.addEntity(player);
-        //gameRenderer.addEntity(testNPC);
+        gameRenderer.addEntity(testNPC);
         Gdx.input.setInputProcessor(stage);
 
         gameUI = new GameUI();
@@ -82,15 +81,19 @@ public class GameScreen extends AbstractScreen {
         camera.update();
         gameRenderer.render(1f);
         gameUI.updateTime();
-        if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
-            gameUI.addItem(new Item("spoon"));
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
-            gameUI.addItem(new Item("dirt"));
-        }
+        gameUI.setCurrentCell();
+        testItems();
         stage.update();
     }
 
+    //TODO remove
+    private void testItems(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+            gameUI.addItem(GameItems.DIRT.getItem());
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R))
+            gameUI.addItem(GameItems.SPOON.getItem());
+
+    }
     @Override
     public void resize(int width, int height) {
 

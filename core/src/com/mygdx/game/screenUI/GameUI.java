@@ -1,5 +1,7 @@
 package com.mygdx.game.screenUI;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.Time.TimeTable;
 import com.mygdx.game.inventory.Inventory;
@@ -40,6 +42,21 @@ public class GameUI extends Table {
 
     public void updateTime(){
         timeTable.updateTime();
+    }
+    public void setCurrentCell(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+            inventory.setCurrentCell(0);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
+            inventory.setCurrentCell(1);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
+            inventory.setCurrentCell(2);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)){
+            inventory.setCurrentCell(3);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)){
+            inventory.setCurrentCell(4);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)){
+            inventory.setCurrentCell(5);
+        }
     }
     public void addItem(Item item){inventory.addItem(item);}
 }

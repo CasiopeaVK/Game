@@ -1,8 +1,12 @@
 package com.mygdx.game.entities.npc;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.entities.InteractiveObject;
 import com.mygdx.game.map.Map;
 
@@ -16,31 +20,20 @@ public class TestNPC extends InteractiveObject {
         spriteScale = 0.6f;
         sprite.setScale(spriteScale);
         calculateSpawnPosition(map,"testNpc");
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.fixedRotation = true;
-        bodyDef.position.set(sprite.getX(), sprite.getY());
-        //TODO uncommit System.out.println(new Vector2(sprite.getWidth(),sprite.getHeight()));
+        initCharacterBody(BodyDef.BodyType.StaticBody);
+    }
 
-        body = world.createBody(bodyDef);
-        Vector2[] vertices = {
-                new Vector2(-sprite.getWidth() / 2, 0),
-                new Vector2(0, sprite.getWidth() / 4),
-                new Vector2(sprite.getWidth() / 2, 0),
-                new Vector2(0, -sprite.getWidth() / 4),
-                new Vector2(-sprite.getWidth() / 2, 0),
+    @Override
+    protected void onClick(InputEvent event, float x, float y) {
+        Skin uiSkin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
+        Dialog dialog = new Dialog("Warning", uiSkin, "default") {
+            public void result(Object obj) {
+                System.out.println("result "+obj);
+            }
         };
-
-
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.set(vertices);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = polygonShape;
-        fixtureDef.density = 1f;
-
-        Fixture fixture = body.createFixture(fixtureDef);
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
-        System.out.println(sprite.getY());
+        dialog.text("Test Message");
+        dialog.button("Yes", "true"); //sends "true" as the result
+        dialog.button("No", "false"); //sends "false" as the result
+        dialog.show(stage);
     }
 }
