@@ -3,7 +3,6 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -37,7 +36,7 @@ public abstract class Entity extends Actor {
 
 
     protected void calculateSpawnPosition(Map map, String markerName){
-        MapObject spawnPoint = map.getObject("Markers","spawn");
+        MapObject spawnPoint = map.getObject("Markers",markerName);
         Rectangle spawnPointRect = ((RectangleMapObject) spawnPoint).getRectangle();
         Vector2 iso = new Vector2(spawnPointRect.x,spawnPointRect.y);
 
@@ -60,6 +59,38 @@ public abstract class Entity extends Actor {
 
     public  float getWidth(){
         return sprite.getWidth()*spriteScale;
+    }
+
+    public PolygonShape createHeptagonPolygonShape(){
+        int STEPS = 7;
+        Vector2[] vertices = new Vector2[STEPS + 1];
+        for(int i = 0; i < STEPS; i++)
+        {
+            float t = (float)(i*2*Math.PI)/STEPS;
+            vertices[i] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(t), sprite.getWidth() / 6 * (float)Math.sin(t));
+        }
+        vertices[STEPS] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(0), 0);
+
+        PolygonShape polygonShape = new PolygonShape();
+        polygonShape.set(vertices);
+        return polygonShape;
+    }
+
+    public void initCharacterBody(BodyDef.BodyType type){
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = type;
+        bodyDef.fixedRotation = true;
+        bodyDef.position.set(sprite.getX(), sprite.getY());
+
+        body = world.createBody(bodyDef);
+        PolygonShape polygonShape = createHeptagonPolygonShape();
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = polygonShape;
+        fixtureDef.density = 1f;
+
+        Fixture fixture = body.createFixture(fixtureDef);
+        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
     }
 
     abstract public void update();

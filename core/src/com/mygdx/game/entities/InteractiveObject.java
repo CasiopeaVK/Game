@@ -6,12 +6,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 import com.mygdx.game.utils.IsoUtils;
 
-public class InteractiveObject extends Entity {
+abstract public class InteractiveObject extends Entity {
+    protected Stage stage;
+
     private Vector3 lastSpriteWindowPosition = new Vector3(0, 0, 0);
 
     public InteractiveObject(World world, Camera camera, String texturePath) {
@@ -31,11 +34,17 @@ public class InteractiveObject extends Entity {
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("lol");
+                onClick(event,x,y);
             }
         });
 
     }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
+
+    abstract protected void onClick(InputEvent event, float x, float y);
 
     public void setBounds() {
         Vector3 spriteWindowCorners = camera.project(new Vector3(sprite.getX() + getWidth(), sprite.getY() + getHeight(), 0));

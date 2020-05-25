@@ -30,30 +30,7 @@ public class Player extends Entity{
     private void initialize(Map map){
         sprite.setScale(spriteScale);
         calculateSpawnPosition(map,"spawn");
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.fixedRotation = true;
-        bodyDef.position.set(sprite.getX(), sprite.getY());
-
-        body = world.createBody(bodyDef);
-
-        int STEPS = 7;
-        Vector2[] vertices = new Vector2[STEPS + 1];
-        for(int i = 0; i < STEPS; i++)
-        {
-            float t = (float)(i*2*Math.PI)/STEPS;
-            vertices[i] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(t), sprite.getWidth() / 6 * (float)Math.sin(t));
-        }
-        vertices[STEPS] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(0), 0);
-
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.set(vertices);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = polygonShape;
-        fixtureDef.density = 1f;
-
-        Fixture fixture = body.createFixture(fixtureDef);
+        initCharacterBody(BodyDef.BodyType.DynamicBody);
     }
 
     public void update(){
