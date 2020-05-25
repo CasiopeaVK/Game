@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1280;
 		config.height = 720;
-		config.title = "Vlad soset";
+		config.title = "Game";
 		config.x = 100;
 		config.y = 50;
 

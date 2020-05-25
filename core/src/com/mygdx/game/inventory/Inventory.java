@@ -23,8 +23,8 @@ public class Inventory extends HorizontalGroup {
 
     private void initializeCell(){
         for(int i =0; i<COUNT_CELL;i++){
-            cells[i] = new InventoryCell();
-            cells[i].setOffset(i*cells[i].getCELL_SIZE());
+            cells[i] = new InventoryCell(currentCell == i);
+            cells[i].setOffset(i* InventoryCell.getCELL_SIZE());
             this.addActor(cells[i]);
         }
 
@@ -39,6 +39,12 @@ public class Inventory extends HorizontalGroup {
         }
 
         cells[currentCell].setItem(item);
+    }
+
+    public void setCurrentCell(int currentCell) {
+        cells[this.currentCell].setCurrent(false);
+        this.currentCell = currentCell;
+        cells[this.currentCell].setCurrent(true);
     }
 
 

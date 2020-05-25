@@ -8,8 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.TestNPC;
+import com.mygdx.game.items.GameItems;
 import com.mygdx.game.map.Map;
-import com.mygdx.game.quest.GenerateQuests;
 
 import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.Time.TimeManager;
@@ -81,9 +81,18 @@ public class GameScreen extends AbstractScreen {
         camera.update();
         gameRenderer.render(1f);
         gameUI.updateTime();
+        gameUI.setCurrentCell();
+        testItems();
         stage.update();
     }
 
+    //TODO remove
+    private void testItems(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+            gameUI.addItem(GameItems.DIRT.getItem());
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R))
+            gameUI.addItem(GameItems.SPOON.getItem());
+    }
     @Override
     public void resize(int width, int height) {
 
