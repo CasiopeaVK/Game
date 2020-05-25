@@ -39,7 +39,7 @@ public class GameScreen extends AbstractScreen {
         camera = context.getCamera();
         stage = new SmartStage();
         player = new Player(world, map, camera,"hero/hero.png");
-        testNPC = new TestNPC(world, map, camera,"hero/durislav.png");
+        testNPC = new TestNPC(world, map, camera,"hero/hero.png");
         stage.addEntity(player);
         stage.addEntity(testNPC);
 

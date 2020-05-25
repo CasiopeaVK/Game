@@ -1,5 +1,6 @@
 package com.mygdx.game.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -9,6 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
+import com.mygdx.game.utils.IsoUtils;
+
+import static com.mygdx.game.Constants.PLAYER_SPEED;
 
 abstract public class InteractiveEntity extends AnimatedEntity {
     protected Stage stage;
@@ -20,6 +24,10 @@ abstract public class InteractiveEntity extends AnimatedEntity {
     @Override
     public void update() {
         updateClickListener();
+        world.step(Gdx.graphics.getDeltaTime(), 6, 6);
+        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED, yFactor * PLAYER_SPEED)));
+        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
+        camera.position.set(body.getPosition().x, body.getPosition().y, 0);
     }
 
 
@@ -46,6 +54,5 @@ abstract public class InteractiveEntity extends AnimatedEntity {
         Vector3 spriteWindowPosition = camera.project(new Vector3(sprite.getX(), sprite.getY(), 0));
         Vector2 spriteWindowSize = new Vector2(spriteWindowCorners.x - spriteWindowPosition.x, spriteWindowCorners.y - spriteWindowPosition.y);
         super.setBounds(spriteWindowPosition.x, spriteWindowPosition.y + spriteWindowSize.y * Constants.UNIT_SCALE, spriteWindowSize.x, spriteWindowSize.y);
-
     }
 }

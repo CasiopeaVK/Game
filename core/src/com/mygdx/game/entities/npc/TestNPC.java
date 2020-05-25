@@ -2,12 +2,10 @@ package com.mygdx.game.entities.npc;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.game.entities.InteractiveEntity;
 import com.mygdx.game.entities.InteractiveEntity;
 import com.mygdx.game.map.Map;
 
