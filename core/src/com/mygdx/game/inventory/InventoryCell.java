@@ -30,7 +30,7 @@ public class InventoryCell extends Table {
         super(Constants.APP_SKIN);
 
         this.dy = dY;
-        this.setPosition(offset, 3);
+        this.setPosition(offset, dy);
         this.setSize(CELL_SIZE, CELL_SIZE);
 
         this.current = current;
@@ -75,9 +75,12 @@ public class InventoryCell extends Table {
     public void draw(Batch batch, float parentAlpha) {
         batch.setColor(1, 1, 1, parentAlpha);
         Constants.APP_SKIN.getDrawable(current ? "selectCell" : "cell-draw").draw(batch, this.getX(), this.getY(), CELL_SIZE, CELL_SIZE);
+
         if (item != null) {
-            Constants.APP_SKIN.getDrawable(item.getName()).draw(batch, this.getX() + (CELL_SIZE-CELL_ITEM_SIZE)/2, this.getY() + dy, CELL_ITEM_SIZE, CELL_ITEM_SIZE);
+            int dx =(CELL_SIZE-CELL_ITEM_SIZE)/2;
+            Constants.APP_SKIN.getDrawable(item.getName()).draw(batch, this.getX() + dx, this.getY()+dx, CELL_ITEM_SIZE, CELL_ITEM_SIZE);
         }
+
         batch.setColor(1, 1, 1, 1);
     }
 
