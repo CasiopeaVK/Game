@@ -8,8 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.TestNPC;
+import com.mygdx.game.items.GameItems;
 import com.mygdx.game.map.Map;
-import com.mygdx.game.quest.GenerateQuests;
 
 import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.Time.TimeManager;
@@ -28,8 +28,6 @@ public class GameScreen extends AbstractScreen {
     private Map map;
     private GameRenderer gameRenderer;
     SmartStage stage;
-    QuestTable questTable;
-    TimeTable timeTable;
     Player player;
     TestNPC testNPC;
     GameUI gameUI;
@@ -40,8 +38,8 @@ public class GameScreen extends AbstractScreen {
         map = new Map(tiledMap, world);
         camera = context.getCamera();
         stage = new SmartStage();
-        player = new Player(world, map, camera,"hero/durislav.png");
-        testNPC = new TestNPC(world, map, camera,"hero/durislav.png");
+        player = new Player(world, map, camera,"hero/hero.png");
+        testNPC = new TestNPC(world, map, camera,"hero/hero.png");
         stage.addEntity(player);
         stage.addEntity(testNPC);
 
@@ -62,16 +60,6 @@ public class GameScreen extends AbstractScreen {
         camera.setToOrtho(false, w, h);
         camera.update();
 
-        /*stage.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Vector3 v3 = camera.unproject(new Vector3(x,y,0));
-                System.out.println("click"+v3);
-                testNPC.getSprite().setPosition(v3.x,-v3.y);
-                super.clicked(event, x, y);
-            }
-        });*/
-//        allUiRender();
         stage.addActor(gameUI);
     }
 
@@ -81,9 +69,20 @@ public class GameScreen extends AbstractScreen {
         camera.update();
         gameRenderer.render(1f);
         gameUI.updateTime();
+        gameUI.setCurrentCell();
+        testItems();
         stage.update();
+        gameUI.renderSelectedItem(stage);
     }
 
+    //TODO remove
+    private void testItems(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+            gameUI.addItem(GameItems.DIRT.getItem());
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R))
+            gameUI.addItem(GameItems.SPOON.getItem());
+
+    }
     @Override
     public void resize(int width, int height) {
 

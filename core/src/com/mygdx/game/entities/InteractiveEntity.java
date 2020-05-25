@@ -1,7 +1,7 @@
 package com.mygdx.game.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
@@ -12,19 +12,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 import com.mygdx.game.utils.IsoUtils;
 
-abstract public class InteractiveObject extends Entity {
+import static com.mygdx.game.Constants.PLAYER_SPEED;
+
+abstract public class InteractiveEntity extends AnimatedEntity {
     protected Stage stage;
 
-    private Vector3 lastSpriteWindowPosition = new Vector3(0, 0, 0);
-
-    public InteractiveObject(World world, Camera camera, String texturePath) {
-
+    public InteractiveEntity(World world, Camera camera, String texturePath) {
         super(world, camera, texturePath);
     }
 
-    @Override
-    public void update() {
+    public void update(float speed) {
+        super.update(()->{});
         updateClickListener();
+        world.step(Gdx.graphics.getDeltaTime(), 6, 6);
+        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * speed, yFactor * speed)));
+        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
+        camera.position.set(body.getPosition().x, body.getPosition().y, 0);
     }
 
 
@@ -46,11 +49,10 @@ abstract public class InteractiveObject extends Entity {
 
     abstract protected void onClick(InputEvent event, float x, float y);
 
-    public void setBounds() {
+    private void setBounds() {
         Vector3 spriteWindowCorners = camera.project(new Vector3(sprite.getX() + getWidth(), sprite.getY() + getHeight(), 0));
         Vector3 spriteWindowPosition = camera.project(new Vector3(sprite.getX(), sprite.getY(), 0));
         Vector2 spriteWindowSize = new Vector2(spriteWindowCorners.x - spriteWindowPosition.x, spriteWindowCorners.y - spriteWindowPosition.y);
         super.setBounds(spriteWindowPosition.x, spriteWindowPosition.y + spriteWindowSize.y * Constants.UNIT_SCALE, spriteWindowSize.x, spriteWindowSize.y);
-
     }
 }

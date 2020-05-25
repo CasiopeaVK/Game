@@ -1,12 +1,15 @@
 package com.mygdx.game.inventory;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.mygdx.game.Constants;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.items.Item;
 
-public class Inventory extends HorizontalGroup {
+public class Inventory extends Table {
 
     private final int COUNT_CELL = 6;
 
@@ -19,12 +22,13 @@ public class Inventory extends HorizontalGroup {
         this.setSize(InventoryCell.getCELL_SIZE()*COUNT_CELL, InventoryCell.getCELL_SIZE());
         this.center();
         this.setPosition((Gdx.graphics.getWidth()-getWidth())/2,0);
+
     }
 
     private void initializeCell(){
         for(int i =0; i<COUNT_CELL;i++){
-            cells[i] = new InventoryCell();
-            cells[i].setOffset(i*cells[i].getCELL_SIZE());
+            cells[i] = new InventoryCell(currentCell == i,i* InventoryCell.getCELL_SIZE());
+            cells[i].setOffset(i* InventoryCell.getCELL_SIZE());
             this.addActor(cells[i]);
         }
 
@@ -39,6 +43,12 @@ public class Inventory extends HorizontalGroup {
         }
 
         cells[currentCell].setItem(item);
+    }
+
+    public void setCurrentCell(int currentCell) {
+        cells[this.currentCell].setCurrent(false);
+        this.currentCell = currentCell;
+        cells[this.currentCell].setCurrent(true);
     }
 
 
