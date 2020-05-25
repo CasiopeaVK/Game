@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.items.Item;
 
-public class Inventory extends HorizontalGroup {
+public class Inventory extends Table {
 
     private final int COUNT_CELL = 6;
 
@@ -26,7 +27,7 @@ public class Inventory extends HorizontalGroup {
 
     private void initializeCell(){
         for(int i =0; i<COUNT_CELL;i++){
-            cells[i] = new InventoryCell(currentCell == i);
+            cells[i] = new InventoryCell(currentCell == i,i* InventoryCell.getCELL_SIZE());
             cells[i].setOffset(i* InventoryCell.getCELL_SIZE());
             this.addActor(cells[i]);
         }

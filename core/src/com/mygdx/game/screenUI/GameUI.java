@@ -2,9 +2,13 @@ package com.mygdx.game.screenUI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.mygdx.game.Constants;
 import com.mygdx.game.Time.TimeTable;
 import com.mygdx.game.inventory.Inventory;
+import com.mygdx.game.inventory.InventoryCell;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.QuestTable;
@@ -59,4 +63,14 @@ public class GameUI extends Table {
         }
     }
     public void addItem(Item item){inventory.addItem(item);}
+    public void renderSelectedItem(Stage stage){
+        if(Item.selectedItem == null)
+            return;
+
+        Batch batch = stage.getBatch();
+        batch.begin();
+        System.out.println(Gdx.input.getX() + " "+Gdx.input.getY());
+        Constants.APP_SKIN.getDrawable(Item.selectedItem.getName()).draw(batch,Gdx.input.getX()-15,Gdx.graphics.getHeight() - Gdx.input.getY()-15, 30,30);
+        batch.end();
+    }
 }
