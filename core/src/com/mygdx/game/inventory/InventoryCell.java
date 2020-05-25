@@ -25,13 +25,7 @@ public class InventoryCell extends Widget {
     public InventoryCell(boolean current){
         this.setSize(CELL_SIZE,CELL_SIZE);
         this.current = current;
-        this.addListener(new InputListener(){
-            @Override
-            public boolean keyDown(InputEvent event, int keycode) {
-                System.out.println(1);
-                return super.keyDown(event, keycode);
-            }
-        });
+
     }
 
     public boolean isEmpty(){

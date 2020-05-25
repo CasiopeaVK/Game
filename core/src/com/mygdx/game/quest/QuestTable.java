@@ -1,10 +1,13 @@
 package com.mygdx.game.quest;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 
 public class QuestTable extends Table {
@@ -38,6 +41,7 @@ public class QuestTable extends Table {
         this.add(currentDescription).left();
         this.row();
         this.add(isPerformedCheckBox).left();
+
     }
 
     public void congratulation() {
