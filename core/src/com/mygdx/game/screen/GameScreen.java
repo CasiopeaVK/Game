@@ -72,6 +72,7 @@ public class GameScreen extends AbstractScreen {
         gameUI.setCurrentCell();
         testItems();
         stage.update();
+        gameUI.renderSelectedItem(stage);
     }
 
     //TODO remove
