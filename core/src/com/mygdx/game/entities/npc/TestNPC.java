@@ -25,7 +25,7 @@ public class TestNPC extends InteractiveObject {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
-        Skin uiSkin = new Skin(Gdx.files.internal("flat-earth/flat-earth-ui.json"));
+        Skin uiSkin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         Dialog dialog = new Dialog("Warning", uiSkin, "default") {
             public void result(Object obj) {
                 System.out.println("result "+obj);
