@@ -3,80 +3,90 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.EllipseShapeBuilder;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.math.Ellipse;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
+import sun.java2d.pipe.SpanClipRenderer;
 
-public class Player extends Entity{
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import static com.mygdx.game.Constants.PLAYER_SPEED;
+
+public class Player extends AnimatedEntity {
+
     public Player(World world, Map map, Camera camera, String texturePath) {
-        super(world,camera,texturePath);
+        super(world, camera, texturePath);
         initialize(map);
     }
 
-    private void initialize(Map map){
-        sprite.setScale(spriteScale);
-        calculateSpawnPosition(map,"spawn");
+    private void initialize(Map map) {
+        calculateSpawnPosition(map, "spawn");
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
-
         body = world.createBody(bodyDef);
 
-        int STEPS = 7;
-        Vector2[] vertices = new Vector2[STEPS + 1];
-        for(int i = 0; i < STEPS; i++)
-        {
-            float t = (float)(i*2*Math.PI)/STEPS;
-            vertices[i] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(t), sprite.getWidth() / 6 * (float)Math.sin(t));
-        }
-        vertices[STEPS] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(0), 0);
 
         PolygonShape polygonShape = new PolygonShape();
-        polygonShape.set(vertices);
+        polygonShape.set(generatePlayerVerticles());
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = polygonShape;
         fixtureDef.density = 1f;
 
-        Fixture fixture = body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef);
     }
 
-    public void update(){
-        float speedX;
-        float speedY;
+
+    public void update() {
+        if (framesCounter == 10) {
+            handleClickedButtons();
+            handleMovement();
+            firstStep = false;
+            framesCounter = 0;
+        } else
+            framesCounter++;
+        world.step(Gdx.graphics.getDeltaTime(), 6, 6);
+        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED, yFactor * PLAYER_SPEED)));
+        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
+        camera.position.set(body.getPosition().x, body.getPosition().y, 0);
+    }
+
+    private void handleClickedButtons() {
+        if (xFactor == 0 && yFactor == 0) {
+            firstStep = true;
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            speedX = -400;
+            xFactor = -1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            speedX = 400;
+            xFactor = 1;
         } else {
-            speedX = 0;
+            xFactor = 0;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            speedY = -400;
+            yFactor = -1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            speedY = 400;
+            yFactor = 1;
         } else {
-            speedY = 0;
+            yFactor = 0;
         }
-        world.step(Gdx.graphics.getDeltaTime(), 6, 6);
-        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(speedX, speedY)));
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
-        camera.position.set(body.getPosition().x, body.getPosition().y, 0);
+    }
+
+    private Vector2[] generatePlayerVerticles() {
+        int STEPS = 7;
+        Vector2[] vertices = new Vector2[STEPS + 1];
+        for (int i = 0; i < STEPS; i++) {
+            float t = (float) (i * 2 * Math.PI) / STEPS;
+            vertices[i] = new Vector2(sprite.getWidth() / 3 * (float) Math.cos(t), sprite.getWidth() / 6 * (float) Math.sin(t));
+        }
+        vertices[STEPS] = new Vector2(sprite.getWidth() / 3 * (float) Math.cos(0), 0);
+        return vertices;
     }
 }
