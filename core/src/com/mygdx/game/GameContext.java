@@ -50,6 +50,7 @@ public class GameContext extends Game {
         assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
 
+
         //Set first screen
         camera = new OrthographicCamera();
         camera.far = 550;
@@ -58,6 +59,8 @@ public class GameContext extends Game {
         batch = new SpriteBatch();
         world = new World(new Vector2(0, 0), true);
         mapManager = new MapManager(this);
+        rayHandler = new RayHandler(world);
+        rayHandler.setAmbientLight(0,0 ,0,0.3f);
         gameRenderer = new GameRenderer(this);
 
 
@@ -90,8 +93,12 @@ public class GameContext extends Game {
         return mapManager;
     }
 
-    public GameRenderer getGameRenderer(){
+    public GameRenderer getGameRenderer() {
         return gameRenderer;
+    }
+
+    public RayHandler getRayHandler() {
+        return rayHandler;
     }
 
     public void setScreen(final ScreenType screenType) {
