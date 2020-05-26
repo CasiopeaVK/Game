@@ -9,6 +9,7 @@ import com.mygdx.game.Constants;
 import com.mygdx.game.Time.TimeTable;
 import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.inventory.InventoryCell;
+import com.mygdx.game.inventory.InventoryTable;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.QuestTable;
@@ -25,6 +26,11 @@ public class GameUI extends Table {
         addQuestTable();
         addTimeTable();
         addInventory();
+
+        //TODO remove after test
+        InventoryTable table = new InventoryTable(2,2);
+        table.setPosition(50,50);
+        this.addActor(table);
     }
 
     private void addInventory(){

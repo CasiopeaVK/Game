@@ -8,7 +8,6 @@ public class TimeManager {
     private static String minuteBlock = "";
     private static String hoursBlock = "";
 
-
     @Getter
     private static int minutes = 0;
     private static int hours = 0;
