@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.Constants;
 import com.mygdx.game.Time.TimeTable;
 import com.mygdx.game.inventory.Inventory;
-import com.mygdx.game.inventory.InventoryBuilder;
 import com.mygdx.game.inventory.InventoryCell;
+import com.mygdx.game.inventory.InventoryTable;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.QuestTable;
@@ -28,7 +28,7 @@ public class GameUI extends Table {
         addInventory();
 
         //TODO remove after test
-        InventoryBuilder.InventoryTable table = InventoryBuilder.getInventoryTable(1,2);
+        InventoryTable table = new InventoryTable(2,2);
         table.setPosition(50,50);
         this.addActor(table);
     }
