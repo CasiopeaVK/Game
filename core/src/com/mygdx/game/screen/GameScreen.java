@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.TestNPC;
 import com.mygdx.game.input.GameKeys;
@@ -51,17 +52,19 @@ public class GameScreen extends AbstractScreen {
 
         player = new Player(context, map,"hero/hero.png", gameUI, sensor);
         testNPC = new TestNPC(world, map, camera,"hero/hero.png");
-        item = new PickUpItem(world, camera, "dirt.png", GameItems.DIRT.getItem());
-        stage.addEntity(player);
-        stage.addEntity(testNPC);
-        stage.addEntity(item);
 
+        item = new PickUpItem(world, camera, "dirt.png", GameItems.DIRT.getItem());
         gameRenderer = context.getGameRenderer();
-        gameRenderer.addEntity(player);
-        gameRenderer.addEntity(testNPC);
-        gameRenderer.addEntity(item);
+        addEntity(player);
+        addEntity(testNPC);
+        addEntity(item);
         Gdx.input.setInputProcessor(stage);
 
+    }
+
+    private void addEntity(Entity entity){
+        stage.addEntity(entity);
+        gameRenderer.addEntity(entity);
     }
 
     @Override
