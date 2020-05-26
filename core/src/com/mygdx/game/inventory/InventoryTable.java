@@ -1,7 +1,6 @@
 package com.mygdx.game.inventory;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import lombok.Getter;
 
 public class InventoryTable extends Table {
 
