@@ -35,10 +35,10 @@ public class GameScreen extends AbstractScreen {
         super(context);
         world = context.getWorld();
         tiledMap = this.assetManager.get("Water.tmx", TiledMap.class);
-        map = new Map(tiledMap, world);
+        map = new Map(tiledMap, context);
         camera = context.getCamera();
         stage = new SmartStage();
-        player = new Player(world, map, camera,"hero/hero.png");
+        player = new Player(context, map,"hero/hero.png");
         testNPC = new TestNPC(world, map, camera,"hero/hero.png");
         stage.addEntity(player);
         stage.addEntity(testNPC);

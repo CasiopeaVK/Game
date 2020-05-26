@@ -1,23 +1,30 @@
 package com.mygdx.game.entities;
 
+import box2dLight.DirectionalLight;
+import box2dLight.Light;
+import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.GameContext;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
 
 import static com.mygdx.game.Constants.PLAYER_SPEED;
 
 public class Player extends AnimatedEntity {
+    public Light light;
 
-    public Player(World world, Map map, Camera camera, String texturePath) {
-        super(world, camera, texturePath);
-        initialize(map);
+    public Player(GameContext context, Map map, String texturePath) {
+        super(context.getWorld(), context.getCamera(), texturePath);
+        initialize(map, context);
+       // addLightAroundPlayer(context);
     }
 
-    private void initialize(Map map) {
+    private void initialize(Map map, GameContext context) {
         sprite.setScale(spriteScale);
         calculateSpawnPosition(map, "spawn");
         initCharacterBody(BodyDef.BodyType.DynamicBody);
@@ -30,7 +37,6 @@ public class Player extends AnimatedEntity {
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
         camera.position.set(body.getPosition().x, body.getPosition().y, 0);
     }
-
 
 
     private void handleClickedButtons() {
@@ -52,5 +58,10 @@ public class Player extends AnimatedEntity {
         } else {
             yFactor = 0;
         }
+    }
+    private void addLightAroundPlayer(GameContext context){
+        light = new PointLight(context.getRayHandler(), 64, new Color(1, 1, 1, 1f), 120, body.getPosition().x, body.getPosition().y);
+        light.attachToBody(body);
+        light.setIgnoreAttachedBody(true);
     }
 }

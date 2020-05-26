@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
@@ -38,6 +39,7 @@ public class GameContext extends Game {
     private World world;
     private MapManager mapManager;
     private GameRenderer gameRenderer;
+    private RayHandler rayHandler;
 
 
     @Override
@@ -48,6 +50,7 @@ public class GameContext extends Game {
         assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
 
+
         //Set first screen
         camera = new OrthographicCamera();
         camera.far = 550;
@@ -56,6 +59,8 @@ public class GameContext extends Game {
         batch = new SpriteBatch();
         world = new World(new Vector2(0, 0), true);
         mapManager = new MapManager(this);
+        rayHandler = new RayHandler(world);
+        rayHandler.setAmbientLight(0,0 ,0,0.3f);
         gameRenderer = new GameRenderer(this);
 
 
@@ -88,8 +93,12 @@ public class GameContext extends Game {
         return mapManager;
     }
 
-    public GameRenderer getGameRenderer(){
+    public GameRenderer getGameRenderer() {
         return gameRenderer;
+    }
+
+    public RayHandler getRayHandler() {
+        return rayHandler;
     }
 
     public void setScreen(final ScreenType screenType) {

@@ -40,7 +40,7 @@ public class MapManager {
         listeners.add(listener);
     }
 
-    public void setMap(final MapType type) {
+    public void setMap(final MapType type, GameContext context) {
         if (currentMapType == type) {
             return;
         }
@@ -53,7 +53,7 @@ public class MapManager {
         if (currentMap == null) {
             Gdx.app.debug(TAG, "Creating new map of type: " + type);
             final TiledMap tiledMap = assetManager.get(type.getFilePath(), TiledMap.class);
-            currentMap = new Map(tiledMap, world);
+            currentMap = new Map(tiledMap, context);
             mapCache.put(type, currentMap);
         }
         for (final MapListener listener: listeners){
