@@ -8,16 +8,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.Constants;
 import com.mygdx.game.Time.TimeTable;
 import com.mygdx.game.inventory.Inventory;
-import com.mygdx.game.inventory.InventoryCell;
 import com.mygdx.game.inventory.InventoryTable;
+import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.QuestTable;
+import lombok.Getter;
 
 public class GameUI extends Table {
     QuestTable questTable;
     TimeTable timeTable;
     Inventory inventory;
+
+    @Getter
+    boolean inventoryShow = false;
+
+    InventoryTable table;
 
     public GameUI(){
         allUiRender();
@@ -28,11 +34,22 @@ public class GameUI extends Table {
         addInventory();
 
         //TODO remove after test
-        InventoryTable table = new InventoryTable(2,2);
+        table = new InventoryTable(3,4);
+        table.setItem(GameItems.DIRT.getItem(), 5);
+        table.setItem(GameItems.SPOON.getItem(), 3);
         table.setPosition(50,50);
-        this.addActor(table);
+        System.out.println(table.getWidth() + " " + table.getHeight());
     }
 
+    public void showInventory(boolean flag){
+        if(flag)
+            this.addActor(table);
+        else{
+            this.removeActor(table);
+        }
+        inventoryShow = !inventoryShow;
+
+    }
     private void addInventory(){
         inventory = new Inventory();
         this.row();
@@ -75,7 +92,7 @@ public class GameUI extends Table {
 
         Batch batch = stage.getBatch();
         batch.begin();
-        System.out.println(Gdx.input.getX() + " "+Gdx.input.getY());
+        //System.out.println(Gdx.input.getX() + " "+Gdx.input.getY());
         Constants.APP_SKIN.getDrawable(Item.selectedItem.getName()).draw(batch,Gdx.input.getX()-15,Gdx.graphics.getHeight() - Gdx.input.getY()-15, 30,30);
         batch.end();
     }

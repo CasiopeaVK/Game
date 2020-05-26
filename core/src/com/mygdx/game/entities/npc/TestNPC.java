@@ -30,7 +30,7 @@ public class TestNPC extends InteractiveEntity {
         update(Constants.PLAYER_LOW_SPEED);
         if(TimeManager.getMinutes()%5==0){
             xFactor=-xFactor;
-            System.out.println(xFactor);
+            //System.out.println(xFactor);
         }
     }
 
@@ -39,7 +39,7 @@ public class TestNPC extends InteractiveEntity {
         Skin uiSkin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
         Dialog dialog = new Dialog("Warning", uiSkin, "default") {
             public void result(Object obj) {
-                System.out.println("result "+obj);
+                //System.out.println("result "+obj);
             }
         };
         dialog.text("Test Message");
