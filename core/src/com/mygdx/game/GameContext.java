@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
@@ -38,6 +39,7 @@ public class GameContext extends Game {
     private World world;
     private MapManager mapManager;
     private GameRenderer gameRenderer;
+    private RayHandler rayHandler;
 
 
     @Override
