@@ -87,7 +87,7 @@ public abstract class Entity extends Actor {
         fixtureDef.shape = polygonShape;
         fixtureDef.density = 1f;
 
-        Fixture fixture = body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef).setUserData(this);
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
     }
 

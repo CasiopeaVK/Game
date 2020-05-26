@@ -1,27 +1,30 @@
 package com.mygdx.game.entities;
 
-import box2dLight.DirectionalLight;
 import box2dLight.Light;
 import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.GameContext;
+import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
+import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.utils.IsoUtils;
 
 import static com.mygdx.game.Constants.PLAYER_SPEED;
 
 public class Player extends AnimatedEntity {
     public Light light;
+    public GameUI gameUI;
+    public PickUpSensor sensor;
 
-    public Player(GameContext context, Map map, String texturePath) {
+    public Player(GameContext context, Map map, String texturePath, GameUI gameUI, PickUpSensor sensor) {
         super(context.getWorld(), context.getCamera(), texturePath);
         initialize(map, context);
-       // addLightAroundPlayer(context);
+        this.gameUI = gameUI;
+        this.sensor = sensor;
     }
 
     private void initialize(Map map, GameContext context) {
@@ -58,8 +61,18 @@ public class Player extends AnimatedEntity {
         } else {
             yFactor = 0;
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.T)) {
+            if (sensor.isTriggered()) {
+                gameUI.getInventory().addItem(sensor.getPickUpItem().getItem());
+                sensor.getPickUpItem().hideItem();
+                System.out.println("Hide");
+            }
+
+        }
     }
-    private void addLightAroundPlayer(GameContext context){
+
+    private void addLightAroundPlayer(GameContext context) {
         light = new PointLight(context.getRayHandler(), 64, new Color(1, 1, 1, 1f), 120, body.getPosition().x, body.getPosition().y);
         light.attachToBody(body);
         light.setIgnoreAttachedBody(true);

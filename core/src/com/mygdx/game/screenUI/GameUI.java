@@ -18,6 +18,7 @@ import lombok.Getter;
 public class GameUI extends Table {
     QuestTable questTable;
     TimeTable timeTable;
+    @Getter
     Inventory inventory;
 
     @Getter

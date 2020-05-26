@@ -11,26 +11,26 @@ public class Inventory extends Table {
     private InventoryCell[] cells;
     private int currentCell = 0;
 
-    public Inventory(){
+    public Inventory() {
         cells = new InventoryCell[COUNT_CELL];
         initializeCell();
-        this.setSize(InventoryCell.getCELL_SIZE()*COUNT_CELL, InventoryCell.getCELL_SIZE());
+        this.setSize(InventoryCell.getCELL_SIZE() * COUNT_CELL, InventoryCell.getCELL_SIZE());
         this.center();
-        this.setPosition((Gdx.graphics.getWidth()-getWidth())/2,0);
+        this.setPosition((Gdx.graphics.getWidth() - getWidth()) / 2, 0);
 
     }
 
-    private void initializeCell(){
-        for(int i =0; i<COUNT_CELL;i++){
-            cells[i] = new InventoryCell(currentCell == i,i* InventoryCell.getCELL_SIZE(),3);
+    private void initializeCell() {
+        for (int i = 0; i < COUNT_CELL; i++) {
+            cells[i] = new InventoryCell(currentCell == i, i * InventoryCell.getCELL_SIZE(), 3);
             this.addActor(cells[i]);
         }
 
     }
 
-    public void addItem(Item item){
-        for(InventoryCell cell:cells){
-            if(cell.isEmpty()){
+    public void addItem(Item item) {
+        for (InventoryCell cell : cells) {
+            if (cell.isEmpty()) {
                 cell.setItem(item);
                 return;
             }
@@ -45,5 +45,10 @@ public class Inventory extends Table {
         cells[this.currentCell].setCurrent(true);
     }
 
-
+    public boolean isFull() {
+        for (InventoryCell cell : cells) {
+            if (cell.isEmpty()) return false;
+        }
+        return true;
+    }
 }

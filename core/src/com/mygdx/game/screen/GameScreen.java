@@ -8,7 +8,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.TestNPC;
+import com.mygdx.game.input.GameKeys;
 import com.mygdx.game.items.GameItems;
+import com.mygdx.game.items.Item;
+import com.mygdx.game.items.PickUpItem;
+import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
 
 import com.mygdx.game.quest.QuestTable;
@@ -17,10 +21,10 @@ import com.mygdx.game.Time.TimeTable;
 import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
+import lombok.Getter;
 
 public class GameScreen extends AbstractScreen {
 
-   // private final IsometricOrderRenderer mapRenderer;
     private OrthographicCamera camera;
 
     private World world;
@@ -31,24 +35,33 @@ public class GameScreen extends AbstractScreen {
     Player player;
     TestNPC testNPC;
     GameUI gameUI;
+    PickUpItem item;
+    PickUpSensor sensor;
+
     public GameScreen(final GameContext context) {
         super(context);
+        sensor = new PickUpSensor();
         world = context.getWorld();
+        world.setContactListener(sensor);
         tiledMap = this.assetManager.get("Water.tmx", TiledMap.class);
         map = new Map(tiledMap, context);
         camera = context.getCamera();
         stage = new SmartStage();
-        player = new Player(context, map,"hero/hero.png");
+        gameUI = new GameUI();
+
+        player = new Player(context, map,"hero/hero.png", gameUI, sensor);
         testNPC = new TestNPC(world, map, camera,"hero/hero.png");
+        item = new PickUpItem(world, camera, "dirt.png", GameItems.DIRT.getItem());
         stage.addEntity(player);
         stage.addEntity(testNPC);
+        stage.addEntity(item);
 
         gameRenderer = context.getGameRenderer();
         gameRenderer.addEntity(player);
         gameRenderer.addEntity(testNPC);
+        gameRenderer.addEntity(item);
         Gdx.input.setInputProcessor(stage);
 
-        gameUI = new GameUI();
     }
 
     @Override
@@ -70,7 +83,7 @@ public class GameScreen extends AbstractScreen {
         gameRenderer.render(1f);
         gameUI.updateTime();
         gameUI.setCurrentCell();
-        testItems();
+        //testItems();
         stage.update();
         gameUI.renderSelectedItem(stage);
     }
