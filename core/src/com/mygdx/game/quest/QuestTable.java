@@ -11,6 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 
 public class QuestTable extends Table {
+    private final int TABLE_WIDTH = 250;
+    private final int TABLE_HEIGHT = 150;
+    private final int TABLE_PAD = 10;
+    private final String TABLE_BG = "Semi-gray";
+    private final String NAME_STYLE = "default";
+    private final String DESCRIPTION_STYLE = "default";
+
     QuestLine questLine;
     Quest currentQuest;
 
@@ -27,13 +34,15 @@ public class QuestTable extends Table {
     }
 
     private void initialization() {
-        this.background("Semi-gray").setSize(250,150);
+        this.background(TABLE_BG).setSize(TABLE_WIDTH,TABLE_HEIGHT);
         this.setPosition(Gdx.graphics.getWidth()-getWidth(), Gdx.graphics.getHeight()-getHeight());
-        this.pad(10,10,10,10);
+        this.pad(TABLE_PAD);
+
         this.currentQuest = questLine.getQuest();
-        this.currentName = new Label(currentQuest.getName(), Constants.APP_SKIN, "default");
-        this.currentDescription = new Label(currentQuest.getDescription(), Constants.APP_SKIN, "default");
+        this.currentName = new Label(currentQuest.getName(), Constants.APP_SKIN, NAME_STYLE);
+        this.currentDescription = new Label(currentQuest.getDescription(), Constants.APP_SKIN, DESCRIPTION_STYLE);
         this.isPerformedCheckBox.setDisabled(true);
+
         this.add(header).left();
         this.row();
         this.add(currentName).left();

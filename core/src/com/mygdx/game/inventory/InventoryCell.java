@@ -12,6 +12,9 @@ import lombok.Getter;
 
 public class InventoryCell extends Table {
 
+    private static final String SAMPLE_CELL_STYLE =  "cell-draw";
+    private static final String SELECTED_CELL_STYLE =  "selectCell";
+
     @Getter
     private static final int CELL_SIZE = 60;
     private static final int CELL_ITEM_SIZE = 50;
@@ -67,7 +70,7 @@ public class InventoryCell extends Table {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.setColor(1, 1, 1, parentAlpha);
-        Constants.APP_SKIN.getDrawable(current ? "selectCell" : "cell-draw").draw(batch, this.getX(), this.getY(), CELL_SIZE, CELL_SIZE);
+        Constants.APP_SKIN.getDrawable(current ? SELECTED_CELL_STYLE : SAMPLE_CELL_STYLE).draw(batch, this.getX(), this.getY(), CELL_SIZE, CELL_SIZE);
 
         if (item != null) {
             int dx =(CELL_SIZE-CELL_ITEM_SIZE)/2;

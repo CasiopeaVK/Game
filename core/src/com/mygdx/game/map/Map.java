@@ -31,9 +31,13 @@ public class Map {
     }
 
     public MapObject getObject(String layerName, String objectName) {
-        MapLayer layer = tiledMap.getLayers().get(layerName);
+        MapLayer layer = getLayer(layerName);
         MapObjects objects = layer.getObjects();
         return objects.get(objectName);
+    }
+
+    public MapLayer getLayer(String layerName){
+        return tiledMap.getLayers().get(layerName);
     }
 
     public TiledMap getTiledMap() {

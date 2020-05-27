@@ -8,21 +8,16 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
-import com.mygdx.game.entities.npc.TestNPC;
-import com.mygdx.game.input.GameKeys;
+import com.mygdx.game.entities.npc.Npc;
 import com.mygdx.game.items.GameItems;
-import com.mygdx.game.items.Item;
 import com.mygdx.game.items.PickUpItem;
 import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
 
-import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.Time.TimeManager;
-import com.mygdx.game.Time.TimeTable;
 import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
-import lombok.Getter;
 
 public class GameScreen extends AbstractScreen {
 
@@ -34,7 +29,7 @@ public class GameScreen extends AbstractScreen {
     private GameRenderer gameRenderer;
     SmartStage stage;
     Player player;
-    TestNPC testNPC;
+    Npc npc;
     GameUI gameUI;
     PickUpItem item;
     PickUpSensor sensor;
@@ -51,12 +46,12 @@ public class GameScreen extends AbstractScreen {
         gameUI = new GameUI();
 
         player = new Player(context, map,"hero/hero.png", gameUI, sensor);
-        testNPC = new TestNPC(world, map, camera,"hero/hero.png");
+        npc = new Npc(world, map, camera,"hero/hero.png", "testNpc", "testPath");
 
         item = new PickUpItem(world, camera, "dirt.png", GameItems.DIRT.getItem());
         gameRenderer = context.getGameRenderer();
         addEntity(player);
-        addEntity(testNPC);
+        addEntity(npc);
         addEntity(item);
         Gdx.input.setInputProcessor(stage);
 
