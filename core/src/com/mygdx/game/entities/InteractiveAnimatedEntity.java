@@ -10,17 +10,22 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
+import com.mygdx.game.utils.IsoUtils;
 
-abstract public class InteractiveEntity extends Entity{
+public abstract class InteractiveAnimatedEntity extends AnimatedEntity{
     protected Stage stage;
 
-    public InteractiveEntity(World world, Camera camera, String texturePath) {
+    public InteractiveAnimatedEntity(World world, Camera camera, String texturePath) {
         super(world, camera, texturePath);
     }
 
     public void update(float speed) {
+        super.update(()->{});
         updateClickListener();
-
+        world.step(Gdx.graphics.getDeltaTime(), 6, 6);
+        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * speed, yFactor * speed)));
+        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
+        //camera.position.set(body.getPosition().x, body.getPosition().y, 0);
     }
 
 
