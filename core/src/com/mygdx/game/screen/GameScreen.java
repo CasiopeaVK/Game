@@ -51,7 +51,7 @@ public class GameScreen extends AbstractScreen {
         gameUI = new GameUI();
 
         player = new Player(context, map,"hero/hero.png", gameUI, sensor);
-        testNPC = new TestNPC(world, map, camera,"hero/hero.png");
+        testNPC = new TestNPC(world, map, camera,"hero/hero.png", "testNpc", "testPath");
 
         item = new PickUpItem(world, camera, "dirt.png", GameItems.DIRT.getItem());
         gameRenderer = context.getGameRenderer();
