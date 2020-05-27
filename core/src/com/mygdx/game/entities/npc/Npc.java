@@ -18,9 +18,9 @@ import com.sun.tools.javac.util.Pair;
 
 import java.util.*;
 
-public class TestNPC extends InteractiveEntity {
+public class Npc extends InteractiveEntity {
     Path path;
-    public TestNPC(World world, Map map, Camera camera, String texturePath, String markerName, String pathName) {
+    public Npc(World world, Map map, Camera camera, String texturePath, String markerName, String pathName) {
         super(world, camera, texturePath);
         initialize(map,markerName,pathName);
         xFactor = 1;
