@@ -31,7 +31,7 @@ public class Npc extends InteractiveEntity {
         sprite.setScale(spriteScale);
         calculateSpawnPosition(map,markerName);
         path = new Path(map,pathName);
-        initCharacterBody(BodyDef.BodyType.DynamicBody);
+        initCharacterBody(BodyDef.BodyType.KinematicBody);
     }
 
     @Override
