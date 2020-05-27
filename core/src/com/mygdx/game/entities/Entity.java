@@ -40,11 +40,12 @@ public abstract class Entity extends Actor {
 
         MapProperties prop = map.getProperties();
 
-        int tileWidth = prop.get("tilewidth", Integer.class);
-        int tileHeight = prop.get("tileheight", Integer.class);
+        Vector2 res = IsoUtils.IsoTo2d(iso);
+        setPosition(res);
+    }
 
-        Vector2 res = IsoUtils.IsoTo2d(iso,new Vector2(tileWidth,tileHeight));
-        sprite.setPosition(res.x,res.y);
+    protected void setPosition(Vector2 vector2){
+        sprite.setPosition(vector2.x,vector2.y);
     }
 
     public Sprite getSprite() {

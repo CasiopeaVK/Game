@@ -23,7 +23,6 @@ abstract public class InteractiveEntity extends Entity{
 
     }
 
-
     protected void updateClickListener() {
         setBounds();
         this.setTouchable(Touchable.enabled);
