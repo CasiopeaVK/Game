@@ -51,4 +51,12 @@ public class Inventory extends Table {
         }
         return true;
     }
+
+    public boolean isSelectedEmpty() {
+        return cells[currentCell].isEmpty();
+    }
+
+    public InventoryCell getSellectedCell() {
+        return cells[currentCell];
+    }
 }

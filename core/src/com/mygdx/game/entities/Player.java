@@ -62,13 +62,16 @@ public class Player extends AnimatedEntity {
             yFactor = 0;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.T)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (sensor.isTriggered()) {
                 gameUI.getInventory().addItem(sensor.getPickUpItem().getItem());
                 sensor.getPickUpItem().hideItem();
-                System.out.println("Hide");
             }
-
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            if (!gameUI.getInventory().isSelectedEmpty()) {
+                gameUI.getInventory().getSellectedCell().setItem(null);
+            }
         }
     }
 

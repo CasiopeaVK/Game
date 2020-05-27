@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 import com.mygdx.game.items.Item;
+import com.mygdx.game.items.PickUpItem;
 import lombok.Getter;
 
 public class InventoryCell extends Table {

@@ -76,6 +76,8 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
                     if (layer.getName().equals("Walls")) {
                         drawSprites();
                         renderTileLayer((TiledMapTileLayer) layer);
+                    } else {
+                        super.renderTileLayer((TiledMapTileLayer) layer);
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {
@@ -257,7 +259,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
                 return (int) (o2.getSprite().getY() - o1.getSprite().getY());
             }
         });
-        for (Entity entity:entityList) {
+        for (Entity entity : entityList) {
             entity.getSprite().draw(batch);
         }
     }
