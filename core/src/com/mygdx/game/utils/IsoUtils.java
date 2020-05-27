@@ -13,7 +13,7 @@ public class IsoUtils {
         return vel2;
     }
 
-    public static Vector2 IsoTo2d(Vector2 isoVector, Vector2 tileDimensions) {
+    public static Vector2 IsoTo2d(Vector2 isoVector) {
         float x = (isoVector.x + isoVector.y) * Constants.UNIT_SCALE;
         float y = ((isoVector.y - isoVector.x) * Constants.UNIT_SCALE) / 2;
         return new Vector2(x, y);

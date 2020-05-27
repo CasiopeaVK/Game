@@ -2,10 +2,7 @@ package com.mygdx.game.entities.npc;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -13,25 +10,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.Constants;
 import com.mygdx.game.Time.TimeManager;
 import com.mygdx.game.entities.InteractiveAnimatedEntity;
-import com.mygdx.game.entities.InteractiveEntity;
 import com.mygdx.game.map.Map;
-import com.sun.tools.javac.util.Pair;
-
-import java.util.*;
+import com.mygdx.game.utils.IsoUtils;
 
 public class Npc extends InteractiveAnimatedEntity {
-    Path path;
-    public Npc(World world, Map map, Camera camera, String texturePath, String markerName, String pathName) {
+    private Path path;
+    public Npc(World world, Map map, Camera camera, String texturePath, String pathName) {
         super(world, camera, texturePath);
-        initialize(map,markerName,pathName);
+        initialize(map,pathName);
         xFactor = 1;
     }
 
-    private void initialize(Map map, String markerName, String pathName){
+    private void initialize(Map map, String pathName){
         spriteScale = 0.6f;
         sprite.setScale(spriteScale);
-        calculateSpawnPosition(map,markerName);
         path = new Path(map,pathName);
+        calculateSpawnPosition();
         initCharacterBody(BodyDef.BodyType.KinematicBody);
     }
 
@@ -58,5 +52,7 @@ public class Npc extends InteractiveAnimatedEntity {
         dialog.show(stage);
     }
 
-
+    protected void calculateSpawnPosition() {
+        setPosition(IsoUtils.IsoTo2d(path.getIsoFirstPoint()));
+    }
 }
