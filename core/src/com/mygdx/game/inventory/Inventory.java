@@ -25,7 +25,15 @@ public class Inventory extends Table {
             cells[i] = new InventoryCell(currentCell == i, i * InventoryCell.getCELL_SIZE(), 3);
             this.addActor(cells[i]);
         }
+    }
 
+    public InventoryCell getCellWithItem(Item item){
+        String name = item.getName();
+        for(InventoryCell cell:cells){
+            if(cell.getItem() != null && cell.getItem().getName().equals(name))
+                return cell;
+        }
+        return null;
     }
 
     public void addItem(Item item) {

@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.Tunel;
 import com.mygdx.game.entities.npc.Npc;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.PickUpItem;
@@ -49,10 +50,13 @@ public class GameScreen extends AbstractScreen {
         npc = new Npc(world, map, camera,"hero/hero.png", "testNpc");
 
         item = new PickUpItem(world, camera, "dirt.png", GameItems.DIRT.getItem());
+        Tunel tunel = new Tunel(world, camera,"dirt.png", gameUI.getInventory());
         gameRenderer = context.getGameRenderer();
+
         addEntity(player);
         addEntity(npc);
         addEntity(item);
+        addEntity(tunel);
         Gdx.input.setInputProcessor(stage);
 
     }
@@ -81,7 +85,7 @@ public class GameScreen extends AbstractScreen {
         gameRenderer.render(1f);
         gameUI.updateTime();
         gameUI.setCurrentCell();
-        //testItems();
+        testItems();
         stage.update();
         gameUI.renderSelectedItem(stage);
     }

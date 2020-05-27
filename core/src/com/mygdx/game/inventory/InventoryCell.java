@@ -62,6 +62,10 @@ public class InventoryCell extends Table {
         this.item = item;
     }
 
+    public Item getItem() {
+        return item;
+    }
+
     public void setCurrent(boolean isCurrent) {
         this.current = isCurrent;
     }
