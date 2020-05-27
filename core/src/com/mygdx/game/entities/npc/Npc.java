@@ -12,13 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.Constants;
 import com.mygdx.game.Time.TimeManager;
+import com.mygdx.game.entities.InteractiveAnimatedEntity;
 import com.mygdx.game.entities.InteractiveEntity;
 import com.mygdx.game.map.Map;
 import com.sun.tools.javac.util.Pair;
 
 import java.util.*;
 
-public class Npc extends InteractiveEntity {
+public class Npc extends InteractiveAnimatedEntity {
     Path path;
     public Npc(World world, Map map, Camera camera, String texturePath, String markerName, String pathName) {
         super(world, camera, texturePath);
