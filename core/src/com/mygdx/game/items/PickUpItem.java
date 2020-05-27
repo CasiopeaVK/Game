@@ -51,7 +51,7 @@ public class PickUpItem extends Entity {
         if (isOutline) {
             sprite.setScale(sprite.getScaleX() * 1.4f);
         } else {
-            sprite.setScale(sprite.getScaleX() / 1.1f);
+            sprite.setScale(sprite.getScaleX() / 1.4f);
         }
     }
 
