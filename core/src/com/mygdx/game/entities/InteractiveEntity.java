@@ -12,8 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 import com.mygdx.game.utils.IsoUtils;
 
-import static com.mygdx.game.Constants.PLAYER_SPEED;
-
 abstract public class InteractiveEntity extends AnimatedEntity {
     protected Stage stage;
 

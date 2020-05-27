@@ -5,7 +5,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.map.Map;
-import com.sun.tools.javac.util.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 
@@ -30,12 +30,12 @@ public class Path {
         private Pair<List<String>, Rectangle> self;
 
         public Point(MapObject mapObject) {
-            self = new Pair<>(Arrays.asList(mapObject.getName().split("_")),
+            self = Pair.of(Arrays.asList(mapObject.getName().split("_")),
                     ((RectangleMapObject) mapObject).getRectangle());
         }
 
         public List<String> getName() {
-            return self.fst;
+            return self.getLeft();
         }
     }
 }
