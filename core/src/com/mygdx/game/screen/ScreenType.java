@@ -5,7 +5,8 @@ import com.badlogic.gdx.Screen;
 public enum ScreenType {
     GAME(GameScreen.class),
     MENU(MenuScreen.class),
-    LOADING(LoadingScreen.class);
+    LOADING(LoadingScreen.class),
+    RESTART(RestartScreen.class);
 
     private final Class<? extends AbstractScreen> screenClass;
 
