@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
 
@@ -90,6 +91,14 @@ public abstract class Entity extends Actor {
 
         body.createFixture(fixtureDef).setUserData(this);
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
+    }
+
+    protected Vector2 getPosition(){
+        return new Vector2(sprite.getX(),sprite.getY());
+    }
+
+    protected Vector2 getIsoPosition(){
+        return IsoUtils.LocalToIso(getPosition());
     }
 
     abstract public void update();
