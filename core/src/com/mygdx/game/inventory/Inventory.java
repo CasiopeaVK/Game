@@ -2,6 +2,7 @@ package com.mygdx.game.inventory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
 
 public class Inventory extends Table {
@@ -25,7 +26,15 @@ public class Inventory extends Table {
             cells[i] = new InventoryCell(currentCell == i, i * InventoryCell.getCELL_SIZE(), 3);
             this.addActor(cells[i]);
         }
+    }
 
+    public InventoryCell getCellWithItem(GameItems item) {
+        String name = item.getName();
+        for (InventoryCell cell : cells) {
+            if (cell.getItem() != null && cell.getItem().getName().equals(name))
+                return cell;
+        }
+        return null;
     }
 
     public void addItem(Item item) {

@@ -29,9 +29,9 @@ public class Item extends InteractiveEntity {
 
     public static Item selectedItem;
 
-    public Item(World world, Camera camera, String texturePath, String name, GameRenderer renderer) {
-        super(world, camera, texturePath);
-        this.name = name;
+    public Item(World world, Camera camera, GameRenderer renderer, GameItems item) {
+        super(world, camera, item.getPath());
+        this.name = item.getName();
         this.renderer = renderer;
         initialize(world);
     }
@@ -63,11 +63,6 @@ public class Item extends InteractiveEntity {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
-
-    }
-
-    @Override
-    protected void onHover(MouseEvent event, float x, float y) {
 
     }
 

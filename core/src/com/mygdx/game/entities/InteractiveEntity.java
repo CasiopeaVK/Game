@@ -42,8 +42,6 @@ abstract public class InteractiveEntity extends Entity {
 
     abstract protected void onClick(InputEvent event, float x, float y);
 
-    abstract protected void onHover(MouseEvent event, float x, float y);
-
     protected void setBounds() {
         Vector3 spriteWindowCorners = camera.project(new Vector3(sprite.getX() + getWidth(), sprite.getY() + getHeight(), 0));
         Vector3 spriteWindowPosition = camera.project(new Vector3(sprite.getX(), sprite.getY(), 0));

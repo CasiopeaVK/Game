@@ -8,8 +8,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.Tunel;
 import com.mygdx.game.entities.npc.Npc;
+import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
+import com.mygdx.game.items.ItemBuilder;
 import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
 
@@ -44,14 +47,20 @@ public class GameScreen extends AbstractScreen {
         stage = new SmartStage();
         gameUI = new GameUI();
         gameRenderer = context.getGameRenderer();
+        ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
 
         player = new Player(context, map,"hero/hero.png", gameUI, sensor);
         npc = new Npc(world, map, camera,"hero/hero.png", "testNpc");
-        item = new Item(world, camera, "dirt.png", "dirt", gameRenderer);
+
+        item = itemBuilder.createItem(GameItems.DIRT);
+
+        Tunel tunel = new Tunel(world, camera,"dirt.png", gameUI.getInventory(), itemBuilder);
+        gameRenderer = context.getGameRenderer();
 
         addEntity(player);
         addEntity(npc);
         addEntity(item);
+        addEntity(tunel);
         Gdx.input.setInputProcessor(stage);
 
     }
