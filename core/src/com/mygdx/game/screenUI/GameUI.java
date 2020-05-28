@@ -9,7 +9,6 @@ import com.mygdx.game.Constants;
 import com.mygdx.game.Time.TimeTable;
 import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.inventory.InventoryTable;
-import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.QuestTable;
@@ -35,11 +34,11 @@ public class GameUI extends Table {
         addInventory();
 
         //TODO remove after test
-        table = new InventoryTable(3,4);
-        table.setItem(GameItems.DIRT.getItem(), 5);
-        table.setItem(GameItems.SPOON.getItem(), 3);
-        table.setPosition(50,50);
-        System.out.println(table.getWidth() + " " + table.getHeight());
+//        table = new InventoryTable(3,4);
+//        table.setItem(GameItems.DIRT.getItem(), 5);
+//        table.setItem(GameItems.SPOON.getItem(), 3);
+//        table.setPosition(50,50);
+//        System.out.println(table.getWidth() + " " + table.getHeight());
     }
 
     public void showInventory(boolean flag){

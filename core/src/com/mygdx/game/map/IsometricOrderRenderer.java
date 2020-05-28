@@ -13,8 +13,10 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.entities.Player;
 import com.mygdx.game.utils.IsoUtils;
 
+import java.util.Map;
 import java.util.*;
 
 import static com.badlogic.gdx.graphics.g2d.Batch.*;
@@ -40,6 +42,17 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
 
     public void addEntity(Entity entity) {
         entities.put(entity, new Vector2());
+    }
+
+    public void removeEntity(Entity entity) {
+        entities.remove(entity);
+    }
+
+    public Entity getPlayer() {
+        for (Map.Entry<Entity, Vector2> entry : entities.entrySet()) {
+            if (entry.getKey() instanceof Player) return entry.getKey();
+        }
+        return null;
     }
 
     private void init() {

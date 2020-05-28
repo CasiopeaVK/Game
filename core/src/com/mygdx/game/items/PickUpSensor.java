@@ -9,7 +9,7 @@ public class PickUpSensor implements ContactListener {
     @Getter
     private boolean isTriggered = false;
     @Getter
-    private PickUpItem pickUpItem = null;
+    private Item item = null;
 
     @Override
     public void beginContact(Contact contact) {
@@ -18,10 +18,10 @@ public class PickUpSensor implements ContactListener {
         if (A.getUserData() == null || B.getUserData() == null) {
             return;
         }
-        pickUpItem = isItemContact(A, B);
-        if (pickUpItem != null) {
-            pickUpItem.setOutlineToSprite(true);
+        item = isItemContact(A, B);
+        if (item != null) {
             isTriggered = true;
+            item.setZoomToSprite(true);
         }
     }
 
@@ -32,10 +32,10 @@ public class PickUpSensor implements ContactListener {
         if (A.getUserData() == null || B.getUserData() == null) {
             return;
         }
-        pickUpItem = isItemContact(A, B);
-        if (pickUpItem != null) {
-            pickUpItem.setOutlineToSprite(false);
+        item = isItemContact(A, B);
+        if (item != null) {
             isTriggered = false;
+            item.setZoomToSprite(false);
         }
     }
 
@@ -49,14 +49,14 @@ public class PickUpSensor implements ContactListener {
 
     }
 
-    private PickUpItem isItemContact(Fixture a, Fixture b) {
-        if (a.getUserData() instanceof PickUpItem) {
+    private Item isItemContact(Fixture a, Fixture b) {
+        if (a.getUserData() instanceof Item) {
             if (b.getUserData() instanceof Player) {
-                return (PickUpItem) a.getUserData();
+                return (Item) a.getUserData();
             }
-        } else if (b.getUserData() instanceof PickUpItem) {
+        } else if (b.getUserData() instanceof Item) {
             if (a.getUserData() instanceof Player) {
-                return (PickUpItem) b.getUserData();
+                return (Item) b.getUserData();
             }
         }
         return null;

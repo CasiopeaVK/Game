@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -17,8 +15,6 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.map.IsometricOrderRenderer;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.map.MapListener;
-
-import java.util.EnumMap;
 
 import static com.mygdx.game.Constants.UNIT_SCALE;
 
@@ -76,5 +72,13 @@ public class GameRenderer implements Disposable, MapListener {
 
     public void addEntity(Entity entity) {
         mapRenderer.addEntity(entity);
+    }
+
+    public void removeEntity(Entity entity) {
+        mapRenderer.removeEntity(entity);
+    }
+
+    public Entity getPlayerEntity() {
+        return mapRenderer.getPlayer();
     }
 }

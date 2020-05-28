@@ -43,6 +43,7 @@ public class Player extends AnimatedEntity {
 
 
     private void handleClickedButtons() {
+
         if (xFactor == 0 && yFactor == 0) {
             firstStep = true;
         }
@@ -64,12 +65,13 @@ public class Player extends AnimatedEntity {
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (sensor.isTriggered()) {
-                gameUI.getInventory().addItem(sensor.getPickUpItem().getItem());
-                sensor.getPickUpItem().hideItem();
+                gameUI.getInventory().addItem(sensor.getItem());
+                sensor.getItem().hideItem();
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             if (!gameUI.getInventory().isSelectedEmpty()) {
+                gameUI.getInventory().getSellectedCell().getItem().createPickUpItem();
                 gameUI.getInventory().getSellectedCell().setItem(null);
             }
         }

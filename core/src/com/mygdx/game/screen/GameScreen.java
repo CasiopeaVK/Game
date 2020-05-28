@@ -9,8 +9,7 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.Npc;
-import com.mygdx.game.items.GameItems;
-import com.mygdx.game.items.PickUpItem;
+import com.mygdx.game.items.Item;
 import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
 
@@ -31,7 +30,7 @@ public class GameScreen extends AbstractScreen {
     Player player;
     Npc npc;
     GameUI gameUI;
-    PickUpItem item;
+    Item item;
     PickUpSensor sensor;
 
     public GameScreen(final GameContext context) {
@@ -44,12 +43,12 @@ public class GameScreen extends AbstractScreen {
         camera = context.getCamera();
         stage = new SmartStage();
         gameUI = new GameUI();
+        gameRenderer = context.getGameRenderer();
 
         player = new Player(context, map,"hero/hero.png", gameUI, sensor);
         npc = new Npc(world, map, camera,"hero/hero.png", "testNpc");
+        item = new Item(world, camera, "dirt.png", "dirt", gameRenderer);
 
-        item = new PickUpItem(world, camera, "dirt.png", GameItems.DIRT.getItem());
-        gameRenderer = context.getGameRenderer();
         addEntity(player);
         addEntity(npc);
         addEntity(item);
@@ -81,21 +80,10 @@ public class GameScreen extends AbstractScreen {
         gameRenderer.render(1f);
         gameUI.updateTime();
         gameUI.setCurrentCell();
-        //testItems();
         stage.update();
         gameUI.renderSelectedItem(stage);
     }
 
-    //TODO remove
-    private void testItems(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
-            gameUI.addItem(GameItems.DIRT.getItem());
-        if(Gdx.input.isKeyJustPressed(Input.Keys.R))
-            gameUI.addItem(GameItems.SPOON.getItem());
-        if(Gdx.input.isKeyJustPressed(Input.Keys.Q))
-            gameUI.showInventory(!gameUI.isInventoryShow());
-
-    }
     @Override
     public void resize(int width, int height) {
 
