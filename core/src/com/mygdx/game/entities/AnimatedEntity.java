@@ -20,7 +20,7 @@ abstract public class AnimatedEntity extends Entity {
     protected boolean firstStep;
     private int idleNumber;
     private int animationStep;
-    private int framesCounter;
+    private float animationAccumulator = 0;
     private ArrayList<ArrayList<Sprite>> sprites;
 
 
@@ -31,7 +31,6 @@ abstract public class AnimatedEntity extends Entity {
         xFactor = yFactor = 0;
         idleNumber = 0;
         animationStep = 1;
-        framesCounter = 0;
 
         Texture textureSheet = new Texture(Gdx.files.internal(texturePath));
         TextureRegion[][] tmp = TextureRegion.split(textureSheet, textureSheet.getWidth() / 8, textureSheet.getHeight() / 16);
@@ -50,13 +49,13 @@ abstract public class AnimatedEntity extends Entity {
 
     public void update(Executor clickHandler) {
         //TODO rewrite
-        if (framesCounter == 6) {
+        if (animationAccumulator >= 0.1) {
             clickHandler.execute();
             handleMovement();
             firstStep = false;
-            framesCounter = 0;
-        } else
-            framesCounter++;
+            animationAccumulator = 0;
+        }else
+            animationAccumulator += Gdx.graphics.getDeltaTime();
     }
 
     //this method is setting the appropriate sprite according to the xFactor and yFactor values
