@@ -1,0 +1,28 @@
+[
+  {
+    "text": "testDialog",
+    "answers": [
+      {
+        "text": "goto next",
+        "target": 1
+      },
+      {
+        "text": "exit",
+        "target": -1
+      }
+    ]
+  },
+  {
+    "text": "testDialog next",
+    "answers": [
+      {
+        "text": "exit",
+        "target": -1
+      },
+      {
+        "text": "goto previos",
+        "target": 0
+      }
+    ]
+  }
+]
