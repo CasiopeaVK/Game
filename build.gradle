@@ -64,5 +64,6 @@ project(":core") {
         compile "com.badlogicgames.ashley:ashley:1.7.3"
         compile "com.badlogicgames.box2dlights:box2dlights:1.4"
         implementation 'org.apache.commons:commons-lang3:3.6'
+        compile group: 'org.json', name: 'json', version: '20090211'
     }
 }
