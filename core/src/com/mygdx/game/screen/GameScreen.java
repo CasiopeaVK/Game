@@ -50,13 +50,13 @@ public class GameScreen extends AbstractScreen {
         gameRenderer = context.getGameRenderer();
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
 
-        player = new Player(context, map,"hero/hero.png", gameUI, sensor);
-        npc = new Npc(world, map, camera,"hero/hero.png", "testNpc");
+        player = new Player(context, map, "hero/hero.png", gameUI, sensor);
+        npc = new Npc(world, map, camera, "hero/hero.png", "testNpc");
 
 
         item = itemBuilder.createItem(GameItems.DIRT);
 
-        Tunel tunel = new Tunel(world, camera,"dirt.png", gameUI.getInventory(), itemBuilder);
+        Tunel tunel = new Tunel(world, camera, "dirt.png", gameUI.getInventory(), itemBuilder);
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);
@@ -67,7 +67,7 @@ public class GameScreen extends AbstractScreen {
 
     }
 
-    private void addEntity(Entity entity){
+    private void addEntity(Entity entity) {
         stage.addEntity(entity);
         gameRenderer.addEntity(entity);
     }

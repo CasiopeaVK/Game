@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.utils.Executor;
 
+import static com.mygdx.game.Constants.*;
+
 import java.util.ArrayList;
 
 abstract public class AnimatedEntity extends Entity {
@@ -20,6 +22,7 @@ abstract public class AnimatedEntity extends Entity {
     private int animationStep;
     private int framesCounter;
     private ArrayList<ArrayList<Sprite>> sprites;
+
 
     public AnimatedEntity(World world, Camera camera, String texturePath) {
         super(world, camera, texturePath);
@@ -46,6 +49,7 @@ abstract public class AnimatedEntity extends Entity {
     }
 
     public void update(Executor clickHandler) {
+        //TODO rewrite
         if (framesCounter == 6) {
             clickHandler.execute();
             handleMovement();
@@ -58,7 +62,7 @@ abstract public class AnimatedEntity extends Entity {
     //this method is setting the appropriate sprite according to the xFactor and yFactor values
     protected void handleMovement() {
         //rightDown
-        if (xFactor > 0 && yFactor > 0) {
+        if (xFactor < SUBAREA_COSINUS && xFactor > SUBAREA_SINUS && yFactor < -SUBAREA_SINUS && yFactor > -SUBAREA_COSINUS) {
             lastDirection = 4;
             if (firstStep) {
                 //showRightDownFirstSprite
@@ -71,7 +75,7 @@ abstract public class AnimatedEntity extends Entity {
             }
         }
         //leftDown
-        else if (xFactor < 0 && yFactor > 0) {
+        else if (xFactor > -SUBAREA_COSINUS && xFactor < -SUBAREA_SINUS && yFactor < -SUBAREA_SINUS && yFactor > -SUBAREA_COSINUS) {
             lastDirection = 6;
             if (firstStep) {
                 //showLeftDownFirstSprite
@@ -84,7 +88,7 @@ abstract public class AnimatedEntity extends Entity {
             }
         }
         //rightUp
-        else if (xFactor > 0 && yFactor < 0) {
+        else if (xFactor > SUBAREA_SINUS && xFactor < SUBAREA_COSINUS && yFactor > SUBAREA_SINUS && yFactor < SUBAREA_COSINUS) {
             lastDirection = 2;
             if (firstStep) {
                 //showRightUpFirstSprite
@@ -97,7 +101,7 @@ abstract public class AnimatedEntity extends Entity {
             }
         }
         //LeftUp
-        else if (xFactor < 0 && yFactor < 0) {
+        else if (xFactor < -SUBAREA_SINUS && xFactor > -SUBAREA_COSINUS && yFactor > SUBAREA_SINUS && yFactor < SUBAREA_COSINUS) {
             lastDirection = 8;
             if (firstStep) {
                 //showRightDownFirstSprite
@@ -110,7 +114,7 @@ abstract public class AnimatedEntity extends Entity {
             }
         }
         //Left
-        else if (xFactor < 0 && yFactor == 0) {
+        else if (xFactor < -SUBAREA_COSINUS && yFactor < SUBAREA_SINUS && yFactor > -SUBAREA_SINUS) {
             lastDirection = 7;
             if (firstStep) {
                 //showLeftFirstSprite
@@ -123,7 +127,7 @@ abstract public class AnimatedEntity extends Entity {
             }
         }
         //Right
-        else if (xFactor > 0 && yFactor == 0) {
+        else if (xFactor > SUBAREA_COSINUS && yFactor < SUBAREA_SINUS && yFactor > -SUBAREA_SINUS) {
             lastDirection = 3;
             if (firstStep) {
                 //showLRightFirstSprite
@@ -136,7 +140,7 @@ abstract public class AnimatedEntity extends Entity {
             }
         }
         //Up
-        else if (xFactor == 0 && yFactor < 0) {
+        else if (xFactor > -SUBAREA_SINUS && xFactor < SUBAREA_SINUS && yFactor > SUBAREA_COSINUS) {
             lastDirection = 1;
             if (firstStep) {
                 //showLUpFirstSprite
@@ -149,7 +153,7 @@ abstract public class AnimatedEntity extends Entity {
             }
         }
         //Down
-        else if (xFactor == 0 && yFactor > 0) {
+        else if (xFactor > -SUBAREA_SINUS && xFactor < SUBAREA_SINUS && yFactor < -SUBAREA_COSINUS) {
             lastDirection = 5;
             if (firstStep) {
                 //showLDownFirstSprite
