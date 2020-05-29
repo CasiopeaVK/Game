@@ -15,27 +15,25 @@ import com.mygdx.game.utils.IsoUtils;
 
 public class Npc extends InteractiveAnimatedEntity {
     private Path path;
+
     public Npc(World world, Map map, Camera camera, String texturePath, String pathName) {
         super(world, camera, texturePath);
-        initialize(map,pathName);
-        xFactor = 1;
+        initialize(map, pathName);
     }
 
-    private void initialize(Map map, String pathName){
+    private void initialize(Map map, String pathName) {
         spriteScale = 0.6f;
         sprite.setScale(spriteScale);
-        path = new Path(map,pathName);
+        path = new Path(map, pathName);
         calculateSpawnPosition();
+        calculateDirection();
         initCharacterBody(BodyDef.BodyType.KinematicBody);
     }
 
     @Override
     public void update() {
+        calculateDirection();
         update(Constants.PLAYER_LOW_SPEED);
-        if(TimeManager.getMinutes()%5==0){
-            xFactor=-xFactor;
-            //System.out.println(xFactor);
-        }
     }
 
     @Override
@@ -54,5 +52,16 @@ public class Npc extends InteractiveAnimatedEntity {
 
     protected void calculateSpawnPosition() {
         setPosition(IsoUtils.IsoTo2d(path.getIsoFirstPoint()));
+    }
+
+    protected void calculateDirection() {
+        float x = path.getIsoCurrent().x - getIsoPosition().x;
+        float y = path.getIsoCurrent().y - getIsoPosition().y;
+        if (Math.abs(x) < 10 && Math.abs(y) < 10) {
+            path.moveNext();
+        }
+        Vector2 res = IsoUtils.getDirection(new Vector2(x,y));
+        xFactor = res.x;
+        yFactor = res.y;
     }
 }
