@@ -16,8 +16,8 @@ public class EvilNPC extends Npc {
     private FixtureDef deadZoneFixture;
 
 
-    public EvilNPC(World world, Map map, Camera camera, String texturePath, String pathName) {
-        super(world, map, camera, texturePath, pathName);
+    public EvilNPC(String name, World world, Map map, Camera camera, String texturePath, String pathName) {
+        super(name, world, map, camera, texturePath, pathName);
         initializeDeadZone();
     }
 
