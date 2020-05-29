@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 import com.mygdx.game.utils.IsoUtils;
 
+import static com.mygdx.game.Constants.PLAYER_SPEED;
+
 public abstract class InteractiveAnimatedEntity extends AnimatedEntity {
     protected Stage stage;
 
@@ -24,7 +26,7 @@ public abstract class InteractiveAnimatedEntity extends AnimatedEntity {
         });
         updateClickListener();
         world.step(Gdx.graphics.getDeltaTime(), 6, 6);
-        body.setLinearVelocity(IsoUtils.IsoTo2d(new Vector2(xFactor * speed, yFactor * speed)));
+        body.setLinearVelocity(IsoUtils.IsoTo2d(new Vector2(xFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime(), yFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime())));
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
     }
 
