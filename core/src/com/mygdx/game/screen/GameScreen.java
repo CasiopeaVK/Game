@@ -78,7 +78,6 @@ public class GameScreen extends AbstractScreen {
         gameRenderer.mapChange(map);
         camera.setToOrtho(false, w, h);
         camera.update();
-
         stage.addActor(gameUI);
     }
 
