@@ -60,6 +60,8 @@ public class Npc extends InteractiveAnimatedEntity {
             path.moveNext();
         }
         Vector2 res = IsoUtils.getDirection(new Vector2(x,y));
+        System.out.println("x: "+res.x);
+        System.out.println("y: "+res.y);
         xFactor = res.x;
         yFactor = res.y;
     }

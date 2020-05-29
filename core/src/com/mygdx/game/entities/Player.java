@@ -13,7 +13,7 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.utils.IsoUtils;
 
-import static com.mygdx.game.Constants.PLAYER_SPEED;
+import static com.mygdx.game.Constants.*;
 
 public class Player extends AnimatedEntity {
     public Light light;
@@ -36,7 +36,7 @@ public class Player extends AnimatedEntity {
     public void update() {
         update(this::handleClickedButtons);
         world.step(Gdx.graphics.getDeltaTime(), 6, 6);
-        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED, yFactor * PLAYER_SPEED)));
+        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED, -yFactor * PLAYER_SPEED)));
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
         camera.position.set(body.getPosition().x, body.getPosition().y, 0);
     }
@@ -47,20 +47,33 @@ public class Player extends AnimatedEntity {
         if (xFactor == 0 && yFactor == 0) {
             firstStep = true;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.W)) {
+            xFactor = -COSPI4;
+            yFactor = SINPI4;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.W)) {
+            xFactor = COSPI4;
+            yFactor = SINPI4;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.S)) {
+            xFactor = COSPI4;
+            yFactor = -SINPI4;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.S)) {
+            xFactor = -COSPI4;
+            yFactor = -SINPI4;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            xFactor = 0;
+            yFactor = 1;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             xFactor = -1;
+            yFactor = 0;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            xFactor = 0;
+            yFactor = -1;
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             xFactor = 1;
-        } else {
-            xFactor = 0;
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            yFactor = -1;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            yFactor = 1;
+            yFactor = 0;
         } else {
             yFactor = 0;
+            xFactor = 0;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
@@ -75,6 +88,7 @@ public class Player extends AnimatedEntity {
                 gameUI.getInventory().getSellectedCell().setItem(null);
             }
         }
+
     }
 
     private void addLightAroundPlayer(GameContext context) {
