@@ -43,7 +43,6 @@ public class Player extends AnimatedEntity {
 
 
     private void handleClickedButtons() {
-
         if (xFactor == 0 && yFactor == 0) {
             firstStep = true;
         }
