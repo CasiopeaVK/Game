@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.Constants;
-import com.mygdx.game.Time.TimeManager;
 import com.mygdx.game.entities.InteractiveAnimatedEntity;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
