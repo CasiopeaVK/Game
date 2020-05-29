@@ -5,18 +5,22 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.Constants;
 import com.mygdx.game.entities.InteractiveAnimatedEntity;
+import com.mygdx.game.entities.npc.dialog.DialogLine;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
 
 public class Npc extends InteractiveAnimatedEntity {
     private Path path;
+    private DialogLine dialogLine;
+    private String name;
 
-    public Npc(World world, Map map, Camera camera, String texturePath, String pathName) {
+    public Npc(String name, World world, Map map, Camera camera, String texturePath, String pathName) {
         super(world, camera, texturePath);
+        this.name = name;
         initialize(map, pathName);
     }
 
@@ -27,6 +31,13 @@ public class Npc extends InteractiveAnimatedEntity {
         calculateSpawnPosition();
         calculateDirection();
         initCharacterBody(BodyDef.BodyType.KinematicBody);
+        dialogLine = new DialogLine(Gdx.files.internal("testNpc.json"), new Skin(Gdx.files.internal("default/skin/uiskin.json")));
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        super.setStage(stage);
+        dialogLine.setStage(stage);
     }
 
     @Override
@@ -37,16 +48,7 @@ public class Npc extends InteractiveAnimatedEntity {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
-        Skin uiSkin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
-        Dialog dialog = new Dialog("Warning", uiSkin, "default") {
-            public void result(Object obj) {
-                //System.out.println("result "+obj);
-            }
-        };
-        dialog.text("Test Message");
-        dialog.button("Yes", "true"); //sends "true" as the result
-        dialog.button("No", "false"); //sends "false" as the result
-        dialog.show(stage);
+        dialogLine.runDialog(name);
     }
 
     protected void calculateSpawnPosition() {
@@ -59,7 +61,7 @@ public class Npc extends InteractiveAnimatedEntity {
         if (Math.abs(x) < 10 && Math.abs(y) < 10) {
             path.moveNext();
         }
-        Vector2 res = IsoUtils.getDirection(new Vector2(x,y));
+        Vector2 res = IsoUtils.getDirection(new Vector2(x, y));
         xFactor = res.x;
         yFactor = res.y;
     }
