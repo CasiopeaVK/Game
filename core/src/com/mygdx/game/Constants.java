@@ -9,4 +9,6 @@ public class Constants {
     public static final Skin APP_SKIN = new Skin(Gdx.files.internal(Constants.SKIN_JSON));
     public static final float PLAYER_SPEED = 400;
     public static final float PLAYER_LOW_SPEED = 200;
+    public static final int PLAYER_HEIGHT = 400;
+    public static final int PLAYER_WIDTH = 150;
 }

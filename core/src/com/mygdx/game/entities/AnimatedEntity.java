@@ -9,8 +9,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.utils.Executor;
 
 import java.util.ArrayList;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 abstract public class AnimatedEntity extends Entity {
 
@@ -33,11 +31,11 @@ abstract public class AnimatedEntity extends Entity {
         framesCounter = 0;
 
         Texture textureSheet = new Texture(Gdx.files.internal(texturePath));
-        TextureRegion[][] tmp = TextureRegion.split(textureSheet, textureSheet.getWidth() / 3, textureSheet.getHeight() / 16);
+        TextureRegion[][] tmp = TextureRegion.split(textureSheet, textureSheet.getWidth() / 8, textureSheet.getHeight() / 16);
         sprites = new ArrayList<ArrayList<Sprite>>();
         for (int i = 0; i < 16; i++) {
             ArrayList<Sprite> imageRow = new ArrayList<Sprite>();
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 8; j++) {
                 Sprite tmpSprite = new Sprite(tmp[i][j]);
                 tmpSprite.setScale(spriteScale);
                 imageRow.add(tmpSprite);
@@ -47,8 +45,8 @@ abstract public class AnimatedEntity extends Entity {
         sprite.set(sprites.get(0).get(0));
     }
 
-    public void update(Executor clickHandler){
-        if (framesCounter == 10) {
+    public void update(Executor clickHandler) {
+        if (framesCounter == 6) {
             clickHandler.execute();
             handleMovement();
             firstStep = false;
@@ -60,21 +58,20 @@ abstract public class AnimatedEntity extends Entity {
     //this method is setting the appropriate sprite according to the xFactor and yFactor values
     protected void handleMovement() {
         //rightDown
-        if (xFactor == 1 && yFactor == 1) {
+        if (xFactor > 0 && yFactor > 0) {
             lastDirection = 4;
             if (firstStep) {
                 //showRightDownFirstSprite
                 sprite.set(sprites.get(7 + lastDirection).get(0));
             } else {
-                sprite.set(sprites.get(7 + lastDirection).get(animationStep));
-                if (animationStep == 1)
-                    animationStep = 2;
-                else animationStep = 1;
                 //showRightDownSprite
+                sprite.set(sprites.get(7 + lastDirection).get(animationStep));
+                if (++animationStep == 8)
+                    animationStep = 1;
             }
         }
         //leftDown
-        else if (xFactor == -1 && yFactor == 1) {
+        else if (xFactor < 0 && yFactor > 0) {
             lastDirection = 6;
             if (firstStep) {
                 //showLeftDownFirstSprite
@@ -82,13 +79,12 @@ abstract public class AnimatedEntity extends Entity {
             } else {
                 //showLeftDownSprite
                 sprite.set(sprites.get(7 + lastDirection).get(animationStep));
-                if (animationStep == 1)
-                    animationStep = 2;
-                else animationStep = 1;
+                if (++animationStep == 8)
+                    animationStep = 1;
             }
         }
         //rightUp
-        else if (xFactor == 1 && yFactor == -1) {
+        else if (xFactor > 0 && yFactor < 0) {
             lastDirection = 2;
             if (firstStep) {
                 //showRightUpFirstSprite
@@ -96,13 +92,12 @@ abstract public class AnimatedEntity extends Entity {
             } else {
                 //showRightUpSprite
                 sprite.set(sprites.get(7 + lastDirection).get(animationStep));
-                if (animationStep == 1)
-                    animationStep = 2;
-                else animationStep = 1;
+                if (++animationStep == 8)
+                    animationStep = 1;
             }
         }
         //LeftUp
-        else if (xFactor == -1 && yFactor == -1) {
+        else if (xFactor < 0 && yFactor < 0) {
             lastDirection = 8;
             if (firstStep) {
                 //showRightDownFirstSprite
@@ -110,13 +105,12 @@ abstract public class AnimatedEntity extends Entity {
             } else {
                 //showLeftUpSprite
                 sprite.set(sprites.get(7 + lastDirection).get(animationStep));
-                if (animationStep == 1)
-                    animationStep = 2;
-                else animationStep = 1;
+                if (++animationStep == 8)
+                    animationStep = 1;
             }
         }
         //Left
-        else if (xFactor == -1 && yFactor == 0) {
+        else if (xFactor < 0 && yFactor == 0) {
             lastDirection = 7;
             if (firstStep) {
                 //showLeftFirstSprite
@@ -124,13 +118,12 @@ abstract public class AnimatedEntity extends Entity {
             } else {
                 //showLeftSprite
                 sprite.set(sprites.get(7 + lastDirection).get(animationStep));
-                if (animationStep == 1)
-                    animationStep = 2;
-                else animationStep = 1;
+                if (++animationStep == 8)
+                    animationStep = 1;
             }
         }
         //Right
-        else if (xFactor == 1 && yFactor == 0) {
+        else if (xFactor > 0 && yFactor == 0) {
             lastDirection = 3;
             if (firstStep) {
                 //showLRightFirstSprite
@@ -138,13 +131,12 @@ abstract public class AnimatedEntity extends Entity {
             } else {
                 //showRightSprite
                 sprite.set(sprites.get(7 + lastDirection).get(animationStep));
-                if (animationStep == 1)
-                    animationStep = 2;
-                else animationStep = 1;
+                if (++animationStep == 8)
+                    animationStep = 1;
             }
         }
         //Up
-        else if (xFactor == 0 && yFactor == -1) {
+        else if (xFactor == 0 && yFactor < 0) {
             lastDirection = 1;
             if (firstStep) {
                 //showLUpFirstSprite
@@ -152,13 +144,12 @@ abstract public class AnimatedEntity extends Entity {
             } else {
                 //showUpSprite
                 sprite.set(sprites.get(7 + lastDirection).get(animationStep));
-                if (animationStep == 1)
-                    animationStep = 2;
-                else animationStep = 1;
+                if (++animationStep == 8)
+                    animationStep = 1;
             }
         }
         //Down
-        else if (xFactor == 0 && yFactor == 1) {
+        else if (xFactor == 0 && yFactor > 0) {
             lastDirection = 5;
             if (firstStep) {
                 //showLDownFirstSprite
@@ -166,14 +157,13 @@ abstract public class AnimatedEntity extends Entity {
             } else {
                 //showDownSprite
                 sprite.set(sprites.get(7 + lastDirection).get(animationStep));
-                if (animationStep == 1)
-                    animationStep = 2;
-                else animationStep = 1;
+                if (++animationStep == 8)
+                    animationStep = 1;
             }
         } else if (xFactor == 0 && yFactor == 0) {
             //show last directioned idle sprites
             sprite.set(sprites.get(lastDirection - 1).get(idleNumber));
-            idleNumber = ++idleNumber % 3;
+            idleNumber = ++idleNumber % 8;
         }
 
     }

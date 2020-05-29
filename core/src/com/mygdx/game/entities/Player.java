@@ -37,7 +37,7 @@ public class Player extends AnimatedEntity {
         update(this::handleClickedButtons);
         world.step(Gdx.graphics.getDeltaTime(), 6, 6);
         body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED, yFactor * PLAYER_SPEED)));
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
+        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
         camera.position.set(body.getPosition().x, body.getPosition().y, 0);
     }
 

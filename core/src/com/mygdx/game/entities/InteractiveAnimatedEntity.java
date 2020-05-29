@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 import com.mygdx.game.utils.IsoUtils;
 
-public abstract class InteractiveAnimatedEntity extends AnimatedEntity{
+public abstract class InteractiveAnimatedEntity extends AnimatedEntity {
     protected Stage stage;
 
     public InteractiveAnimatedEntity(World world, Camera camera, String texturePath) {
@@ -20,12 +20,12 @@ public abstract class InteractiveAnimatedEntity extends AnimatedEntity{
     }
 
     public void update(float speed) {
-        super.update(()->{});
+        super.update(() -> {
+        });
         updateClickListener();
         world.step(Gdx.graphics.getDeltaTime(), 6, 6);
-        body.setLinearVelocity(IsoUtils.IsoTo2d(new Vector2(xFactor * speed, yFactor * speed)));
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
-        //camera.position.set(body.getPosition().x, body.getPosition().y, 0);
+        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * speed, yFactor * speed)));
+        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
     }
 
 
@@ -35,13 +35,13 @@ public abstract class InteractiveAnimatedEntity extends AnimatedEntity{
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                onClick(event,x,y);
+                onClick(event, x, y);
             }
         });
 
     }
 
-    public void setStage(Stage stage){
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
