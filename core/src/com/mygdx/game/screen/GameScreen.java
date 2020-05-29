@@ -50,7 +50,7 @@ public class GameScreen extends AbstractScreen {
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
-        npc = new Npc("testNpc",world, map, camera, "hero/hero.png", "testNpc");
+        npc = new Npc(world, map, camera, "hero/hero.png", "testNpc");
 
         item = itemBuilder.createItem(GameItems.DIRT);
 

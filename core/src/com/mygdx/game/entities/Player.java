@@ -78,8 +78,8 @@ public class Player extends AnimatedEntity {
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (sensor.isTriggered()) {
-                gameUI.getInventory().addItem(sensor.getItem());
-                sensor.getItem().hideItem();
+                if(gameUI.getInventory().addItem(sensor.getItem()))
+                    sensor.getItem().hideItem();
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
