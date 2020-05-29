@@ -32,7 +32,7 @@ public class GameScreen extends AbstractScreen {
     private GameRenderer gameRenderer;
     SmartStage stage;
     Player player;
-    EvilNPC npc;
+    Npc npc;
     GameUI gameUI;
     Item item;
     PickUpSensor sensor;
@@ -51,7 +51,7 @@ public class GameScreen extends AbstractScreen {
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
 
         player = new Player(context, map,"hero/hero.png", gameUI, sensor);
-        npc = new EvilNPC(world, map, camera,"hero/hero.png", "testNpc");
+        npc = new Npc(world, map, camera,"hero/hero.png", "testNpc");
 
 
         item = itemBuilder.createItem(GameItems.DIRT);
