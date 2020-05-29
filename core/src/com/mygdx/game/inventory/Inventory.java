@@ -37,15 +37,14 @@ public class Inventory extends Table {
         return null;
     }
 
-    public void addItem(Item item) {
+    public boolean addItem(Item item) {
         for (InventoryCell cell : cells) {
             if (cell.isEmpty()) {
                 cell.setItem(item);
-                return;
+                return true;
             }
         }
-
-        cells[currentCell].setItem(item);
+        return false;
     }
 
     public void setCurrentCell(int currentCell) {

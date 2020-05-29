@@ -85,7 +85,7 @@ public class GameUI extends Table {
             inventory.setCurrentCell(5);
         }
     }
-    public void addItem(Item item){inventory.addItem(item);}
+    public boolean addItem(Item item){return inventory.addItem(item);}
     public void renderSelectedItem(Stage stage){
         if(Item.selectedItem == null)
             return;
