@@ -5,7 +5,7 @@ import lombok.Getter;
 
 public enum GameItems {
     SPOON("spoon"), DIRT("dirt");
-
+        
     @Getter
     private String name;
 

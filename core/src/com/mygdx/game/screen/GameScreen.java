@@ -9,6 +9,7 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.Tunel;
+import com.mygdx.game.entities.npc.EvilNPC;
 import com.mygdx.game.entities.npc.Npc;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
@@ -31,7 +32,7 @@ public class GameScreen extends AbstractScreen {
     private GameRenderer gameRenderer;
     SmartStage stage;
     Player player;
-    Npc npc;
+    EvilNPC npc;
     GameUI gameUI;
     Item item;
     PickUpSensor sensor;
@@ -50,7 +51,8 @@ public class GameScreen extends AbstractScreen {
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
 
         player = new Player(context, map,"hero/hero.png", gameUI, sensor);
-        npc = new Npc(world, map, camera,"hero/hero.png", "testNpc");
+        npc = new EvilNPC(world, map, camera,"hero/hero.png", "testNpc");
+
 
         item = itemBuilder.createItem(GameItems.DIRT);
 
