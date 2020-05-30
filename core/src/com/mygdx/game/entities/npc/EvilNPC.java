@@ -2,18 +2,16 @@ package com.mygdx.game.entities.npc;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.map.Map;
 
 public class EvilNPC extends Npc {
 
-    private float deadZoneRadius = 50f;
-    private float deadZoneAngle = 90f;
+    private float deadZoneRadius = 200f;
+    private float deadZoneAngle = (float) (Math.PI / 2);
     private Vector2[] vertices;
     private FixtureDef deadZoneFixture;
+    private Body deadZoneBody;
 
 
     public EvilNPC(String name, World world, Map map, Camera camera, String texturePath, String pathName) {
@@ -27,45 +25,40 @@ public class EvilNPC extends Npc {
         bodyDef.fixedRotation = true;
         bodyDef.position.set(sprite.getX(), sprite.getY());
 
-        body = world.createBody(bodyDef);
+        deadZoneBody = world.createBody(bodyDef);
         PolygonShape sector = new PolygonShape();
         createDeadZoneVertices();
         sector.set(vertices);
         deadZoneFixture = new FixtureDef();
         deadZoneFixture.shape = sector;
-        deadZoneFixture.density = 1f;
         deadZoneFixture.isSensor = true;
-        body.createFixture(deadZoneFixture).setUserData(this);
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getHeight() / 2);
+        deadZoneBody.createFixture(deadZoneFixture).setUserData(this);
     }
 
 
-    public void updateDeadZonePoints() {
-        System.out.println(xFactor + " " +  yFactor);
-//        for (Vector2 vertex : vertices) {
-//            vertex.x *= xFactor;
-//            vertex.y *= yFactor;
-//        }
-        PolygonShape shape = new PolygonShape();
-        shape.set(vertices);
-        body.resetMassData();
-        body.createFixture(shape, 1f);
+    public void updateDeadZone() {
+        deadZoneBody.setTransform(body.getPosition(), (float) rotateAngle);
     }
 
     public void createDeadZoneVertices() {
         int STEPS = 5;
-        vertices = new Vector2[STEPS + 2];
-        vertices[0] = new Vector2(0, 0);
-        int curVertex = 1;
-        for (float angle = -deadZoneAngle / 2; angle <= deadZoneAngle / 2; angle += deadZoneAngle / STEPS) {
-            vertices[curVertex] = new Vector2((float) Math.cos(angle) * deadZoneRadius, (float) Math.sin(angle) * deadZoneRadius);
-            curVertex++;
+        vertices = new Vector2[STEPS + 3];
+        vertices[0] = new Vector2(0f, 0f);
+        float angle = -deadZoneAngle / 2;
+        for (int i = 1; i < vertices.length; i++) {
+            vertices[i] = new Vector2((float) Math.cos(angle) * deadZoneRadius, (float) Math.sin(angle) * deadZoneRadius);
+            angle += deadZoneAngle / STEPS;
         }
+        vertices[STEPS + 2] = new Vector2(0f, 0f);
     }
 
     @Override
     public void update() {
         super.update();
-        updateDeadZonePoints();
+        updateDeadZone();
+    }
+
+    public void triggerNpc() {
+        System.out.println("You dead");
     }
 }

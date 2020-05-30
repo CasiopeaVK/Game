@@ -36,6 +36,7 @@ public class GameScreen extends AbstractScreen {
     GameUI gameUI;
     Item item;
     PickUpSensor sensor;
+    EvilNPC evilNPC;
 
     public GameScreen(final GameContext context) {
         super(context);
@@ -52,7 +53,7 @@ public class GameScreen extends AbstractScreen {
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
         npc = new Npc("testNpc",world, map, camera, "hero/hero.png", "testNpc");
-
+        evilNPC = new EvilNPC("testEvilNpc", world, map, camera, "hero/hero.png", "testEvilNpc");
 
         item = itemBuilder.createItem(GameItems.DIRT);
 
@@ -62,6 +63,7 @@ public class GameScreen extends AbstractScreen {
         addEntity(player);
         addEntity(npc);
         addEntity(item);
+        addEntity(evilNPC);
         addEntity(tunel);
         Gdx.input.setInputProcessor(stage);
     }
