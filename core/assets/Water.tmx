@@ -40,7 +40,7 @@
   <object id="51" name="testNpc" x="160" y="160">
    <polyline points="0,0 5.45455,1601.82 800,800 1600,1600 1920,1280 1920,160 480,160"/>
   </object>
-  <object id="53" name="testEvilNpc" x="-320" y="1440">
+  <object id="53" name="testEvilNpc" x="-480" y="800">
    <polyline points="0,0 0,-640 160,-640 480,-320"/>
   </object>
  </objectgroup>

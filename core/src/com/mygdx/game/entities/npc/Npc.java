@@ -22,7 +22,17 @@ public class Npc extends InteractiveAnimatedEntity {
     private DialogLine dialogLine;
     private String name;
     @Setter
-    protected MovementDelayManager movementDelayManager;
+    protected MovementDelayManager movementDelayManager = new MovementDelayManager() {
+        @Override
+        public boolean preMovePredicate() {
+            return true;
+        }
+
+        @Override
+        public boolean postMovePredicate() {
+            return true;
+        }
+    };
 
     public Npc(String name, World world, Map map, Camera camera, String texturePath, String pathName) {
         super(world, camera, texturePath);
