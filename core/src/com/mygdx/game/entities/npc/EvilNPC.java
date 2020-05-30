@@ -1,11 +1,26 @@
 package com.mygdx.game.entities.npc;
 
-import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Constants;
+import com.mygdx.game.GameContext;
 import com.mygdx.game.map.Map;
+import com.mygdx.game.screen.ScreenType;
+import com.mygdx.game.screenUI.NoticedUI;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class EvilNPC extends Npc {
+
+    private GameContext context;
 
     private float deadZoneRadius = 200f;
     private float deadZoneAngle = (float) (Math.PI / 2);
@@ -13,10 +28,27 @@ public class EvilNPC extends Npc {
     private FixtureDef deadZoneFixture;
     private Body deadZoneBody;
 
+    private boolean isTriggered = false;
+    private float triggerAccumulator = 0;
 
-    public EvilNPC(String name, World world, Map map, Camera camera, String texturePath, String pathName) {
-        super(name, world, map, camera, texturePath, pathName);
+    private NoticedUI noticedUI;
+
+    //Stage ?? bad idea --> fix
+    public EvilNPC(String name, GameContext context, Map map, Stage stage, String texturePath, String pathName) {
+        super(name, context.getWorld(), map, context.getCamera(), texturePath, pathName);
+        this.context = context;
+        setStage(stage);
         initializeDeadZone();
+    }
+
+    private void initializeNoticedUI() {
+        Array<Actor> actors = stage.getActors();
+        for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+            Actor actor = it.next();
+            if (actor instanceof NoticedUI) {
+                noticedUI = (NoticedUI) actor;
+            }
+        }
     }
 
     private void initializeDeadZone() {
@@ -56,9 +88,21 @@ public class EvilNPC extends Npc {
     public void update() {
         super.update();
         updateDeadZone();
+        if (isTriggered) {
+            triggerAccumulator += Gdx.graphics.getDeltaTime();
+            if (triggerAccumulator >= Constants.NOTICE_TIME) {
+                context.setScreen(ScreenType.RESTART);
+            } else {
+                noticedUI.setVisible(true);
+                noticedUI.setProgressBar(triggerAccumulator / Constants.NOTICE_TIME);
+            }
+        }
     }
 
     public void triggerNpc() {
-        System.out.println("You dead");
+        System.out.println("Dead zone");
+        isTriggered = true;
+        initializeNoticedUI();
+        //TODO stop enemy
     }
 }
