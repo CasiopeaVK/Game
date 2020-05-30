@@ -4,10 +4,12 @@ import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.math.Polyline;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.map.Map;
+import lombok.Getter;
 
 import java.util.*;
 
 public class Path {
+    @Getter
     private int currentPointIndex = 0;
     private List<Vector2> points = new ArrayList<>();
     private boolean isForward = true;
@@ -47,11 +49,20 @@ public class Path {
             currentPointIndex--;
         }else {
             isForward = true;
+            moveNext();
         }
     }
 
     public Vector2 getIsoCurrent() {
         return points.get(currentPointIndex % points.size());
+    }
+
+    public boolean isFirst(){
+        return currentPointIndex == 0;
+    }
+
+    public boolean isLast(){
+        return currentPointIndex == points.size()-1;
     }
 
 }

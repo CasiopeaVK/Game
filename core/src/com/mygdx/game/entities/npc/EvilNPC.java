@@ -3,6 +3,7 @@ package com.mygdx.game.entities.npc;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.mygdx.game.map.Map;
 
 public class EvilNPC extends Npc {
@@ -50,6 +51,11 @@ public class EvilNPC extends Npc {
             angle += deadZoneAngle / STEPS;
         }
         vertices[STEPS + 2] = new Vector2(0f, 0f);
+    }
+
+    @Override
+    protected void onClick(InputEvent event, float x, float y) {
+
     }
 
     @Override

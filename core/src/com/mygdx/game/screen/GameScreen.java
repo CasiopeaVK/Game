@@ -53,7 +53,19 @@ public class GameScreen extends AbstractScreen {
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
         npc = new Npc("testNpc",world, map, camera, "hero/hero.png", "testNpc");
-        evilNPC = new EvilNPC("testEvilNpc", world, map, camera, "hero/hero.png", "testEvilNpc");
+        evilNPC = new EvilNPC("testEvilNpc", world, map, camera, "hero/hero.png", "testEvilNpc"){
+            long limit;
+            int delay = 5*1000;
+            @Override
+            protected boolean preMovePredicate() {
+                if((path.isFirst()||path.isLast()) && System.currentTimeMillis()<limit){
+                    return false;
+                }else {
+                    limit = System.currentTimeMillis()+delay;
+                    return true;
+                }
+            }
+        };
 
         item = itemBuilder.createItem(GameItems.DIRT);
 

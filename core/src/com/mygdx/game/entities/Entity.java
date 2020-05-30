@@ -12,7 +12,9 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public abstract class Entity extends Actor {
     protected Camera camera;
     protected Sprite sprite;
