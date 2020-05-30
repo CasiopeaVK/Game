@@ -10,6 +10,7 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.Tunel;
 import com.mygdx.game.entities.npc.EvilNPC;
+import com.mygdx.game.entities.npc.MovementDelayManager;
 import com.mygdx.game.entities.npc.Npc;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
@@ -53,19 +54,25 @@ public class GameScreen extends AbstractScreen {
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
         npc = new Npc("testNpc",world, map, camera, "hero/hero.png", "testNpc");
-        evilNPC = new EvilNPC("testEvilNpc", world, map, camera, "hero/hero.png", "testEvilNpc"){
-            long limit;
-            int delay = 5*1000;
-            @Override
-            protected boolean preMovePredicate() {
-                if((path.isFirst()||path.isLast()) && System.currentTimeMillis()<limit){
-                    return false;
-                }else {
-                    limit = System.currentTimeMillis()+delay;
-                    return true;
-                }
-            }
-        };
+        evilNPC = new EvilNPC("testEvilNpc", world, map, camera, "hero/hero.png", "testEvilNpc");
+        evilNPC.setMovementDelayManager(new MovementDelayManager() {
+                    long limit;
+                    int delay = 5*1000;
+                    @Override
+                    public boolean preMovePredicate() {
+                        if((evilNPC.getPath().isFirst()||evilNPC.getPath().isLast()) && System.currentTimeMillis()<limit){
+                            return false;
+                        }else {
+                            limit = System.currentTimeMillis()+delay;
+                            return true;
+                        }
+                    }
+
+                    @Override
+                    public boolean postMovePredicate() {
+                        return false;
+                    }
+                });
 
         item = itemBuilder.createItem(GameItems.DIRT);
 

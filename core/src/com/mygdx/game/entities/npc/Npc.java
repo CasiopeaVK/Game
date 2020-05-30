@@ -12,11 +12,17 @@ import com.mygdx.game.entities.InteractiveAnimatedEntity;
 import com.mygdx.game.entities.npc.dialog.DialogLine;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
+import lombok.Getter;
+import lombok.Setter;
+
 
 public class Npc extends InteractiveAnimatedEntity {
-    protected Path path;
+    @Getter
+    private Path path;
     private DialogLine dialogLine;
     private String name;
+    @Setter
+    protected MovementDelayManager movementDelayManager;
 
     public Npc(String name, World world, Map map, Camera camera, String texturePath, String pathName) {
         super(world, camera, texturePath);
@@ -60,7 +66,7 @@ public class Npc extends InteractiveAnimatedEntity {
         float x = path.getIsoCurrent().x - getIsoPosition().x;
         float y = path.getIsoCurrent().y - getIsoPosition().y;
         if (Math.abs(x) < 10 && Math.abs(y) < 10) {
-            if (preMovePredicate()){
+            if (movementDelayManager.preMovePredicate()){
                 path.moveNext();
             }else {
                 xFactor = 0;
@@ -73,9 +79,4 @@ public class Npc extends InteractiveAnimatedEntity {
         xFactor = res.x;
         yFactor = res.y;
     }
-
-    protected boolean preMovePredicate() {
-        return true;
-    }
-
 }
