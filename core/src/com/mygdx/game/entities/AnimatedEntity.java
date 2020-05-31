@@ -8,14 +8,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.utils.Executor;
 
-import static com.mygdx.game.Constants.*;
-
 import java.util.ArrayList;
+
+import static com.mygdx.game.Constants.SUBAREA_COSINUS;
+import static com.mygdx.game.Constants.SUBAREA_SINUS;
 
 abstract public class AnimatedEntity extends Entity {
 
     protected float xFactor;
     protected float yFactor;
+    protected double rotateAngle = 0;
     private int lastDirection;
     protected boolean firstStep;
     private int idleNumber;
@@ -54,7 +56,7 @@ abstract public class AnimatedEntity extends Entity {
             handleMovement();
             firstStep = false;
             animationAccumulator = 0;
-        }else
+        } else
             animationAccumulator += Gdx.graphics.getDeltaTime();
     }
 
@@ -62,6 +64,9 @@ abstract public class AnimatedEntity extends Entity {
     protected void handleMovement() {
         //rightDown
         if (xFactor < SUBAREA_COSINUS && xFactor > SUBAREA_SINUS && yFactor < -SUBAREA_SINUS && yFactor > -SUBAREA_COSINUS) {
+
+            rotateAngle = -Math.PI / 2;
+
             lastDirection = 4;
             if (firstStep) {
                 //showRightDownFirstSprite
@@ -75,6 +80,9 @@ abstract public class AnimatedEntity extends Entity {
         }
         //leftDown
         else if (xFactor > -SUBAREA_COSINUS && xFactor < -SUBAREA_SINUS && yFactor < -SUBAREA_SINUS && yFactor > -SUBAREA_COSINUS) {
+
+            rotateAngle = Math.PI;
+
             lastDirection = 6;
             if (firstStep) {
                 //showLeftDownFirstSprite
@@ -88,6 +96,9 @@ abstract public class AnimatedEntity extends Entity {
         }
         //rightUp
         else if (xFactor > SUBAREA_SINUS && xFactor < SUBAREA_COSINUS && yFactor > SUBAREA_SINUS && yFactor < SUBAREA_COSINUS) {
+
+            rotateAngle = 0;
+
             lastDirection = 2;
             if (firstStep) {
                 //showRightUpFirstSprite
@@ -101,6 +112,9 @@ abstract public class AnimatedEntity extends Entity {
         }
         //LeftUp
         else if (xFactor < -SUBAREA_SINUS && xFactor > -SUBAREA_COSINUS && yFactor > SUBAREA_SINUS && yFactor < SUBAREA_COSINUS) {
+
+            rotateAngle = Math.PI / 2;
+
             lastDirection = 8;
             if (firstStep) {
                 //showRightDownFirstSprite
@@ -114,6 +128,9 @@ abstract public class AnimatedEntity extends Entity {
         }
         //Left
         else if (xFactor < -SUBAREA_COSINUS && yFactor < SUBAREA_SINUS && yFactor > -SUBAREA_SINUS) {
+
+            rotateAngle = Math.PI - Math.atan(0.5);
+
             lastDirection = 7;
             if (firstStep) {
                 //showLeftFirstSprite
@@ -127,6 +144,9 @@ abstract public class AnimatedEntity extends Entity {
         }
         //Right
         else if (xFactor > SUBAREA_COSINUS && yFactor < SUBAREA_SINUS && yFactor > -SUBAREA_SINUS) {
+
+            rotateAngle = -Math.atan(0.5);
+
             lastDirection = 3;
             if (firstStep) {
                 //showLRightFirstSprite
@@ -140,6 +160,9 @@ abstract public class AnimatedEntity extends Entity {
         }
         //Up
         else if (xFactor > -SUBAREA_SINUS && xFactor < SUBAREA_SINUS && yFactor > SUBAREA_COSINUS) {
+
+            rotateAngle = Math.atan(0.5);
+
             lastDirection = 1;
             if (firstStep) {
                 //showLUpFirstSprite
@@ -153,6 +176,9 @@ abstract public class AnimatedEntity extends Entity {
         }
         //Down
         else if (xFactor > -SUBAREA_SINUS && xFactor < SUBAREA_SINUS && yFactor < -SUBAREA_COSINUS) {
+
+            rotateAngle = -Math.PI + Math.atan(0.5);
+
             lastDirection = 5;
             if (firstStep) {
                 //showLDownFirstSprite

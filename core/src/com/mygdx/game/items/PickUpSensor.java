@@ -2,6 +2,7 @@ package com.mygdx.game.items;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.npc.EvilNPC;
 import lombok.Getter;
 
 public class PickUpSensor implements ContactListener {
@@ -23,6 +24,7 @@ public class PickUpSensor implements ContactListener {
             isTriggered = true;
             item.setZoomToSprite(true);
         }
+        activateTrigger(A, B);
     }
 
     @Override
@@ -37,6 +39,7 @@ public class PickUpSensor implements ContactListener {
             isTriggered = false;
             item.setZoomToSprite(false);
         }
+
     }
 
     @Override
@@ -60,5 +63,17 @@ public class PickUpSensor implements ContactListener {
             }
         }
         return null;
+    }
+
+    private void activateTrigger(Fixture a, Fixture b) {
+        if (a.getUserData() instanceof EvilNPC) {
+            if (b.getUserData() instanceof Player) {
+                ((EvilNPC) a.getUserData()).triggerNpc();
+            }
+        } else if (b.getUserData() instanceof EvilNPC) {
+            if (a.getUserData() instanceof Player) {
+                ((EvilNPC) b.getUserData()).triggerNpc();
+            }
+        }
     }
 }

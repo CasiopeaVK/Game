@@ -15,5 +15,6 @@ public class Constants {
     public static final double SUBAREA_SINUS = Math.sin(Math.PI / 8);
     public static final float COSPI4 = (float) Math.cos(Math.PI / 4);
     public static final float SINPI4 = (float)Math.sin(Math.PI / 4);
+    public static final float NOTICE_TIME = 1f;
 
 }

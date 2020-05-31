@@ -45,7 +45,6 @@ public class Item extends InteractiveEntity {
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 System.out.println("ENTER");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
-
             }
 
             @Override

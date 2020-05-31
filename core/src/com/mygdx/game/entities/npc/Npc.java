@@ -12,11 +12,27 @@ import com.mygdx.game.entities.InteractiveAnimatedEntity;
 import com.mygdx.game.entities.npc.dialog.DialogLine;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
+import lombok.Getter;
+import lombok.Setter;
+
 
 public class Npc extends InteractiveAnimatedEntity {
+    @Getter
     private Path path;
     private DialogLine dialogLine;
     private String name;
+    @Setter
+    protected MovementDelayManager movementDelayManager = new MovementDelayManager() {
+        @Override
+        public boolean preMovePredicate() {
+            return true;
+        }
+
+        @Override
+        public boolean postMovePredicate() {
+            return true;
+        }
+    };
 
     public Npc(String name, World world, Map map, Camera camera, String texturePath, String pathName) {
         super(world, camera, texturePath);
@@ -33,6 +49,7 @@ public class Npc extends InteractiveAnimatedEntity {
         initCharacterBody(BodyDef.BodyType.KinematicBody);
         dialogLine = new DialogLine(Gdx.files.internal("testNpc.json"), new Skin(Gdx.files.internal("default/skin/uiskin.json")));
     }
+
 
     @Override
     public void setStage(Stage stage) {
@@ -59,7 +76,14 @@ public class Npc extends InteractiveAnimatedEntity {
         float x = path.getIsoCurrent().x - getIsoPosition().x;
         float y = path.getIsoCurrent().y - getIsoPosition().y;
         if (Math.abs(x) < 10 && Math.abs(y) < 10) {
-            path.moveNext();
+            if (movementDelayManager.preMovePredicate()){
+                path.moveNext();
+            }else {
+                xFactor = 0;
+                yFactor = 0;
+                return;
+            }
+
         }
         Vector2 res = IsoUtils.getDirection(new Vector2(x, y));
         xFactor = res.x;
