@@ -108,6 +108,7 @@ public class GameScreen extends AbstractScreen {
         stage.addActor(gameUI);
         //TODO remove
         stage.addActor(noticedUI);
+        evilNPC.initializeNoticedUI();
     }
 
     @Override

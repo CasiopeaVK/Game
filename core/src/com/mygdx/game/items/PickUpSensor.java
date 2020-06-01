@@ -39,7 +39,7 @@ public class PickUpSensor implements ContactListener {
             isTriggered = false;
             item.setZoomToSprite(false);
         }
-
+        deactivateTrigger(A, B);
     }
 
     @Override
@@ -76,4 +76,18 @@ public class PickUpSensor implements ContactListener {
             }
         }
     }
+
+    private void deactivateTrigger(Fixture a, Fixture b) {
+        if (a.getUserData() instanceof EvilNPC) {
+            if (b.getUserData() instanceof Player) {
+                ((EvilNPC) a.getUserData()).cancelTrigger();
+            }
+        } else if (b.getUserData() instanceof EvilNPC) {
+            if (a.getUserData() instanceof Player) {
+                ((EvilNPC) b.getUserData()).cancelTrigger();
+            }
+        }
+    }
+
+
 }
