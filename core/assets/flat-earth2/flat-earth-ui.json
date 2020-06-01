@@ -260,15 +260,6 @@
 			"a": 0.39333335
 		}
 	},
-	"dirt-draw": {
-		"name": "dirt",
-		"color": {
-			"r": 1,
-			"g": 1,
-			"b": 1,
-			"a": 1
-		}
-	},
 	"cell-draw": {
 		"name": "cell",
 		"color": {
