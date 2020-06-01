@@ -89,5 +89,4 @@ public class PickUpSensor implements ContactListener {
         }
     }
 
-
 }

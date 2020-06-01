@@ -34,6 +34,7 @@ public class LoadingScreen extends AbstractScreen {
 
 //        Check while map will load
         if (this.assetManager.update()) {
+
             context.setScreen(ScreenType.GAME);
         }
         stage.act();
