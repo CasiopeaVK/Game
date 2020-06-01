@@ -47,7 +47,7 @@ public class Npc extends InteractiveAnimatedEntity {
         calculateSpawnPosition();
         calculateDirection();
         initCharacterBody(BodyDef.BodyType.KinematicBody);
-        dialogLine = new DialogLine(Gdx.files.internal("testNpc.json"), new Skin(Gdx.files.internal("default/skin/uiskin.json")));
+        dialogLine = new DialogLine(Gdx.files.internal("dialogs/"+name+".json"), Constants.APP_SKIN);
     }
 
 

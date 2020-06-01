@@ -60,8 +60,7 @@ public class GameScreen extends AbstractScreen {
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
-
-        npc = new Npc("testNpc", world, map, camera, "hero/hero.png", "testNpc");
+        npc = new Npc("englishNeighbour", world, map, camera, "hero/hero.png", "testNpc");
         evilNPC = new EvilNPC("testEvilNpc", context, map,  "hero/hero.png", "testEvilNpc");
         System.out.println(1);
         evilNPC.setMovementDelayManager(new MovementDelayManager() {
