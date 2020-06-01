@@ -49,6 +49,7 @@ public class RestartScreen extends AbstractScreen {
         restart.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                context.create();
                 context.setScreen(ScreenType.LOADING);
             }
         });

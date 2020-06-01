@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Constants;
 import com.mygdx.game.GameContext;
@@ -16,7 +15,6 @@ import com.mygdx.game.screen.ScreenType;
 import com.mygdx.game.screenUI.NoticedUI;
 
 import java.util.Iterator;
-import java.util.List;
 
 public class EvilNPC extends Npc {
 
@@ -39,7 +37,7 @@ public class EvilNPC extends Npc {
         initializeDeadZone();
     }
 
-    private void initializeNoticedUI() {
+    public void initializeNoticedUI() {
         Array<Actor> actors = stage.getActors();
         for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
             Actor actor = it.next();
@@ -102,5 +100,11 @@ public class EvilNPC extends Npc {
         isTriggered = true;
         initializeNoticedUI();
         //TODO stop enemy
+    }
+
+    public void cancelTrigger() {
+        isTriggered = false;
+        triggerAccumulator = 0;
+        noticedUI.setVisible(false);
     }
 }

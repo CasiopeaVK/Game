@@ -1,17 +1,17 @@
 package com.mygdx.game;
 
 import box2dLight.RayHandler;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.map.MapManager;
 import com.mygdx.game.screen.AbstractScreen;
+import com.mygdx.game.screen.GameScreen;
 import com.mygdx.game.screen.ScreenType;
 import com.mygdx.game.view.GameRenderer;
 
@@ -60,9 +61,8 @@ public class GameContext extends Game {
         world = new World(new Vector2(0, 0), true);
         mapManager = new MapManager(this);
         rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0,0 ,0,0.3f);
+        rayHandler.setAmbientLight(0, 0, 0, 0.3f);
         gameRenderer = new GameRenderer(this);
-
 
 
         initializeSkin();

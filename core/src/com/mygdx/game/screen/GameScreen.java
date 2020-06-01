@@ -1,6 +1,7 @@
 package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.World;
@@ -108,6 +109,7 @@ public class GameScreen extends AbstractScreen {
         stage.addActor(gameUI);
         //TODO remove
         stage.addActor(noticedUI);
+        evilNPC.initializeNoticedUI();
     }
 
     @Override
@@ -143,6 +145,6 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-
+        this.dispose();
     }
 }
