@@ -37,7 +37,6 @@ public abstract class Entity extends Actor {
 
     protected void calculateSpawnPosition(Map map, String markerName){
         MapObject spawnPoint = map.getObject("Markers",markerName);
-        System.out.println(spawnPoint);
         Rectangle spawnPointRect = ((RectangleMapObject) spawnPoint).getRectangle();
         Vector2 iso = new Vector2(spawnPointRect.x,spawnPointRect.y);
         MapProperties prop = map.getProperties();

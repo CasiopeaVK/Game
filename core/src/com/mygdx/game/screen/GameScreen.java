@@ -53,8 +53,6 @@ public class GameScreen extends AbstractScreen {
         camera = context.getCamera();
         stage = new SmartStage();
         gameUI = new GameUI();
-        //
-
         noticedUI = new NoticedUI();
         gameRenderer = context.getGameRenderer();
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
@@ -62,7 +60,6 @@ public class GameScreen extends AbstractScreen {
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
         npc = new Npc("englishNeighbour", world, map, camera, "hero/hero.png", "testNpc");
         evilNPC = new EvilNPC("testEvilNpc", context, map,  "hero/hero.png", "testEvilNpc");
-        System.out.println(1);
         evilNPC.setMovementDelayManager(new MovementDelayManager() {
             int delay = 5 * 1000;
             long limit = System.currentTimeMillis() + delay;
