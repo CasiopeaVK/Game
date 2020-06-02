@@ -14,7 +14,7 @@ public class QuestTable extends Table {
     private final int TABLE_WIDTH = 250;
     private final int TABLE_HEIGHT = 150;
     private final int TABLE_PAD = 30;
-    private final String TABLE_BG = "table";
+    private final String TABLE_BG = "table1";
     private final String NAME_STYLE = "default";
     private final String DESCRIPTION_STYLE = "RobotoSmall";
 
