@@ -39,7 +39,6 @@ public abstract class Entity extends Actor {
         MapObject spawnPoint = map.getObject("Markers",markerName);
         Rectangle spawnPointRect = ((RectangleMapObject) spawnPoint).getRectangle();
         Vector2 iso = new Vector2(spawnPointRect.x,spawnPointRect.y);
-
         MapProperties prop = map.getProperties();
 
         Vector2 res = IsoUtils.IsoTo2d(iso);

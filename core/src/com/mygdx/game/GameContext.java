@@ -61,7 +61,7 @@ public class GameContext extends Game {
         world = new World(new Vector2(0, 0), true);
         mapManager = new MapManager(this);
         rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0, 0, 0, 0.3f);
+        rayHandler.setAmbientLight(0, 0, 0, 0.6f);
         gameRenderer = new GameRenderer(this);
 
 
