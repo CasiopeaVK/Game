@@ -31,8 +31,8 @@ public class EvilNPC extends Npc {
 
     private NoticedUI noticedUI;
 
-    public EvilNPC(String name, GameContext context, Map map, String texturePath, String pathName) {
-        super(name, context.getWorld(), map, context.getCamera(), texturePath, pathName);
+    public EvilNPC(String name, GameContext context, Map map, String texturePath) {
+        super(name, context.getWorld(), map, context.getCamera(), texturePath);
         this.context = context;
         initializeDeadZone();
     }
