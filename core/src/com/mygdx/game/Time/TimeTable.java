@@ -11,7 +11,7 @@ public class TimeTable extends Table {
     private static final int PAD = 3;
     private static final int DELTA_POSITION = 5;
     private static final String TIME_STYLE = "RobotoTime";
-    private static final String TABLE_STYLE = "timeTable";
+    private static final String TABLE_STYLE = "table";
     private static final String TIME_TEXT = "Time: ";
     private static final int DELTA = 30;
     private Label time;

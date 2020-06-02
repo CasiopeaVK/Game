@@ -75,7 +75,7 @@ filter: Linear,Linear
 repeat: none
 Mywhite
   rotate: false
-  xy: 603, 1375
+  xy: 1205, 1662
   size: 371, 291
   split: 0, 0, 0, 0
   orig: 371, 291
@@ -83,28 +83,28 @@ Mywhite
   index: -1
 RobotoSlab-Light
   rotate: false
-  xy: 603, 1668
+  xy: 1205, 1955
   size: 506, 92
   orig: 506, 92
   offset: 0, 0
   index: -1
 RobotoSlab-Medium
   rotate: false
-  xy: 1174, 1875
+  xy: 1, 384
   size: 506, 172
   orig: 506, 172
   offset: 0, 0
   index: -1
 RobotoSlab-Regular
   rotate: false
-  xy: 1, 752
+  xy: 603, 1354
   size: 506, 91
   orig: 506, 91
   offset: 0, 0
   index: -1
 button
   rotate: false
-  xy: 1862, 1992
+  xy: 509, 514
   size: 56, 42
   split: 18, 18, 0, 0
   pad: 13, 14, 3, 2
@@ -113,14 +113,14 @@ button
   index: -1
 button-close
   rotate: false
-  xy: 1174, 1770
+  xy: 1111, 1352
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 button-pressed
   rotate: false
-  xy: 1111, 1718
+  xy: 1, 40
   size: 56, 42
   split: 18, 18, 0, 0
   pad: 13, 14, 3, 2
@@ -129,63 +129,63 @@ button-pressed
   index: -1
 cell
   rotate: false
-  xy: 603, 1088
+  xy: 603, 1002
   size: 285, 285
   orig: 285, 285
   offset: 0, 0
   index: -1
 cellSelect
   rotate: false
-  xy: 1, 113
+  xy: 288, 97
   size: 285, 285
   orig: 285, 285
   offset: 0, 0
   index: -1
 checkbox
   rotate: false
-  xy: 91, 87
+  xy: 572, 819
   size: 29, 24
   orig: 29, 24
   offset: 0, 0
   index: -1
 checkbox-pressed
   rotate: false
-  xy: 890, 1265
+  xy: 572, 793
   size: 29, 24
   orig: 29, 24
   offset: 0, 0
   index: -1
 earth
   rotate: false
-  xy: 1682, 1870
+  xy: 852, 836
   size: 178, 164
   orig: 178, 164
   offset: 0, 0
   index: -1
 font-button-export
   rotate: false
-  xy: 976, 1527
+  xy: 1032, 861
   size: 139, 139
   orig: 139, 139
   offset: 0, 0
   index: -1
 font-export
   rotate: false
-  xy: 1, 23
+  xy: 1578, 1865
   size: 88, 88
   orig: 88, 88
   offset: 0, 0
   index: -1
 font-title-export
   rotate: false
-  xy: 288, 149
+  xy: 603, 751
   size: 247, 249
   orig: 247, 249
   offset: 0, 0
   index: -1
 list
   rotate: false
-  xy: 976, 1486
+  xy: 852, 795
   size: 39, 39
   split: 1, 1, 1, 1
   pad: 2, 2, 2, 2
@@ -194,28 +194,28 @@ list
   index: -1
 radio-pressed
   rotate: false
-  xy: 509, 750
+  xy: 572, 767
   size: 29, 24
   orig: 29, 24
   offset: 0, 0
   index: -1
 scrollbar
   rotate: false
-  xy: 1111, 1706
+  xy: 1189, 1435
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 scrollbar-android
   rotate: false
-  xy: 1169, 1757
+  xy: 567, 553
   size: 3, 3
   orig: 3, 3
   offset: 0, 0
   index: -1
 select-box
   rotate: false
-  xy: 1, 1
+  xy: 1032, 839
   size: 39, 20
   split: 4, 15, 4, 4
   pad: 2, 16, 2, 2
@@ -224,7 +224,7 @@ select-box
   index: -1
 select-box-pressed
   rotate: false
-  xy: 42, 1
+  xy: 1578, 1843
   size: 39, 20
   split: 4, 15, 4, 4
   pad: 2, 16, 2, 2
@@ -233,28 +233,28 @@ select-box-pressed
   index: -1
 selectCell
   rotate: false
-  xy: 1, 400
+  xy: 1, 97
   size: 285, 285
   orig: 285, 285
   offset: 0, 0
   index: -1
 slider-fancy
   rotate: false
-  xy: 1174, 1862
+  xy: 1713, 2036
   size: 261, 11
   orig: 261, 11
   offset: 0, 0
   index: -1
 slider-fancy-knob
   rotate: false
-  xy: 1682, 2036
+  xy: 1, 84
   size: 261, 11
   orig: 261, 11
   offset: 0, 0
   index: -1
 slider-horizontal
   rotate: false
-  xy: 1945, 2036
+  xy: 1976, 2036
   size: 17, 11
   split: 4, 4, 0, 0
   pad: 0, 0, 0, 0
@@ -263,14 +263,14 @@ slider-horizontal
   index: -1
 slider-knob
   rotate: false
-  xy: 1920, 2016
+  xy: 1, 20
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 slider-vertical
   rotate: false
-  xy: 587, 826
+  xy: 1, 1
   size: 11, 17
   split: 0, 0, 4, 4
   pad: 0, 0, 0, 0
@@ -279,7 +279,7 @@ slider-vertical
   index: -1
 splitpane-horizontal
   rotate: false
-  xy: 976, 1473
+  xy: 1713, 1957
   size: 4, 11
   split: 1, 1, 1, 1
   pad: 0, 0, 0, 0
@@ -288,7 +288,7 @@ splitpane-horizontal
   index: -1
 splitpane-vertical
   rotate: false
-  xy: 1437, 1869
+  xy: 264, 91
   size: 11, 4
   split: 1, 1, 1, 1
   pad: 0, 0, 0, 0
@@ -297,7 +297,7 @@ splitpane-vertical
   index: -1
 textfield
   rotate: false
-  xy: 288, 117
+  xy: 1668, 1923
   size: 30, 30
   split: 4, 4, 4, 4
   pad: 4, 4, 1, 1
@@ -306,7 +306,7 @@ textfield
   index: -1
 tooltip
   rotate: false
-  xy: 1174, 1796
+  xy: 1713, 1970
   size: 64, 64
   split: 13, 13, 12, 12
   pad: 10, 10, 10, 10
@@ -315,42 +315,42 @@ tooltip
   index: -1
 touchpad
   rotate: false
-  xy: 890, 1291
+  xy: 1492, 1578
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
   index: -1
 touchpad-knob
   rotate: false
-  xy: 537, 368
+  xy: 1492, 1546
   size: 30, 30
   orig: 30, 30
   offset: 0, 0
   index: -1
 tree-minus
   rotate: false
-  xy: 1240, 1843
+  xy: 1779, 2017
   size: 22, 17
   orig: 22, 17
   offset: 0, 0
   index: -1
 tree-plus
   rotate: false
-  xy: 1862, 1972
+  xy: 509, 494
   size: 21, 18
   orig: 21, 18
   offset: 0, 0
   index: -1
 white
   rotate: false
-  xy: 600, 842
+  xy: 1173, 999
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 window
   rotate: false
-  xy: 509, 776
+  xy: 1111, 1378
   size: 76, 67
   split: 2, 2, 32, 2
   pad: 2, 2, 34, 2
@@ -359,14 +359,14 @@ window
   index: -1
 RobotoSlab-ExtraLight
   rotate: false
-  xy: 1, 687
+  xy: 603, 1289
   size: 506, 63
   orig: 506, 63
   offset: 0, 0
   index: -1
 cell1
   rotate: false
-  xy: 603, 801
+  xy: 890, 1002
   size: 285, 285
   orig: 285, 285
   offset: 0, 0
@@ -380,7 +380,7 @@ cell2
   index: -1
 cellSelect1
   rotate: false
-  xy: 288, 400
+  xy: 1205, 1375
   size: 285, 285
   orig: 285, 285
   offset: 0, 0
@@ -392,9 +392,16 @@ cellSelect2
   orig: 600, 600
   offset: 0, 0
   index: -1
+table
+  rotate: false
+  xy: 603, 1447
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
 timeTable
   rotate: false
-  xy: 603, 1762
+  xy: 1, 558
   size: 569, 285
   orig: 569, 285
   offset: 0, 0
