@@ -281,15 +281,6 @@
 			"a": 0.39333335
 		}
 	},
-	"cell-draw": {
-		"name": "cell",
-		"color": {
-			"r": 1,
-			"g": 1,
-			"b": 1,
-			"a": 1
-		}
-	},
 	"windowGray": {
 		"name": "window",
 		"color": "gray"
