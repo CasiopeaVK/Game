@@ -9,6 +9,9 @@
 	"RobotoButton": {
 		"file": "RobotoSlab-Regular.fnt"
 	},
+	"RobotoSmallText": {
+		"file": "RobotoSlab-ExtraLight.fnt"
+	},
 	"RobotoText": {
 		"file": "RobotoSlab-Light.fnt"
 	},
@@ -438,6 +441,14 @@
 	"RobotoButton": {
 		"font": "RobotoButton",
 		"fontColor": "hospitalWhite"
+	},
+	"RobotoTime": {
+		"font": "RobotoText",
+		"fontColor": "black"
+	},
+	"RobotoSmall": {
+		"font": "RobotoSmallText",
+		"fontColor": "black"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle": {

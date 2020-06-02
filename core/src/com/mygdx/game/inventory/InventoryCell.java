@@ -12,11 +12,11 @@ import lombok.Getter;
 
 public class InventoryCell extends Table {
 
-    private static final String SAMPLE_CELL_STYLE =  "cell";
-    private static final String SELECTED_CELL_STYLE =  "cellSelect";
+    private static final String SAMPLE_CELL_STYLE =  "cell2";
+    private static final String SELECTED_CELL_STYLE =  "cellSelect2";
 
     @Getter
-    private static final int CELL_SIZE = 70;
+    private static final int CELL_SIZE = 80;
     private static final int CELL_ITEM_SIZE = 50;
     @Getter
     private Item item;

@@ -14,15 +14,15 @@ public class QuestTable extends Table {
     private final int TABLE_WIDTH = 250;
     private final int TABLE_HEIGHT = 150;
     private final int TABLE_PAD = 10;
-    private final String TABLE_BG = "Semi-gray";
+    private final String TABLE_BG = "timeTable";
     private final String NAME_STYLE = "default";
-    private final String DESCRIPTION_STYLE = "default";
+    private final String DESCRIPTION_STYLE = "RobotoSmall";
 
     QuestLine questLine;
     Quest currentQuest;
 
 
-    Label header = new Label("Current quest:", Constants.APP_SKIN, "button");
+    Label header = new Label("Current quest:", Constants.APP_SKIN, "RobotoTime");
     Label currentName;
     Label currentDescription;
     CheckBox isPerformedCheckBox = new CheckBox("", Constants.APP_SKIN, "default");
