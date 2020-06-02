@@ -4,67 +4,95 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+RobotoSlab-Light
+  rotate: false
+  xy: 1, 1
+  size: 506, 92
+  orig: 506, 92
+  offset: 0, 0
+  index: -1
+RobotoSlab-Medium
+  rotate: false
+  xy: 509, 41
+  size: 506, 172
+  orig: 506, 172
+  offset: 0, 0
+  index: -1
+RobotoSlab-Regular
+  rotate: false
+  xy: 1, 95
+  size: 506, 118
+  orig: 506, 118
+  offset: 0, 0
+  index: -1
 dirt
   rotate: false
-  xy: 1, 1205
+  xy: 1, 1419
   size: 600, 600
   orig: 600, 600
   offset: 0, 0
   index: -1
 fork
   rotate: false
-  xy: 1, 603
+  xy: 1, 817
   size: 600, 600
   orig: 600, 600
   offset: 0, 0
   index: -1
 hamer
   rotate: false
-  xy: 603, 1205
-  size: 600, 600
-  orig: 600, 600
-  offset: 0, 0
-  index: -1
-plunger
-  rotate: false
-  xy: 1, 1
-  size: 600, 600
-  orig: 600, 600
-  offset: 0, 0
-  index: -1
-screwdriver
-  rotate: false
-  xy: 603, 1
-  size: 600, 600
-  orig: 600, 600
-  offset: 0, 0
-  index: -1
-spoon
-  rotate: false
-  xy: 603, 603
-  size: 600, 600
-  orig: 600, 600
-  offset: 0, 0
-  index: -1
-sypringe
-  rotate: false
-  xy: 1205, 1205
+  xy: 603, 1419
   size: 600, 600
   orig: 600, 600
   offset: 0, 0
   index: -1
 plate
   rotate: false
-  xy: 1205, 603
+  xy: 1, 215
   size: 600, 600
   orig: 600, 600
   offset: 0, 0
   index: -1
 plateFood
   rotate: false
-  xy: 1205, 1
+  xy: 603, 817
   size: 600, 600
   orig: 600, 600
+  offset: 0, 0
+  index: -1
+plunger
+  rotate: false
+  xy: 1205, 1419
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+screwdriver
+  rotate: false
+  xy: 603, 215
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+spoon
+  rotate: false
+  xy: 1205, 817
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+sypringe
+  rotate: false
+  xy: 1205, 215
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+RobotoSlab-Regular
+  rotate: false
+  xy: 1017, 122
+  size: 506, 91
+  orig: 506, 91
   offset: 0, 0
   index: -1
 

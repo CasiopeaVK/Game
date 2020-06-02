@@ -6,6 +6,15 @@
 	"font": {
 		"file": "font-export.fnt"
 	},
+	"RobotoButton": {
+		"file": "RobotoSlab-Regular.fnt"
+	},
+	"RobotoText": {
+		"file": "RobotoSlab-Light.fnt"
+	},
+	"RobotoTitle": {
+		"file": "RobotoSlab-Medium.fnt"
+	},
 	"title": {
 		"file": "font-title-export.fnt"
 	}
@@ -35,10 +44,22 @@
 		"b": 0.5,
 		"a": 1
 	},
+	"greenHospital": {
+		"r": 0.47058824,
+		"g": 0.65882355,
+		"b": 0.3647059,
+		"a": 1
+	},
 	"highlight": {
 		"r": 0.42156863,
 		"g": 1,
 		"b": 0.5552286,
+		"a": 1
+	},
+	"hospitalWhite": {
+		"r": 0.8901961,
+		"g": 0.88235295,
+		"b": 0.88235295,
 		"a": 1
 	},
 	"pressed": {
@@ -268,6 +289,64 @@
 			"b": 1,
 			"a": 1
 		}
+	},
+	"windowGray": {
+		"name": "window",
+		"color": "gray"
+	},
+	"windowHospital": {
+		"name": "window",
+		"color": {
+			"r": 0.54509807,
+			"g": 0.6901961,
+			"b": 0.7294118,
+			"a": 1
+		}
+	},
+	"buttonHospital": {
+		"name": "button-pressed",
+		"color": {
+			"r": 0.47058824,
+			"g": 0.65882355,
+			"b": 0.3647059,
+			"a": 1
+		}
+	},
+	"buttonHospotalPres": {
+		"name": "button-pressed",
+		"color": {
+			"r": 0.07450981,
+			"g": 0.36078432,
+			"b": 0.15294118,
+			"a": 1
+		}
+	},
+	"buttonHospitalOver": {
+		"name": "button-pressed",
+		"color": {
+			"r": 0.38596982,
+			"g": 0.53882354,
+			"b": 0.29827732,
+			"a": 1
+		}
+	},
+	"sliderHospital": {
+		"name": "slider-fancy",
+		"color": {
+			"r": 0.47058824,
+			"g": 0.65882355,
+			"b": 0.3647059,
+			"a": 1
+		}
+	},
+	"slider-horizontalHospital": {
+		"name": "slider-horizontal",
+		"color": {
+			"r": 0.34190232,
+			"g": 0.6965395,
+			"b": 0.8394118,
+			"a": 1
+		}
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
@@ -336,6 +415,12 @@
 		"fontColor": "color",
 		"downFontColor": "pressed",
 		"overFontColor": "highlight"
+	},
+	"hospital": {
+		"font": "RobotoButton",
+		"up": "buttonHospital",
+		"down": "buttonHospotalPres",
+		"over": "buttonHospitalOver"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
@@ -350,6 +435,18 @@
 	"title": {
 		"font": "title",
 		"fontColor": "color"
+	},
+	"RobotoTitle": {
+		"font": "RobotoTitle",
+		"fontColor": "greenHospital"
+	},
+	"RobotoText": {
+		"font": "RobotoText",
+		"fontColor": "white"
+	},
+	"RobotoButton": {
+		"font": "RobotoButton",
+		"fontColor": "hospitalWhite"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle": {
@@ -373,6 +470,10 @@
 	"fancy": {
 		"background": "slider-fancy-p",
 		"knobBefore": "slider-fancy-knob"
+	},
+	"hospital": {
+		"background": "sliderHospital",
+		"knobBefore": "slider-horizontalHospital"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle": {
@@ -468,8 +569,18 @@
 "com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle": {
 	"default": {
 		"background": "window-w",
-		"titleFont": "font",
+		"titleFont": "button",
 		"titleFontColor": "white"
+	},
+	"game": {
+		"background": "windowGray",
+		"titleFont": "RobotoText",
+		"titleFontColor": "white"
+	},
+	"hospital": {
+		"background": "windowHospital",
+		"titleFont": "RobotoButton",
+		"titleFontColor": "hospitalWhite"
 	}
 }
 }

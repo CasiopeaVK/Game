@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.mygdx.game.Constants;
 
 public class LoadingUI extends Table {
-    private static final String PROGRESS_BAR_STYLE = "default-horizontal";
-    private static final String LOADING_TEXT_STYLE = "title";
+    private static final String PROGRESS_BAR_STYLE = "hospital";
+    private static final String LOADING_TEXT_STYLE = "RobotoTitle";
 
     ProgressBar progressBar;
     Label loading;

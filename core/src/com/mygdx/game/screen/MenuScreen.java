@@ -31,8 +31,8 @@ public class MenuScreen extends AbstractScreen {
         menuTable.setPosition(0,0);
 
         menuStage = new Stage();
-        gameButton = new ImageTextButton("Start game", Constants.APP_SKIN,"default");
-        exitButton = new ImageTextButton("Exit", Constants.APP_SKIN,"default");
+        gameButton = new ImageTextButton("Start game", Constants.APP_SKIN,"hospital");
+        exitButton = new ImageTextButton("Exit", Constants.APP_SKIN,"hospital");
         startGameListener();
         menuTable.add(gameButton).padBottom(5);
         menuTable.row();

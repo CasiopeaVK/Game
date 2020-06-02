@@ -3,6 +3,8 @@ package com.mygdx.game.entities.npc.dialog;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -27,7 +29,7 @@ public class DialogLine {
 
     public void runDialog(String name){
         Speech speech = speechList.get(currentIndex);
-        Dialog dialog = new Dialog(name, skin, "default") {
+        Dialog dialog = new Dialog(name, skin, "hospital") {
             public void result(Object obj) {
                 currentIndex = (Integer)obj;
                 System.out.println(currentIndex);
@@ -38,9 +40,11 @@ public class DialogLine {
                 }
             }
         };
-        dialog.text(speech.text);
+        Label text = new Label(speech.text,skin,"RobotoText");
+        dialog.text(text);
         for(Answer answer:speech.answers){
-            dialog.button(answer.text,answer.target);
+            ImageTextButton btn = new ImageTextButton(answer.text, skin, "hospital");
+            dialog.button(btn,answer.target);
         }
         dialog.show(stage);
     }
