@@ -4,8 +4,8 @@ public class GenerateQuests {
 
     public static QuestTable generateQuests(){
         QuestLine questLine = new QuestLine("Sample quest");
-        questLine.addQuest(new Quest("Sample quest", "Something big description.\n All is usual", false));
-        questLine.addQuest(new Quest("Sample quest2", "Something big description.\n All is usual", true));
+        questLine.addQuest(new Quest("Decide what to do", "Ability to speak \nis the difference between \nhuman and animal", false));
+        questLine.addQuest(new Quest("Quid pro quo", "Fulfill the request of the neighbors", false));
 
         return new QuestTable(questLine);
     }
