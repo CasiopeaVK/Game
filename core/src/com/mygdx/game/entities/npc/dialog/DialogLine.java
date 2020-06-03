@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DialogLine {
+    private final int ALWAYS_AVAILABLE = -1;
     private List<Speech> speechList = new ArrayList<>();
     private Skin skin;
     @Setter
@@ -44,7 +45,7 @@ public class DialogLine {
         Label text = new Label(speech.text,skin,"RobotoText");
         dialog.text(text);
         for(Answer answer:speech.answers){
-            if(answer.phase!=0 && answer.phase!=stage.getCurrentQuestIndex()){
+            if(answer.phase!=ALWAYS_AVAILABLE && answer.phase!=stage.getCurrentQuestIndex()){
                 continue;
             }
             ImageTextButton btn = new ImageTextButton(answer.text, skin, "hospital");
@@ -78,7 +79,7 @@ public class DialogLine {
     private class Answer{
         private String text;
         private int target;
-        private int phase = 0;
+        private int phase = ALWAYS_AVAILABLE;
         @SneakyThrows
         public Answer(JSONObject jsonObject){
             text = jsonObject.getString("text");
