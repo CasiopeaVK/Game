@@ -15,8 +15,8 @@ import com.mygdx.game.entities.InteractiveEntity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.Tunel;
 import com.mygdx.game.entities.npc.EvilNPC;
-import com.mygdx.game.entities.npc.MovementDelayManager;
 import com.mygdx.game.entities.npc.Npc;
+import com.mygdx.game.entities.npc.NpcBuilder;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.items.ItemBuilder;
@@ -24,6 +24,8 @@ import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
 
 import com.mygdx.game.Time.TimeManager;
+import com.mygdx.game.quest.GenerateQuests;
+import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.screenUI.NoticedUI;
 import com.mygdx.game.stage.SmartStage;
@@ -63,40 +65,26 @@ public class GameScreen extends AbstractScreen {
         map = new Map(tiledMap, context);
         camera = context.getCamera();
         stage = new SmartStage();
-        gameUI = new GameUI();
+        QuestTable questTable = GenerateQuests.generateQuests();
+        gameUI = new GameUI(questTable);
+        stage.setGameUI(gameUI);
+
         noticedUI = new NoticedUI();
         gameRenderer = context.getGameRenderer();
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
+        stage.setPlayer(player);
         evilNPC = new EvilNPC("testEvilNpc", context, map, "hero/hero.png");
-        evilNPC.setMovementDelayManager(new MovementDelayManager() {
-            int delay = 5 * 1000;
-            long limit = System.currentTimeMillis() + delay;
-
-            @Override
-            public boolean preMovePredicate() {
-                if ((evilNPC.getPath().isFirst() || evilNPC.getPath().isLast()) && System.currentTimeMillis() < limit) {
-                    return false;
-                }
-                limit = System.currentTimeMillis() + delay;
-                return true;
-
-            }
-
-            @Override
-            public boolean postMovePredicate() {
-                return false;
-            }
-        });
         npcList = Arrays.asList(
                 new Npc("englishNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
-                new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
-                evilNPC);
-        item = new Item(world, camera, gameRenderer, GameItems.SYPRINGE);
-        gameUI.addItem(item);
-        Tunel tunel = new Tunel(world, camera, "dirt.png", gameUI.getInventory(), itemBuilder);
+                new Npc("napNeighbour", world, map, camera, "hero/hero.png"
+                new Npc("nurse", world, map, camera, "hero/hero.png"),
+                NpcBuilder.setEndStartDelay(evilNPC,5000,5000));
+        item = new Item(world,camera,gameRenderer,GameItems.SYPRINGE);
+        stage.addItem(item);
+        Tunel tunel = new Tunel(world, camera, "dirt.png", player.getInventory(), itemBuilder);
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);
@@ -177,10 +165,7 @@ public class GameScreen extends AbstractScreen {
         TimeManager.getTime();
         camera.update();
         gameRenderer.render(1f);
-        gameUI.updateTime();
-        gameUI.setCurrentCell();
         stage.update();
-        gameUI.renderSelectedItem(stage);
     }
 
     @Override

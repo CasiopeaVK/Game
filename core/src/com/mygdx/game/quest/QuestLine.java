@@ -1,5 +1,7 @@
 package com.mygdx.game.quest;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 enum QuestLineStatus{
     IN_PROCESS, END;
@@ -8,6 +10,7 @@ public class QuestLine {
 
     private String name;
     private ArrayList<Quest> quests;
+    @Getter
     private int currentQuestIndex = 0;
     private QuestLineStatus questLineStatus = QuestLineStatus.IN_PROCESS;
 
