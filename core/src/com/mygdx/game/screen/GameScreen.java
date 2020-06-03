@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.InteractiveEntity;
@@ -29,6 +30,8 @@ import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 import com.mygdx.game.view.GameRenderer;
 
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -91,7 +94,7 @@ public class GameScreen extends AbstractScreen {
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
                 evilNPC);
-        item = new Item(world,camera,gameRenderer,GameItems.SYPRINGE);
+        item = new Item(world, camera, gameRenderer, GameItems.SYPRINGE);
         gameUI.addItem(item);
         Tunel tunel = new Tunel(world, camera, "dirt.png", gameUI.getInventory(), itemBuilder);
         gameRenderer = context.getGameRenderer();
@@ -104,27 +107,50 @@ public class GameScreen extends AbstractScreen {
         Gdx.input.setInputProcessor(stage);
     }
 
+
     private void renderEnvironment() {
         for (MapObject object : map.getLayer("Environment").getObjects()) {
             if (object instanceof TiledMapTileMapObject) {
-                InteractiveEntity objEntity = new InteractiveEntity(world, camera, "environmentTextures/" + object.getName() + ".png") {
-                    @Override
-                    protected void onClick(InputEvent event, float x, float y) {
-
-                    }
-
+                Entity objEntity = new Entity(world, camera, "environmentTextures/" + object.getName() + ".png") {
                     @Override
                     public void update() {
                     }
                 };
 
-                Vector2 isoPosition = IsoUtils.IsoTo2d( new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
-                objEntity.getSprite().setPosition(isoPosition.x-70, isoPosition.y-15);
-                objEntity.setPosition(isoPosition.x-70, isoPosition.y-15);
+                Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
+                objEntity.getSprite().setPosition(isoPosition.x - 70, isoPosition.y - 15);
+                objEntity.setPosition(isoPosition.x - 70, isoPosition.y - 15);
                 objEntity.getSprite().setScale(0.5f);
                 addEntity(objEntity);
             }
         }
+
+        for (MapObject object : map.getLayer("InteractiveEnvironment").getObjects()) {
+            if (object instanceof TiledMapTileMapObject) {
+                InteractiveEntity entity = new InteractiveEntity(world, camera, "environmentTextures/" + object.getName() + ".png") {
+                    @Override
+                    protected void onClick(InputEvent event, float x, float y) {
+                        processEntityClick();
+                    }
+
+                    @Override
+                    public void update() {
+                        updateClickListener();
+                    }
+                };
+                entity.setTouchable(Touchable.enabled);
+                Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
+                entity.getSprite().setPosition(isoPosition.x - 70, isoPosition.y - 15);
+                entity.setPosition(isoPosition.x - 70, isoPosition.y - 15);
+                entity.getSprite().setScale(0.5f);
+                addEntity(entity);
+            }
+        }
+    }
+
+    private void processEntityClick() {
+        //TODO write a toilet functionality
+        System.out.println(111);
     }
 
     private void addEntity(Entity entity) {

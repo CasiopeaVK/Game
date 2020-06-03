@@ -22,10 +22,12 @@ public abstract class Entity extends Actor {
     protected Body body;
     protected World world;
     protected float spriteScale = 0.6f;
+    private String texturePath;
 
     public Entity(World world, Camera camera, String texturePath) {
         this.world = world;
         this.camera = camera;
+        this.texturePath = texturePath;
         initialize(texturePath);
     }
 
@@ -105,5 +107,21 @@ public abstract class Entity extends Actor {
     }
 
     abstract public void update();
+
+    public World getWorld() {
+        return world;
+    }
+
+    public Camera getCamera() {
+        return camera;
+    }
+
+    public String getTexturePath() {
+        return texturePath;
+    }
+
+    public Body getBody() {
+        return body;
+    }
 }
 
