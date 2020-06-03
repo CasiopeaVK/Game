@@ -23,7 +23,9 @@ public class Item extends InteractiveEntity {
 
     @Getter
     private boolean digging = false;
+    @Getter
     private boolean improvable = false;
+    @Getter
     private boolean improves = false;
 
     @Getter

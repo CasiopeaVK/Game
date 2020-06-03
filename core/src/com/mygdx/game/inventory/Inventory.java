@@ -67,4 +67,12 @@ public class Inventory extends Table {
     public InventoryCell getSellectedCell() {
         return cells[currentCell];
     }
+    public Item getItemInSelectedCell(){return cells[currentCell].getItem();}
+    public InventoryCell getCellWithImprovesItem(){
+        for(InventoryCell cell:cells){
+            if(cell.getItem().isImproves())
+                return cell;
+        }
+        return null;
+    }
 }
