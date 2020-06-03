@@ -9,6 +9,7 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.Tunel;
+import com.mygdx.game.entities.npc.Door;
 import com.mygdx.game.entities.npc.EvilNPC;
 import com.mygdx.game.entities.npc.MovementDelayManager;
 import com.mygdx.game.entities.npc.Npc;
@@ -39,7 +40,7 @@ public class GameScreen extends AbstractScreen {
     Item item;
     PickUpSensor sensor;
     EvilNPC evilNPC;
-
+    Door door;
     //TODO remove
     NoticedUI noticedUI;
 
@@ -80,7 +81,7 @@ public class GameScreen extends AbstractScreen {
             }
         });
         item = itemBuilder.createItem(GameItems.DIRT);
-
+        door = new Door(map, world, camera);
         Tunel tunel = new Tunel(world, camera, "dirt.png", gameUI.getInventory(), itemBuilder);
         gameRenderer = context.getGameRenderer();
 

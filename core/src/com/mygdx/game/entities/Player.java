@@ -77,7 +77,7 @@ public class Player extends AnimatedEntity {
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (sensor.isTriggered() && sensor.getItem() != null) {
-                if(gameUI.getInventory().addItem(sensor.getItem()))
+                if (gameUI.getInventory().addItem(sensor.getItem()))
                     sensor.getItem().hideItem();
             }
         }
@@ -85,6 +85,13 @@ public class Player extends AnimatedEntity {
             if (!gameUI.getInventory().isSelectedEmpty()) {
                 gameUI.getInventory().getSellectedCell().getItem().createPickUpItem();
                 gameUI.getInventory().getSellectedCell().setItem(null);
+            }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.R) && sensor.isNearDoor()) {
+            if (sensor.getDoor().isOpen()) {
+                sensor.getDoor().close();
+            } else {
+                sensor.getDoor().open();
             }
         }
 

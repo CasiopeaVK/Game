@@ -72,7 +72,7 @@ public class Map {
         return bodies;
     }
 
-    private ChainShape getPolygon(PolygonMapObject polygonObject) {
+    public ChainShape getPolygon(PolygonMapObject polygonObject) {
         float[] vertices = polygonObject.getPolygon().getTransformedVertices();
         Vector2[] worldVertices = new Vector2[vertices.length / 2];
 
