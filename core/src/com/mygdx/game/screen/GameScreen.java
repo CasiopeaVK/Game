@@ -16,6 +16,7 @@ import com.mygdx.game.entities.Tunel;
 import com.mygdx.game.entities.npc.EvilNPC;
 import com.mygdx.game.entities.npc.MovementDelayManager;
 import com.mygdx.game.entities.npc.Npc;
+import com.mygdx.game.entities.npc.NpcBuilder;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.items.ItemBuilder;
@@ -67,30 +68,12 @@ public class GameScreen extends AbstractScreen {
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
         evilNPC = new EvilNPC("testEvilNpc", context, map, "hero/hero.png");
-        evilNPC.setMovementDelayManager(new MovementDelayManager() {
-            int delay = 5 * 1000;
-            long limit = System.currentTimeMillis() + delay;
-
-            @Override
-            public boolean preMovePredicate() {
-                if ((evilNPC.getPath().isFirst() || evilNPC.getPath().isLast()) && System.currentTimeMillis() < limit) {
-                    return false;
-                }
-                limit = System.currentTimeMillis() + delay;
-                return true;
-
-            }
-
-            @Override
-            public boolean postMovePredicate() {
-                return false;
-            }
-        });
         npcList = Arrays.asList(
                 new Npc("englishNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
-                evilNPC);
+                new Npc("nurse", world, map, camera, "hero/hero.png"),
+                NpcBuilder.setEndStartDelay(evilNPC,5000,5000));
         item = new Item(world,camera,gameRenderer,GameItems.SYPRINGE);
         gameUI.addItem(item);
         Tunel tunel = new Tunel(world, camera, "dirt.png", gameUI.getInventory(), itemBuilder);

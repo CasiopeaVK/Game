@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="isometric" renderorder="right-down" width="150" height="100" tilewidth="320" tileheight="160" infinite="0" nextlayerid="14" nextobjectid="1611">
+<map version="1.2" tiledversion="1.3.4" orientation="isometric" renderorder="right-down" width="150" height="100" tilewidth="320" tileheight="160" infinite="0" nextlayerid="14" nextobjectid="1613">
  <tileset firstgid="1" source="Water.tsx"/>
  <tileset firstgid="3" name="ground" tilewidth="319" tileheight="167" tilecount="4" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
@@ -53,6 +53,9 @@
   </object>
   <object id="1600" name="napNeighbour" x="9764" y="11356">
    <polyline points="0,0 -324,4"/>
+  </object>
+  <object id="1612" name="nurse" x="7324" y="5380">
+   <polyline points="0,0 1476,60 1476,-1380 2756,-1380 2916,5340 2916,3900 676,3900 676,5500 676,3900 -604,3900 -604,5660 -604,3900 1796,3900 1796,2300 -444,2300"/>
   </object>
  </objectgroup>
  <objectgroup id="13" name="Environment">
