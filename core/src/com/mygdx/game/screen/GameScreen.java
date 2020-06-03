@@ -85,8 +85,8 @@ public class GameScreen extends AbstractScreen {
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
                 evilNPC);
-        item = itemBuilder.createItem(GameItems.DIRT);
-
+        item = new Item(world,camera,gameRenderer,GameItems.SYPRINGE);
+        gameUI.addItem(item);
         Tunel tunel = new Tunel(world, camera, "dirt.png", gameUI.getInventory(), itemBuilder);
         gameRenderer = context.getGameRenderer();
 

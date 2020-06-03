@@ -4,7 +4,9 @@ package com.mygdx.game.items;
 import lombok.Getter;
 
 public enum GameItems {
-    SPOON("spoon"), DIRT("dirt");
+    SPOON("spoon"), DIRT("dirt"), FORK("fork"), HAMER("hamer"),
+    PLATE("plate"), PLATE_FOOD("plateFood"), PLUNGER("plunger"),
+    SCREWDRIVER("screwdriver"), SYPRINGE("sypringe");
         
     @Getter
     private String name;
