@@ -65,11 +65,13 @@ public class GameScreen extends AbstractScreen {
         QuestTable questTable = GenerateQuests.generateQuests();
         gameUI = new GameUI(questTable);
         stage.setGameUI(gameUI);
+
         noticedUI = new NoticedUI();
         gameRenderer = context.getGameRenderer();
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
+        stage.setPlayer(player);
         evilNPC = new EvilNPC("testEvilNpc", context, map, "hero/hero.png");
         npcList = Arrays.asList(
                 new Npc("englishNeighbour", world, map, camera, "hero/hero.png"),
@@ -79,7 +81,7 @@ public class GameScreen extends AbstractScreen {
                 NpcBuilder.setEndStartDelay(evilNPC,5000,5000));
         item = new Item(world,camera,gameRenderer,GameItems.SYPRINGE);
         stage.addItem(item);
-        Tunel tunel = new Tunel(world, camera, "dirt.png", gameUI.getInventory(), itemBuilder);
+        Tunel tunel = new Tunel(world, camera, "dirt.png", player.getInventory(), itemBuilder);
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);

@@ -2,6 +2,7 @@ package com.mygdx.game.stage;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.entities.Player;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.screenUI.GameUI;
 import lombok.Setter;
@@ -13,9 +14,12 @@ public class SmartStage extends Stage {
     private List<Entity> entityList = new ArrayList<>();
     @Setter
     private GameUI gameUI;
+    @Setter
+    private Player player;
+
     public void update(){
         gameUI.updateTime();
-        gameUI.setCurrentCell();
+        player.setCurrentCell();
         act();
         for(Entity entity:entityList){
            entity.update();
@@ -28,7 +32,7 @@ public class SmartStage extends Stage {
         entityList.add(entity);
     }
     public boolean addItem(Item item){
-        return gameUI.addItem(item);
+        return player.addItem(item);
     }
     public int getCurrentQuestIndex(){
         return gameUI.getQuestTable().getQuestLine().getCurrentQuestIndex();

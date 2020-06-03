@@ -26,7 +26,6 @@ public class QuestTable extends Table {
     Label header = new Label("Current quest:", Constants.APP_SKIN, "RobotoTime");
     Label currentName;
     Label currentDescription;
-    CheckBox isPerformedCheckBox = new CheckBox("", Constants.APP_SKIN, "default");
 
     public QuestTable(QuestLine questLine) {
         super(Constants.APP_SKIN);
@@ -42,21 +41,16 @@ public class QuestTable extends Table {
         this.currentQuest = questLine.getQuest();
         this.currentName = new Label(currentQuest.getName(), Constants.APP_SKIN, NAME_STYLE);
         this.currentDescription = new Label(currentQuest.getDescription(), Constants.APP_SKIN, DESCRIPTION_STYLE);
-        this.isPerformedCheckBox.setDisabled(true);
 
         this.add(header).left();
         this.row();
         this.add(currentName).left();
         this.row();
         this.add(currentDescription).left();
-        this.row();
-        this.add(isPerformedCheckBox).left();
+
 
     }
 
-    public void congratulation() {
-        isPerformedCheckBox.setChecked(true);
-    }
 
     public void updateQuest() {
         if (!currentQuest.isEnd()) {
@@ -65,11 +59,9 @@ public class QuestTable extends Table {
             if (currentQuest != null) {
                 currentName.setText(currentQuest.getName());
                 currentDescription.setText(currentQuest.getDescription());
-                isPerformedCheckBox.setChecked(false);
             }
         }else{
             questLine.performQuest();
-            isPerformedCheckBox.setChecked(true);
         }
     }
 }
