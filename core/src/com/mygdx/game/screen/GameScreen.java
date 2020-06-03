@@ -79,9 +79,9 @@ public class GameScreen extends AbstractScreen {
         npcList = Arrays.asList(
                 new Npc("englishNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
-                new Npc("napNeighbour", world, map, camera, "hero/hero.png"
-                new Npc("nurse", world, map, camera, "hero/hero.png"),
-                NpcBuilder.setEndStartDelay(evilNPC,5000,5000));
+                new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
+                new Npc("nurse", world, map, camera, "hero/hero.png"));
+        NpcBuilder.setEndStartDelay(evilNPC,5000,5000);
         item = new Item(world,camera,gameRenderer,GameItems.SYPRINGE);
         stage.addItem(item);
         Tunel tunel = new Tunel(world, camera, "dirt.png", player.getInventory(), itemBuilder);
