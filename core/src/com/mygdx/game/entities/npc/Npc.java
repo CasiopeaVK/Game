@@ -34,16 +34,21 @@ public class Npc extends InteractiveAnimatedEntity {
         }
     };
 
-    public Npc(String name, World world, Map map, Camera camera, String texturePath, String pathName) {
+    public Npc(String name, World world, Map map, Camera camera, String texturePath) {
         super(world, camera, texturePath);
         this.name = name;
-        initialize(map, pathName);
+        initialize(map);
     }
 
-    private void initialize(Map map, String pathName) {
+    public Npc(String name, World world, Map map, Camera camera, String texturePath, MovementDelayManager movementDelayManager) {
+        this(name,world,map,camera,texturePath);
+        this.movementDelayManager = movementDelayManager;
+    }
+
+    private void initialize(Map map) {
         spriteScale = 0.6f;
         sprite.setScale(spriteScale);
-        path = new Path(map, pathName);
+        path = new Path(map, name);
         calculateSpawnPosition();
         calculateDirection();
         initCharacterBody(BodyDef.BodyType.KinematicBody);

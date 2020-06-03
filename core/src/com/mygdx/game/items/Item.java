@@ -22,6 +22,11 @@ import java.awt.event.MouseEvent;
 public class Item extends InteractiveEntity {
 
     @Getter
+    private boolean digging = false;
+    private boolean improvable = false;
+    private boolean improves = false;
+
+    @Getter
     public String name;
     private float collidedRaduis = 30f;
     private float scaleFactor = 1.4f;
@@ -109,4 +114,8 @@ public class Item extends InteractiveEntity {
                 player.getSprite().getY() + this.sprite.getHeight() * Constants.UNIT_SCALE);
         initPickUpTrigger();
     }
+
+    protected void setDigging(boolean flag){digging = flag;}
+    protected void setImprovable(boolean improvable){this.improvable = improvable;}
+    protected void setImproves(boolean improves){this.improves = improves;}
 }

@@ -35,48 +35,47 @@ public abstract class Entity extends Actor {
 
     }
 
-    protected void calculateSpawnPosition(Map map, String markerName){
-        MapObject spawnPoint = map.getObject("Markers",markerName);
+    protected void calculateSpawnPosition(Map map, String markerName) {
+        MapObject spawnPoint = map.getObject("Markers", markerName);
         Rectangle spawnPointRect = ((RectangleMapObject) spawnPoint).getRectangle();
-        Vector2 iso = new Vector2(spawnPointRect.x,spawnPointRect.y);
+        Vector2 iso = new Vector2(spawnPointRect.x, spawnPointRect.y);
         MapProperties prop = map.getProperties();
 
         Vector2 res = IsoUtils.IsoTo2d(iso);
         setPosition(res);
     }
 
-    protected void setPosition(Vector2 vector2){
-        sprite.setPosition(vector2.x,vector2.y);
+    protected void setPosition(Vector2 vector2) {
+        sprite.setPosition(vector2.x, vector2.y);
     }
 
     public Sprite getSprite() {
         return sprite;
     }
 
-    public float getHeight(){
-        return sprite.getHeight()*spriteScale;
+    public float getHeight() {
+        return sprite.getHeight() * spriteScale;
     }
 
-    public  float getWidth(){
-        return sprite.getWidth()*spriteScale;
+    public float getWidth() {
+        return sprite.getWidth() * spriteScale;
     }
 
-    public PolygonShape createHeptagonPolygonShape(){
+    public PolygonShape createHeptagonPolygonShape() {
         int STEPS = 7;
         Vector2[] vertices = new Vector2[STEPS + 1];
-        for(int i = 0; i < STEPS; i++)
-        {
-            float t = (float)(i*2*Math.PI)/STEPS;
-            vertices[i] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(t), sprite.getWidth() / 6 * (float)Math.sin(t));
+        for (int i = 0; i < STEPS; i++) {
+            float t = (float) (i * 2 * Math.PI) / STEPS;
+            vertices[i] = new Vector2(sprite.getWidth() / 3 * (float) Math.cos(t), sprite.getWidth() / 6 * (float) Math.sin(t));
         }
-        vertices[STEPS] = new Vector2(sprite.getWidth() / 3 * (float)Math.cos(0), 0);
+        vertices[STEPS] = new Vector2(sprite.getWidth() / 3 * (float) Math.cos(0), 0);
 
         PolygonShape polygonShape = new PolygonShape();
         polygonShape.set(vertices);
         return polygonShape;
     }
 
-    public void initCharacterBody(BodyDef.BodyType type){
+    public void initCharacterBody(BodyDef.BodyType type) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = type;
         bodyDef.fixedRotation = true;
@@ -93,12 +92,16 @@ public abstract class Entity extends Actor {
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
     }
 
-    protected Vector2 getPosition(){
-        return new Vector2(sprite.getX(),sprite.getY());
+    protected Vector2 getPosition() {
+        return new Vector2(sprite.getX(), sprite.getY());
     }
 
-    protected Vector2 getIsoPosition(){
+    protected Vector2 getIsoPosition() {
         return IsoUtils.LocalToIso(getPosition());
+    }
+
+    public void setSpriteScale(float scale) {
+        spriteScale = scale;
     }
 
     abstract public void update();
