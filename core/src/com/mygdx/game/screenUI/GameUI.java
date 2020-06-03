@@ -15,6 +15,7 @@ import com.mygdx.game.quest.QuestTable;
 import lombok.Getter;
 
 public class GameUI extends Table {
+    @Getter
     QuestTable questTable;
     TimeTable timeTable;
     @Getter
@@ -25,11 +26,11 @@ public class GameUI extends Table {
 
     InventoryTable table;
 
-    public GameUI(){
-        allUiRender();
+    public GameUI(QuestTable questTable){
+        allUiRender(questTable);
     }
-    private void allUiRender(){
-        addQuestTable();
+    private void allUiRender(QuestTable questTable){
+        addQuestTable(questTable);
         addTimeTable();
         addInventory();
 
@@ -61,8 +62,8 @@ public class GameUI extends Table {
     }
 
     //Render quests table in UI
-    private void addQuestTable() {
-        questTable = GenerateQuests.generateQuests();
+    private void addQuestTable(QuestTable questTable) {
+        this.questTable = questTable;
         questTable.left().top();
         this.addActor(questTable);
     }

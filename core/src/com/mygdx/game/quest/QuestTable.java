@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
+import lombok.Getter;
 
 public class QuestTable extends Table {
     private final int TABLE_WIDTH = 250;
@@ -17,7 +18,7 @@ public class QuestTable extends Table {
     private final String TABLE_BG = "cell";
     private final String NAME_STYLE = "default";
     private final String DESCRIPTION_STYLE = "RobotoSmall";
-
+    @Getter
     QuestLine questLine;
     Quest currentQuest;
 

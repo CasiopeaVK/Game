@@ -7,6 +7,7 @@
         "target": -1
       },
       {
+        "phase": 2,
         "text": "You see ... I have ...",
         "target": 1
       }

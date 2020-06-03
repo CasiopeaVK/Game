@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.stage.SmartStage;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
@@ -18,7 +19,7 @@ public class DialogLine {
     private List<Speech> speechList = new ArrayList<>();
     private Skin skin;
     @Setter
-    private Stage stage;
+    private SmartStage stage;
     private int currentIndex = 0;
 
     @SneakyThrows
@@ -43,6 +44,9 @@ public class DialogLine {
         Label text = new Label(speech.text,skin,"RobotoText");
         dialog.text(text);
         for(Answer answer:speech.answers){
+            if(answer.phase!=0 && answer.phase!=stage.getCurrentQuestIndex()){
+                continue;
+            }
             ImageTextButton btn = new ImageTextButton(answer.text, skin, "hospital");
             dialog.button(btn,answer.target);
         }
@@ -74,10 +78,14 @@ public class DialogLine {
     private class Answer{
         private String text;
         private int target;
+        private int phase = 0;
         @SneakyThrows
         public Answer(JSONObject jsonObject){
             text = jsonObject.getString("text");
             target = jsonObject.getInt("target");
+            if(jsonObject.has("phase")){
+                phase = jsonObject.getInt("phase");
+            }
         }
     }
 }
