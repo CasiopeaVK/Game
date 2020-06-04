@@ -92,13 +92,8 @@ public class GameScreen extends AbstractScreen {
         npcList.stream().forEach(this::addEntity);
         addEntity(item);
         addEntity(tunel);
-        ObjectsRenderer.renderEnvironment(map, stage, context);
+        ObjectsRenderer.renderEnvironment(map, stage, player, context);
         Gdx.input.setInputProcessor(stage);
-    }
-
-    private void processEntityClick() {
-        //TODO write a toilet functionality
-        System.out.println(111);
     }
 
     private void addEntity(Entity entity) {

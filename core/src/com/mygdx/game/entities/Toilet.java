@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.mygdx.game.Time.TimeManager;
 
 public class Toilet extends InteractiveEntity {
-    private int clogging = 0;
+    public static int clogging = 0;
     private int capacity = 4;
     private boolean clogged = false;
     private int lastTick = 0;
@@ -27,7 +27,8 @@ public class Toilet extends InteractiveEntity {
             currentTime = TimeManager.getTime();
             if (Integer.parseInt(currentTime.split(" : ")[0]) % 2 == 0 && Integer.parseInt(currentTime.split(" : ")[1]) == 0 && lastTick != Integer.parseInt(currentTime.split(" : ")[0])) {
                 lastTick = Integer.parseInt(currentTime.split(" : ")[0]);
-                System.out.println("cleaning");
+                if (clogging > 0)
+                    clogging--;
             }
         } catch (NumberFormatException e) {
             System.out.println("Number format exception");
