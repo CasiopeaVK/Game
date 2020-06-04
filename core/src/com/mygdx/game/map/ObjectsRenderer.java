@@ -30,7 +30,7 @@ public class ObjectsRenderer {
         }
         for (MapObject interactiveObject : map.getLayer("InteractiveEnvironment").getObjects()) {
             if (interactiveObject.getName().equals("2")) {
-                Toilet entity = new Toilet(world, camera, "environmentTextures/" + interactiveObject.getName() + ".png");
+                Toilet entity = new Toilet(context, "environmentTextures/" + interactiveObject.getName() + ".png");
                 addEntityToTheMap(interactiveObject, entity, stage, context.getGameRenderer());
             } else if (interactiveObject.getName().equals("cloggingText")) {
                 Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) interactiveObject).getX(), ((TiledMapTileMapObject) interactiveObject).getY()));

@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.entities.Player;
 import com.mygdx.game.items.ItemBuilder;
 import com.mygdx.game.map.MapManager;
 import com.mygdx.game.screen.AbstractScreen;
@@ -43,6 +44,7 @@ public class GameContext extends Game {
     private GameRenderer gameRenderer;
     private RayHandler rayHandler;
     private ItemBuilder itemBuilder;
+    private Player player;
 
 
     @Override
@@ -109,6 +111,14 @@ public class GameContext extends Game {
 
     public ItemBuilder getItemBuilder() {
         return itemBuilder;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public void setScreen(final ScreenType screenType) {

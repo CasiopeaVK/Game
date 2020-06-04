@@ -76,6 +76,7 @@ public class GameScreen extends AbstractScreen {
         context.setItemBuilder(itemBuilder);
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
+        context.setPlayer(player);
         stage.setPlayer(player);
         evilNPC = new EvilNPC("testEvilNpc", context, map, "hero/hero.png");
         npcList = Arrays.asList(
