@@ -487,6 +487,10 @@
 	"LoraTime": {
 		"font": "LoraButton",
 		"fontColor": "black"
+	},
+	"LoraButtonBlack": {
+		"font": "LoraButton",
+		"fontColor": "black"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle": {
@@ -621,6 +625,10 @@
 		"background": "windowHospital",
 		"titleFont": "RobotoButton",
 		"titleFontColor": "hospitalWhite"
+	},
+	"white": {
+		"background": "window",
+		"titleFont": "LoraLabel"
 	}
 }
 }

@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DialogLine {
-    private final String DIALOG_STYLE = "hospital";
-    private final String TEXT_STYLE = "LoraButton";
+    private final String DIALOG_STYLE = "white";
+    private final String TEXT_STYLE = "LoraButtonBlack";
     private final String BUTTON_STYLE = "LoraButton";
 
     private final int ALWAYS_AVAILABLE = -1;

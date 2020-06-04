@@ -18,7 +18,7 @@ public class QuestTable extends Table {
     private final int LEFT_PAD = 20;
     private final int RIGHT_PAD = 0;
     private final int BOTTOM_PAD = 0;
-    private final String TABLE_BG = "cell";
+    private final String TABLE_BG = "tableBG";
     private final String NAME_STYLE = "LoraLabel";
     private final String DESCRIPTION_STYLE = "LoraText";
     @Getter
