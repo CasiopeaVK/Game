@@ -24,6 +24,7 @@ import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
 
 import com.mygdx.game.Time.TimeManager;
+import com.mygdx.game.map.ObjectsRenderer;
 import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.screenUI.GameUI;
@@ -81,8 +82,8 @@ public class GameScreen extends AbstractScreen {
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("nurse", world, map, camera, "hero/hero.png"),
-                NpcBuilder.setEndStartDelay(evilNPC,5000,5000));
-        item = new Item(world,camera,gameRenderer,GameItems.SYPRINGE);
+                NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000));
+        item = new Item(world, camera, gameRenderer, GameItems.SYPRINGE);
         stage.addItem(item);
         Tunel tunel = new Tunel(world, camera, "dirt.png", player.getInventory(), itemBuilder);
         gameRenderer = context.getGameRenderer();
@@ -91,49 +92,8 @@ public class GameScreen extends AbstractScreen {
         npcList.stream().forEach(this::addEntity);
         addEntity(item);
         addEntity(tunel);
-        renderEnvironment();
+        ObjectsRenderer.renderEnvironment(map, stage, context);
         Gdx.input.setInputProcessor(stage);
-    }
-
-
-    private void renderEnvironment() {
-        for (MapObject object : map.getLayer("Environment").getObjects()) {
-            if (object instanceof TiledMapTileMapObject) {
-                Entity objEntity = new Entity(world, camera, "environmentTextures/" + object.getName() + ".png") {
-                    @Override
-                    public void update() {
-                    }
-                };
-
-                Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
-                objEntity.getSprite().setPosition(isoPosition.x - 70, isoPosition.y - 15);
-                objEntity.setPosition(isoPosition.x - 70, isoPosition.y - 15);
-                objEntity.getSprite().setScale(0.5f);
-                addEntity(objEntity);
-            }
-        }
-        //TODO refactor code following DRY
-        /*for (MapObject object : map.getLayer("InteractiveEnvironment").getObjects()) {
-            if (object instanceof TiledMapTileMapObject) {
-                InteractiveEntity entity = new InteractiveEntity(world, camera, "environmentTextures/" + object.getName() + ".png") {
-                    @Override
-                    protected void onClick(InputEvent event, float x, float y) {
-                        processEntityClick();
-                    }
-
-                    @Override
-                    public void update() {
-                        updateClickListener();
-                    }
-                };
-                entity.setTouchable(Touchable.enabled);
-                Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
-                entity.getSprite().setPosition(isoPosition.x - 70, isoPosition.y - 15);
-                entity.setPosition(isoPosition.x - 70, isoPosition.y - 15);
-                entity.getSprite().setScale(0.5f);
-                addEntity(entity);
-            }
-        }*/
     }
 
     private void processEntityClick() {
