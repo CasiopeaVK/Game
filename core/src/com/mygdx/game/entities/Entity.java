@@ -34,11 +34,15 @@ public abstract class Entity extends Actor {
         this.texturePath = texturePath;
         initialize(texturePath);
     }
+    public Entity(World world, Camera camera,Sprite sprite){
+        this.world = world;
+        this.camera = camera;
+        this.sprite = sprite;
+    }
 
     private void initialize(String texturePath) {
         img = new Texture(texturePath);
         sprite = new Sprite(img);
-
     }
 
     protected void calculateSpawnPosition(Map map, String markerName) {

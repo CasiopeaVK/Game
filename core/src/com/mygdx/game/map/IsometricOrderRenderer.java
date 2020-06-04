@@ -254,8 +254,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
                     batch.draw(region.getTexture(), vertices, 0, NUM_VERTICES);
 
                     for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
-
-                        if (entry.getValue().x >= col * tileWidth && entry.getValue().y <= row * tileWidth) {
+                        if (entry.getValue().x >= col * tileWidth+entry.getKey().getSprite().getWidth()/2 && entry.getValue().y <= row * tileWidth) {
                             entry.getKey().getSprite().draw(batch);
                         }
                     }

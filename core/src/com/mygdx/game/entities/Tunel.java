@@ -19,6 +19,8 @@ import com.mygdx.game.items.improves.ImproveItem;
 
 import java.util.ArrayList;
 
+import static com.mygdx.game.Constants.FLOOR_OBJECTS_SCALE;
+
 enum TunnelState {
     START, BETWEEN, END;
 }
@@ -35,9 +37,9 @@ public class Tunel extends InteractiveEntity {
     TunnelState tunnelState;
     int currentTunnel;
 
-    public Tunel(World world, Camera camera, String texturePath, Inventory inventory, ItemBuilder itemBuilder, Player player, Vector2 coords) {
-        super(world, camera, texturePath);
-        this.coords = coords;
+    public Tunel(World world, Camera camera, Sprite sprite, Inventory inventory, ItemBuilder itemBuilder, Player player, Vector2 isoPosition) {
+        super(world, camera, sprite);
+        this.coords = new Vector2(isoPosition.x - sprite.getWidth() * 2 * FLOOR_OBJECTS_SCALE, isoPosition.y - sprite.getHeight() * FLOOR_OBJECTS_SCALE);
         this.inventory = inventory;
         this.itemBuilder = itemBuilder;
         this.player = player;
@@ -48,9 +50,9 @@ public class Tunel extends InteractiveEntity {
         tunnels.add(new Sprite(new Texture("environmentTextures/tunnel1.png")));
         tunnels.add(new Sprite(new Texture("environmentTextures/tunnel2.png")));
         tunnels.add(new Sprite(new Texture("environmentTextures/tunnel3.png")));
-        for (Sprite sprite : tunnels) {
-            sprite.setScale(0.25f);
-            sprite.setPosition(coords.x, coords.y);
+        for (Sprite sprite1 : tunnels) {
+            sprite1.setScale(FLOOR_OBJECTS_SCALE);
+            sprite1.setPosition(coords.x, coords.y);
         }
         currentTunnel = 0;
         tunnelState = TunnelState.START;
@@ -93,7 +95,7 @@ public class Tunel extends InteractiveEntity {
 
     @Override
     public void update() {
-        if (Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) < 150 && Gdx.input.isKeyJustPressed(Input.Keys.R))
+        if (Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) < 200 && Gdx.input.isKeyJustPressed(Input.Keys.R))
             work();
         sprite.set(tunnels.get(currentTunnel));
     }

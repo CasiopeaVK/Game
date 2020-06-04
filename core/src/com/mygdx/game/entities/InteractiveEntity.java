@@ -1,6 +1,7 @@
 package com.mygdx.game.entities;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -18,6 +19,10 @@ abstract public class InteractiveEntity extends Entity {
 
     public InteractiveEntity(World world, Camera camera, String texturePath) {
         super(world, camera, texturePath);
+    }
+
+    public InteractiveEntity(World world, Camera camera, Sprite sprite){
+        super(world, camera, sprite);
     }
 
     public void update(float speed) {
