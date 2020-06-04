@@ -112,8 +112,8 @@ public class GameScreen extends AbstractScreen {
                 addEntity(objEntity);
             }
         }
-
-        for (MapObject object : map.getLayer("InteractiveEnvironment").getObjects()) {
+        //TODO refactor code following DRY
+        /*for (MapObject object : map.getLayer("InteractiveEnvironment").getObjects()) {
             if (object instanceof TiledMapTileMapObject) {
                 InteractiveEntity entity = new InteractiveEntity(world, camera, "environmentTextures/" + object.getName() + ".png") {
                     @Override
@@ -133,7 +133,7 @@ public class GameScreen extends AbstractScreen {
                 entity.getSprite().setScale(0.5f);
                 addEntity(entity);
             }
-        }
+        }*/
     }
 
     private void processEntityClick() {
