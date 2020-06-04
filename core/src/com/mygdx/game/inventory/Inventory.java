@@ -70,7 +70,7 @@ public class Inventory extends Table {
     public Item getItemInSelectedCell(){return cells[currentCell].getItem();}
     public InventoryCell getCellWithImprovesItem(){
         for(InventoryCell cell:cells){
-            if(cell.getItem().isImproves())
+            if(cell.getItem() !=null && cell.getItem().isImproves())
                 return cell;
         }
         return null;

@@ -84,15 +84,19 @@ public class GameScreen extends AbstractScreen {
                 new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("nurse", world, map, camera, "hero/hero.png"),
                 NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000));
-        item = new Item(world, camera, gameRenderer, GameItems.SYPRINGE);
+        for(int i = 0; i <4;i++){
+        item = itemBuilder.createItem(GameItems.SCREWDRIVER);
         stage.addItem(item);
-        Tunel tunel = new Tunel(world, camera, "dirt.png", player.getInventory(), itemBuilder);
+        }
+        item = itemBuilder.createItem(GameItems.HAMER);
+        stage.addItem(item);
+        item = itemBuilder.createItem(GameItems.SPOON);
+        stage.addItem(item);
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);
         npcList.stream().forEach(this::addEntity);
         addEntity(item);
-        addEntity(tunel);
         ObjectsRenderer.renderEnvironment(map, stage, player, context);
         Gdx.input.setInputProcessor(stage);
     }

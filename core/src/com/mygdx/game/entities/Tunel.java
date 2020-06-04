@@ -1,6 +1,11 @@
 package com.mygdx.game.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -12,6 +17,11 @@ import com.mygdx.game.items.ItemBuilder;
 import com.mygdx.game.items.digging.DiggingItem;
 import com.mygdx.game.items.improves.ImproveItem;
 
+import java.util.ArrayList;
+
+enum TunnelState {
+    START, BETWEEN, END;
+}
 
 public class Tunel extends InteractiveEntity {
 
@@ -19,36 +29,72 @@ public class Tunel extends InteractiveEntity {
     int healthPoint = 100;
     Inventory inventory;
     ItemBuilder itemBuilder;
+    Player player;
+    ArrayList<Sprite> tunnels;
+    Vector2 coords;
+    TunnelState tunnelState;
+    int currentTunnel;
 
-    public Tunel(World world, Camera camera, String texturePath, Inventory inventory, ItemBuilder itemBuilder) {
+    public Tunel(World world, Camera camera, String texturePath, Inventory inventory, ItemBuilder itemBuilder, Player player, Vector2 coords) {
         super(world, camera, texturePath);
+        this.coords = coords;
         this.inventory = inventory;
         this.itemBuilder = itemBuilder;
+        this.player = player;
         this.setTouchable(Touchable.enabled);
 
+        tunnels = new ArrayList<Sprite>();
+        tunnels.add(new Sprite(new Texture("environmentTextures/tunnel0.png")));
+        tunnels.add(new Sprite(new Texture("environmentTextures/tunnel1.png")));
+        tunnels.add(new Sprite(new Texture("environmentTextures/tunnel2.png")));
+        tunnels.add(new Sprite(new Texture("environmentTextures/tunnel3.png")));
+        for (Sprite sprite : tunnels) {
+            sprite.setScale(0.25f);
+            sprite.setPosition(coords.x, coords.y);
+        }
+        currentTunnel = 0;
+        tunnelState = TunnelState.START;
     }
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
+
+    }
+
+    private void work() {
         InventoryCell cell = inventory.getSellectedCell();
         Item item = cell.getItem();
-        if (item instanceof DiggingItem) {
+
+        if (item instanceof DiggingItem && tunnelState != TunnelState.END) {
             InventoryCell improvesCell = inventory.getCellWithImprovesItem();
-            if (improvesCell != null) {
+            if (improvesCell != null && item.isImprovable()) {
                 healthPoint -= ((DiggingItem) item).getPower() * ((ImproveItem) improvesCell.getItem()).getImprovePower();
                 improvesCell.setItem(null);
             } else {
                 healthPoint -= ((DiggingItem) item).getPower();
             }
+            cell.setItem(null);
+            currentTunnel++;
+            tunnelState = TunnelState.BETWEEN;
+            if (currentTunnel == 3)
+                tunnelState = TunnelState.END;
+
+        } else if (tunnelState != TunnelState.START && item == null) {
             cell.setItem(itemBuilder.createItem(GameItems.DIRT));
+            currentTunnel--;
+            if(currentTunnel == 0)
+                tunnelState = TunnelState.START;
         }
         if (healthPoint == 0) {
             //TODO win game
         }
+        System.out.println(healthPoint);
     }
 
     @Override
     public void update() {
-        updateClickListener();
+        if (Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) < 150 && Gdx.input.isKeyJustPressed(Input.Keys.R))
+            work();
+        sprite.set(tunnels.get(currentTunnel));
     }
 }

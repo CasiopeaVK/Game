@@ -38,9 +38,10 @@ public class ObjectsRenderer {
                 addEntityToTheMap(interactiveObject, cloggingIndicator, stage, context.getGameRenderer());
                 cloggingIndicator.setPosition(isoPosition.x - OBJECT_SETTLING_PADDLE.x - OBJECT_SETTLING_PADDLE.y, isoPosition.y - 8 * OBJECT_SETTLING_PADDLE.y);
             }else if (interactiveObject.getName().equals("tunnel")){
-                System.out.println(1);
-                Tunel entity = new Tunel(world, camera, "environmentTextures/tunnel0.png", player.getInventory(), context.getItemBuilder());
+                Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) interactiveObject).getX(), ((TiledMapTileMapObject) interactiveObject).getY()));
+                Tunel entity = new Tunel(world, camera, "environmentTextures/tunnel0.png", player.getInventory(), context.getItemBuilder(), player, new Vector2(isoPosition.x - 2.25f*OBJECT_SETTLING_PADDLE.x, isoPosition.y -2.58f*OBJECT_SETTLING_PADDLE.y));
                 addEntityToTheMap(interactiveObject, entity, stage, context.getGameRenderer());
+                entity.setPosition(isoPosition.x-2.25f*OBJECT_SETTLING_PADDLE.x, isoPosition.y -2.58f*OBJECT_SETTLING_PADDLE.y);
             }
         }
     }
