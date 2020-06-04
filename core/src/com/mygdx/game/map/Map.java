@@ -13,10 +13,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.utils.IsoUtils;
+import lombok.Getter;
 
 import java.util.ArrayList;
 
 public class Map {
+    @Getter
     private final TiledMap tiledMap;
     private ArrayList<Body> bodies;
     private final float ppt = 4f;
