@@ -15,6 +15,7 @@ import com.mygdx.game.GameContext;
 
 public class MenuScreen extends AbstractScreen {
 
+    private static String BUTTON_STYLE = "LoraButton";
     Stage menuStage;
     Table menuTable;
     ImageTextButton gameButton;
@@ -31,8 +32,8 @@ public class MenuScreen extends AbstractScreen {
         menuTable.setPosition(0,0);
 
         menuStage = new Stage();
-        gameButton = new ImageTextButton("Start game", Constants.APP_SKIN,"hospital");
-        exitButton = new ImageTextButton("Exit", Constants.APP_SKIN,"hospital");
+        gameButton = new ImageTextButton("Start game", Constants.APP_SKIN,BUTTON_STYLE);
+        exitButton = new ImageTextButton("Exit", Constants.APP_SKIN,BUTTON_STYLE);
         startGameListener();
         menuTable.add(gameButton).padBottom(5);
         menuTable.row();

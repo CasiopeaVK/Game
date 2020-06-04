@@ -6,7 +6,7 @@ import com.mygdx.game.Constants;
 
 public class LoadingUI extends Table {
     private static final String PROGRESS_BAR_STYLE = "hospital";
-    private static final String LOADING_TEXT_STYLE = "RobotoTitle";
+    private static final String LOADING_TEXT_STYLE = "LoraTitle";
 
     ProgressBar progressBar;
     Label loading;
