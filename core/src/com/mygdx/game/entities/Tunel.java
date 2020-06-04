@@ -10,7 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.inventory.InventoryCell;
 import com.mygdx.game.items.GameItems;
+import com.mygdx.game.items.Item;
 import com.mygdx.game.items.ItemBuilder;
+import com.mygdx.game.items.digging.DiggingItem;
+import com.mygdx.game.items.improves.ImproveItem;
 import com.mygdx.game.screenUI.GameUI;
 
 public class Tunel extends InteractiveEntity {
@@ -29,14 +32,14 @@ public class Tunel extends InteractiveEntity {
         initialize();
     }
 
-    private void initialize(){
-        sprite.setPosition(POSITION_X,POSITION_Y);
+    private void initialize() {
+        sprite.setPosition(POSITION_X, POSITION_Y);
         sprite.setScale(0.4f);
         this.setTouchable(Touchable.enabled);
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                onClick(event,x,y);
+                onClick(event, x, y);
             }
         });
 
@@ -44,16 +47,22 @@ public class Tunel extends InteractiveEntity {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
-        InventoryCell cell = inventory.getCellWithItem(GameItems.SPOON);
-        if(cell != null){
-            cell.setItem(itemBuilder.createItem(GameItems.DIRT));
-            sprite.setScale(sprite.getScaleX()/2);
-            healthPoint -= 20;
-            sprite.setPosition(POSITION_X,POSITION_Y);
-        }
-            if(healthPoint == 0){
-                sprite = new Sprite(new Texture("cube.png"));
+        InventoryCell cell = inventory.getSellectedCell();
+        Item item = cell.getItem();
+        if (item instanceof DiggingItem) {
+            InventoryCell improvesCell = inventory.getCellWithImprovesItem();
+            if (improvesCell != null) {
+                healthPoint -= ((DiggingItem) item).getPower() * ((ImproveItem) improvesCell.getItem()).getImprovePower();
+                improvesCell.setItem(null);
+            } else {
+                healthPoint -= ((DiggingItem) item).getPower();
             }
+            cell.setItem(itemBuilder.createItem(GameItems.DIRT));
+            sprite.setPosition(POSITION_X, POSITION_Y);
+        }
+        if (healthPoint == 0) {
+            sprite = new Sprite(new Texture("cube.png"));
+        }
     }
 
     @Override

@@ -1,0 +1,47 @@
+[
+  {
+    "text": "Hi dear :) New here? Tell me how are you?",
+    "answers": [
+      {
+        "text": "OK",
+        "target": -1
+      },
+      {
+        "phase": 2,
+        "text": "You see ... I have ...",
+        "target": 1
+      }
+    ]
+  },
+  {
+    "text": "oh dear there`s nothing to be shy :) tell me",
+    "answers": [
+      {
+        "text": "urinary inconvenience",
+        "target": 2
+      },
+      {
+        "text": "urinary incontinence",
+        "target": 3
+      }
+    ]
+  },
+  {
+    "text": "what? I`ve never heard about that. What does it mean?",
+    "answers": [
+      {
+        "text": "Sorry t9 urinary incontinence",
+        "target": 3
+      }
+    ]
+  },
+  {
+    "text": "Are you sure? (Your neighbours: 'we are sure sir ... miss'). :O ok I`ll ask to move you to room with a toilet",
+    "answers": [
+      {
+        "text": "God bless you. I`ll never forget this",
+        "target": -2
+      }
+    ]
+  }
+]

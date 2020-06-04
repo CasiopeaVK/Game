@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.stage.SmartStage;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
@@ -15,10 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DialogLine {
+    private final String DIALOG_STYLE = "hospital";
+    private final String TEXT_STYLE = "LoraButton";
+    private final String BUTTON_STYLE = "LoraButton";
+
+    private final int ALWAYS_AVAILABLE = -1;
     private List<Speech> speechList = new ArrayList<>();
     private Skin skin;
     @Setter
-    private Stage stage;
+    private SmartStage stage;
     private int currentIndex = 0;
 
     @SneakyThrows
@@ -29,7 +35,7 @@ public class DialogLine {
 
     public void runDialog(String name){
         Speech speech = speechList.get(currentIndex);
-        Dialog dialog = new Dialog(name, skin, "hospital") {
+        Dialog dialog = new Dialog(name, skin, DIALOG_STYLE) {
             public void result(Object obj) {
                 currentIndex = (Integer)obj;
                 System.out.println(currentIndex);
@@ -40,10 +46,13 @@ public class DialogLine {
                 }
             }
         };
-        Label text = new Label(speech.text,skin,"RobotoText");
+        Label text = new Label(speech.text,skin,TEXT_STYLE);
         dialog.text(text);
         for(Answer answer:speech.answers){
-            ImageTextButton btn = new ImageTextButton(answer.text, skin, "hospital");
+            if(answer.phase!=ALWAYS_AVAILABLE && answer.phase!=stage.getCurrentQuestIndex()){
+                continue;
+            }
+            ImageTextButton btn = new ImageTextButton(answer.text, skin, BUTTON_STYLE);
             dialog.button(btn,answer.target);
         }
         dialog.show(stage);
@@ -74,10 +83,14 @@ public class DialogLine {
     private class Answer{
         private String text;
         private int target;
+        private int phase = ALWAYS_AVAILABLE;
         @SneakyThrows
         public Answer(JSONObject jsonObject){
             text = jsonObject.getString("text");
             target = jsonObject.getInt("target");
+            if(jsonObject.has("phase")){
+                phase = jsonObject.getInt("phase");
+            }
         }
     }
 }

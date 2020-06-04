@@ -18,7 +18,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 
 public class Map {
-    @Getter
+
     private final TiledMap tiledMap;
     private ArrayList<Body> bodies;
     private final float ppt = 4f;

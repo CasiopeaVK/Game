@@ -13,6 +13,8 @@ import com.mygdx.game.GameContext;
 
 public class RestartScreen extends AbstractScreen {
 
+    private static String BUTTON_STYLE = "LoraButton";
+    private static String LABEL_STYLE = "LoraTitle";
     Stage restartStage;
     Table restartTable;
 
@@ -29,9 +31,9 @@ public class RestartScreen extends AbstractScreen {
         restartStage = new Stage();
         restartTable = new Table();
 
-        restart = new ImageTextButton("Restart", Constants.APP_SKIN, "default");
-        menu = new ImageTextButton("Menu", Constants.APP_SKIN, "default");
-        dieText = new Label("You are die!", Constants.APP_SKIN,"title");
+        restart = new ImageTextButton("Restart", Constants.APP_SKIN, BUTTON_STYLE);
+        menu = new ImageTextButton("Menu", Constants.APP_SKIN, BUTTON_STYLE);
+        dieText = new Label("You are die!", Constants.APP_SKIN,LABEL_STYLE);
         addButtonListener();
         restartTable.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         restartTable.setPosition(0,0);

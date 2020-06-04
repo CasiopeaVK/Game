@@ -8,15 +8,15 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.InteractiveEntity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.Tunel;
-import com.mygdx.game.entities.npc.Door;
 import com.mygdx.game.entities.npc.EvilNPC;
-import com.mygdx.game.entities.npc.MovementDelayManager;
 import com.mygdx.game.entities.npc.Npc;
+import com.mygdx.game.entities.npc.NpcBuilder;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.items.ItemBuilder;
@@ -24,12 +24,17 @@ import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
 
 import com.mygdx.game.Time.TimeManager;
+import com.mygdx.game.map.ObjectsRenderer;
+import com.mygdx.game.quest.GenerateQuests;
+import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.screenUI.NoticedUI;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 import com.mygdx.game.view.GameRenderer;
 
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,7 +53,7 @@ public class GameScreen extends AbstractScreen {
     Item item;
     PickUpSensor sensor;
     EvilNPC evilNPC;
-    Door door;
+
     //TODO remove
     NoticedUI noticedUI;
 
@@ -61,75 +66,39 @@ public class GameScreen extends AbstractScreen {
         map = new Map(tiledMap, context);
         camera = context.getCamera();
         stage = new SmartStage();
-        gameUI = new GameUI();
+        QuestTable questTable = GenerateQuests.generateQuests();
+        gameUI = new GameUI(questTable);
+        stage.setGameUI(gameUI);
+
         noticedUI = new NoticedUI();
         gameRenderer = context.getGameRenderer();
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
+        stage.setPlayer(player);
         evilNPC = new EvilNPC("testEvilNpc", context, map, "hero/hero.png");
-        evilNPC.setMovementDelayManager(new MovementDelayManager() {
-            int delay = 5 * 1000;
-            long limit = System.currentTimeMillis() + delay;
-
-            @Override
-            public boolean preMovePredicate() {
-                if ((evilNPC.getPath().isFirst() || evilNPC.getPath().isLast()) && System.currentTimeMillis() < limit) {
-                    return false;
-                }
-                limit = System.currentTimeMillis() + delay;
-                return true;
-
-            }
-
-            @Override
-            public boolean postMovePredicate() {
-                return false;
-            }
-        });
-
-        item = itemBuilder.createItem(GameItems.DIRT);
-        door = new Door(map, world, camera);
         npcList = Arrays.asList(
                 new Npc("englishNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
-                evilNPC);
-        item = new Item(world,camera,gameRenderer,GameItems.SYPRINGE);
-        gameUI.addItem(item);
-
-        Tunel tunel = new Tunel(world, camera, "dirt.png", gameUI.getInventory(), itemBuilder);
+                new Npc("nurse", world, map, camera, "hero/hero.png"),
+                NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000));
+        item = new Item(world, camera, gameRenderer, GameItems.SYPRINGE);
+        stage.addItem(item);
+        Tunel tunel = new Tunel(world, camera, "dirt.png", player.getInventory(), itemBuilder);
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);
         npcList.stream().forEach(this::addEntity);
         addEntity(item);
         addEntity(tunel);
-        renderEnvironment();
+        ObjectsRenderer.renderEnvironment(map, stage, context);
         Gdx.input.setInputProcessor(stage);
     }
 
-    private void renderEnvironment() {
-        for (MapObject object : map.getLayer("Environment").getObjects()) {
-            if (object instanceof TiledMapTileMapObject) {
-                InteractiveEntity objEntity = new InteractiveEntity(world, camera, "environmentTextures/" + object.getName() + ".png") {
-                    @Override
-                    protected void onClick(InputEvent event, float x, float y) {
-
-                    }
-
-                    @Override
-                    public void update() {
-                    }
-                };
-
-                Vector2 isoPosition = IsoUtils.IsoTo2d( new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
-                objEntity.getSprite().setPosition(isoPosition.x-70, isoPosition.y-15);
-                objEntity.setPosition(isoPosition.x-70, isoPosition.y-15);
-                objEntity.getSprite().setScale(0.5f);
-                addEntity(objEntity);
-            }
-        }
+    private void processEntityClick() {
+        //TODO write a toilet functionality
+        System.out.println(111);
     }
 
     private void addEntity(Entity entity) {
@@ -156,10 +125,7 @@ public class GameScreen extends AbstractScreen {
         TimeManager.getTime();
         camera.update();
         gameRenderer.render(1f);
-        gameUI.updateTime();
-        gameUI.setCurrentCell();
         stage.update();
-        gameUI.renderSelectedItem(stage);
     }
 
     @Override

@@ -12,20 +12,26 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public abstract class Entity extends Actor {
+    @Getter
     protected Camera camera;
+    @Getter
     protected Sprite sprite;
     protected Texture img;
     protected Body body;
+    @Getter
     protected World world;
     protected float spriteScale = 0.6f;
+    private String texturePath;
 
     public Entity(World world, Camera camera, String texturePath) {
         this.world = world;
         this.camera = camera;
+        this.texturePath = texturePath;
         initialize(texturePath);
     }
 
@@ -49,9 +55,6 @@ public abstract class Entity extends Actor {
         sprite.setPosition(vector2.x, vector2.y);
     }
 
-    public Sprite getSprite() {
-        return sprite;
-    }
 
     public float getHeight() {
         return sprite.getHeight() * spriteScale;
@@ -105,5 +108,6 @@ public abstract class Entity extends Actor {
     }
 
     abstract public void update();
+
 }
 

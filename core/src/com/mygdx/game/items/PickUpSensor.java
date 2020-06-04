@@ -3,6 +3,7 @@ package com.mygdx.game.items;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.Door;
+import com.mygdx.game.entities.npc.SingleDoor;
 import com.mygdx.game.entities.npc.EvilNPC;
 import lombok.Getter;
 
@@ -97,12 +98,12 @@ public class PickUpSensor implements ContactListener {
     }
 
     private void activateDoorTrigger(Fixture a, Fixture b) {
-        if (a.getUserData() instanceof Door) {
+        if (a.getUserData() instanceof SingleDoor) {
             if (b.getUserData() instanceof Player) {
                 isNearDoor = true;
                 door = (Door) a.getUserData();
             }
-        } else if (b.getUserData() instanceof Door) {
+        } else if (b.getUserData() instanceof SingleDoor) {
             if (a.getUserData() instanceof Player) {
                 isNearDoor = true;
                 door = (Door) b.getUserData();
@@ -111,12 +112,12 @@ public class PickUpSensor implements ContactListener {
     }
 
     private void deactivateDoorTrigger(Fixture a, Fixture b) {
-        if (a.getUserData() instanceof Door) {
+        if (a.getUserData() instanceof SingleDoor) {
             if (b.getUserData() instanceof Player) {
                 isNearDoor = false;
                 door = null;
             }
-        } else if (b.getUserData() instanceof Door) {
+        } else if (b.getUserData() instanceof SingleDoor) {
             if (a.getUserData() instanceof Player) {
                 isNearDoor = false;
                 door = null;

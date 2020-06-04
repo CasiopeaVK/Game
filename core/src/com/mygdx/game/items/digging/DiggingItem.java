@@ -7,7 +7,7 @@ import com.mygdx.game.items.Item;
 import com.mygdx.game.view.GameRenderer;
 import lombok.Getter;
 
-abstract class DiggingItem extends Item {
+public class DiggingItem extends Item {
 
     @Getter
     private int power;

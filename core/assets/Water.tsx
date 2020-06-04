@@ -9,19 +9,19 @@
  </tile>
  <tile id="20">
   <properties>
-   <property name="isOpen" type="bool" value="true"/>
+   <property name="left" value="doorLeftOpen.png"/>
   </properties>
-  <image width="320" height="480" source="doorOpen.png"/>
+  <image width="320" height="480" source="doorLeftOpen.png"/>
  </tile>
  <tile id="23">
   <properties>
-   <property name="isOpen" type="bool" value="true"/>
+   <property name="right" value="doorRightOpen.png"/>
   </properties>
   <image width="320" height="480" source="doorRightOpen.png"/>
  </tile>
  <tile id="24">
   <properties>
-   <property name="isOpen" type="bool" value="false"/>
+   <property name="door" value="door.png"/>
   </properties>
   <image width="320" height="480" source="door.png"/>
  </tile>

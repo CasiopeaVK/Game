@@ -23,7 +23,9 @@ public class Item extends InteractiveEntity {
 
     @Getter
     private boolean digging = false;
+    @Getter
     private boolean improvable = false;
+    @Getter
     private boolean improves = false;
 
     @Getter
@@ -48,7 +50,6 @@ public class Item extends InteractiveEntity {
         this.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                System.out.println("ENTER");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
             }
 

@@ -8,7 +8,7 @@ import com.mygdx.game.view.GameRenderer;
 import lombok.Getter;
 import lombok.Setter;
 
-abstract class ImproveItem extends Item {
+public class ImproveItem extends Item {
 
     @Getter@Setter
     private int improvePower;

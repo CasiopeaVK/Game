@@ -6,11 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.Constants;
 import com.mygdx.game.entities.InteractiveAnimatedEntity;
 import com.mygdx.game.entities.npc.dialog.DialogLine;
 import com.mygdx.game.map.Map;
+import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,7 +59,7 @@ public class Npc extends InteractiveAnimatedEntity {
     @Override
     public void setStage(Stage stage) {
         super.setStage(stage);
-        dialogLine.setStage(stage);
+        dialogLine.setStage((SmartStage)stage);
     }
 
     @Override

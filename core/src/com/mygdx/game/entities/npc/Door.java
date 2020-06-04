@@ -1,50 +1,31 @@
 package com.mygdx.game.entities.npc;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.mygdx.game.ObjectType;
 import com.mygdx.game.map.Map;
 import lombok.Getter;
 
 
-public class Door extends Actor {
+public class Door {
 
     @Getter
-    Body door;
-    Body doorTrigger;
-    Map map;
-    World world;
-    Camera camera;
+    private Body door;
+    @Getter
+    private Body doorTrigger;
 
-    private boolean isOpen = false;
-    private TiledMapTile openDoorTile;
-    private TiledMapTile closedDoorTile;
+    private SingleDoor leftDoor;
+    private SingleDoor rightDoor;
+    private Map map;
+    private World world;
 
-
-    public Door(Map map, World world, Camera camera) {
+    public Door(Map map, SingleDoor leftDoor, SingleDoor rightDoor, MapObject doorObj, MapObject triggerObj){
+        this.leftDoor = leftDoor;
+        this.rightDoor = rightDoor;
         this.map = map;
-        this.world = world;
-        this.camera = camera;
-        door = initializeObject(map.getObject("Doors", "door"), BodyDef.BodyType.StaticBody, false);
-        doorTrigger = initializeObject(map.getObject("Doors", "trigger"), BodyDef.BodyType.KinematicBody, true);
-        initializeAnimation();
-    }
-
-    private void initializeAnimation() {
-        TiledMapTileSet tileSet = this.map.getTiledMap().getTileSets().getTileSet("Water");
-        for (TiledMapTile tile : tileSet) {
-
-            Object properties = tile.getProperties().get("isOpen");
-            if (properties != null) {
-
-            }
-        }
-
+        this.world = leftDoor.getWorld();
+        door = initializeObject(doorObj, BodyDef.BodyType.StaticBody, false);
+        doorTrigger = initializeObject(triggerObj, BodyDef.BodyType.KinematicBody, true);
     }
 
     private Body initializeObject(MapObject mapObject, BodyDef.BodyType type, boolean isTrigger) {
@@ -73,10 +54,12 @@ public class Door extends Actor {
     public void open() {
         System.out.println("OPEN");
         door.getFixtureList().get(0).setSensor(true);
+        leftDoor.open();
     }
 
     public void close() {
         System.out.println("CLOSE");
         door.getFixtureList().get(0).setSensor(false);
+        rightDoor.close();
     }
 }

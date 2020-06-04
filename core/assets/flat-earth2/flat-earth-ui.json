@@ -6,6 +6,18 @@
 	"font": {
 		"file": "font-export.fnt"
 	},
+	"LoraButton": {
+		"file": "Lora-Medium.fnt"
+	},
+	"LoraLabel": {
+		"file": "Lora-SemiBold.fnt"
+	},
+	"LoraText": {
+		"file": "Lora-Regular.fnt"
+	},
+	"LoraTitle": {
+		"file": "Lora-Bold.fnt"
+	},
 	"RobotoButton": {
 		"file": "RobotoSlab-Regular.fnt"
 	},
@@ -415,6 +427,12 @@
 		"up": "buttonHospital",
 		"down": "buttonHospotalPres",
 		"over": "buttonHospitalOver"
+	},
+	"LoraButton": {
+		"font": "LoraButton",
+		"up": "buttonHospital",
+		"down": "buttonHospotalPres",
+		"over": "buttonHospitalOver"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
@@ -448,6 +466,26 @@
 	},
 	"RobotoSmall": {
 		"font": "RobotoSmallText",
+		"fontColor": "black"
+	},
+	"LoraTitle": {
+		"font": "LoraTitle",
+		"fontColor": "greenHospital"
+	},
+	"LoraLabel": {
+		"font": "LoraLabel",
+		"fontColor": "black"
+	},
+	"LoraButton": {
+		"font": "LoraButton",
+		"fontColor": "hospitalWhite"
+	},
+	"LoraText": {
+		"font": "LoraText",
+		"fontColor": "black"
+	},
+	"LoraTime": {
+		"font": "LoraButton",
 		"fontColor": "black"
 	}
 },

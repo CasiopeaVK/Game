@@ -8,10 +8,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.game.GameContext;
+import com.mygdx.game.inventory.Inventory;
+import com.mygdx.game.items.Item;
 import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.utils.IsoUtils;
+import lombok.Getter;
 
 import static com.mygdx.game.Constants.*;
 
@@ -20,11 +23,15 @@ public class Player extends AnimatedEntity {
     public GameUI gameUI;
     public PickUpSensor sensor;
 
+    @Getter
+    Inventory inventory;
+
     public Player(GameContext context, Map map, String texturePath, GameUI gameUI, PickUpSensor sensor) {
         super(context.getWorld(), context.getCamera(), texturePath);
         initialize(map, context);
         this.gameUI = gameUI;
         this.sensor = sensor;
+        addInventory();
     }
 
     private void initialize(Map map, GameContext context) {
@@ -77,14 +84,14 @@ public class Player extends AnimatedEntity {
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (sensor.isTriggered() && sensor.getItem() != null) {
-                if (gameUI.getInventory().addItem(sensor.getItem()))
+                if(inventory.addItem(sensor.getItem()))
                     sensor.getItem().hideItem();
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            if (!gameUI.getInventory().isSelectedEmpty()) {
-                gameUI.getInventory().getSellectedCell().getItem().createPickUpItem();
-                gameUI.getInventory().getSellectedCell().setItem(null);
+            if (!inventory.isSelectedEmpty()) {
+                inventory.getSellectedCell().getItem().createPickUpItem();
+                inventory.getSellectedCell().setItem(null);
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.R) && sensor.isNearDoor()) {
@@ -102,4 +109,29 @@ public class Player extends AnimatedEntity {
         light.attachToBody(body);
         light.setIgnoreAttachedBody(true);
     }
+
+    private void addInventory(){
+        inventory = new Inventory();
+        gameUI.row();
+        gameUI.addActor(inventory);
+    }
+
+    public void setCurrentCell(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+            inventory.setCurrentCell(0);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
+            inventory.setCurrentCell(1);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
+            inventory.setCurrentCell(2);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)){
+            inventory.setCurrentCell(3);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)){
+            inventory.setCurrentCell(4);
+        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)){
+            inventory.setCurrentCell(5);
+        }
+    }
+
+    public boolean addItem(Item item){return inventory.addItem(item);}
+
 }

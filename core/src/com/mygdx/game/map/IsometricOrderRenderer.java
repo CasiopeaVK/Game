@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
@@ -102,6 +103,11 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
         endRender();
     }
 
+    @Override
+    public void renderObject(MapObject object) {
+        super.renderObject(object);
+        //TODO
+    }
 
     @Override
     public void renderTileLayer(TiledMapTileLayer layer) {
@@ -110,6 +116,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
 
         float tileWidth = layer.getTileWidth() * unitScale;
         float tileHeight = layer.getTileHeight() * unitScale;
+
 
         final float layerOffsetX = layer.getRenderOffsetX() * unitScale;
         // offset in tiled is y down, so we flip it
@@ -255,7 +262,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
 
                     for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
 
-                        if (entry.getValue().x >= col * tileWidth && entry.getValue().y <= row * tileWidth) {
+                        if (entry.getValue().x >= col * tileWidth + entry.getKey().getSprite().getWidth()/2 && entry.getValue().y <= row * tileWidth) {
                             entry.getKey().getSprite().draw(batch);
                         }
                     }
