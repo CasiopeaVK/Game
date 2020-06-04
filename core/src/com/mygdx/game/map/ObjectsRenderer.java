@@ -6,10 +6,7 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
-import com.mygdx.game.entities.CloggingIndicator;
-import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.Player;
-import com.mygdx.game.entities.Toilet;
+import com.mygdx.game.entities.*;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 import com.mygdx.game.view.GameRenderer;
@@ -40,6 +37,10 @@ public class ObjectsRenderer {
                 CloggingIndicator cloggingIndicator = new CloggingIndicator(world, camera, new Vector2(isoPosition.x - OBJECT_SETTLING_PADDLE.x - OBJECT_SETTLING_PADDLE.y, isoPosition.y - 8 * OBJECT_SETTLING_PADDLE.y),player);
                 addEntityToTheMap(interactiveObject, cloggingIndicator, stage, context.getGameRenderer());
                 cloggingIndicator.setPosition(isoPosition.x - OBJECT_SETTLING_PADDLE.x - OBJECT_SETTLING_PADDLE.y, isoPosition.y - 8 * OBJECT_SETTLING_PADDLE.y);
+            }else if (interactiveObject.getName().equals("tunnel")){
+                System.out.println(1);
+                Tunel entity = new Tunel(world, camera, "environmentTextures/tunnel0.png", player.getInventory(), context.getItemBuilder());
+                addEntityToTheMap(interactiveObject, entity, stage, context.getGameRenderer());
             }
         }
     }

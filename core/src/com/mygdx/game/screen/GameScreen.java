@@ -73,6 +73,7 @@ public class GameScreen extends AbstractScreen {
         noticedUI = new NoticedUI();
         gameRenderer = context.getGameRenderer();
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
+        context.setItemBuilder(itemBuilder);
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
         stage.setPlayer(player);
