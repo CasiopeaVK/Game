@@ -16,7 +16,7 @@ public abstract class AbstractScreen implements Screen {
 
     public AbstractScreen(final GameContext context) {
         this.context = context;
-        viewport = context.getScreenViewport();
+        viewport = context.getViewport();
         assetManager = context.getAssetManager();
         rayhandler = context.getRayHandler();
     }
