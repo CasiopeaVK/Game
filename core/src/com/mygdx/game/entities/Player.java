@@ -45,7 +45,9 @@ public class Player extends AnimatedEntity {
         world.step(Gdx.graphics.getDeltaTime(), 6, 6);
         body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime(), -yFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime())));
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
+        this.setPosition(sprite.getX(), sprite.getY());
         camera.position.set(body.getPosition().x, body.getPosition().y, 0);
+        //System.out.println("Player: " + this.getPosition());
     }
 
 
@@ -83,7 +85,7 @@ public class Player extends AnimatedEntity {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            if (sensor.isTriggered() && sensor.getItem() != null) {
+            if (sensor.isNearItem() && sensor.getItem() != null) {
                 if(inventory.addItem(sensor.getItem()))
                     sensor.getItem().hideItem();
             }
@@ -94,6 +96,7 @@ public class Player extends AnimatedEntity {
                 inventory.getSellectedCell().setItem(null);
             }
         }
+
         if (Gdx.input.isKeyPressed(Input.Keys.R) && sensor.isNearDoor()) {
             if (sensor.getDoor().isOpen()) {
                 sensor.getDoor().close();
@@ -101,7 +104,6 @@ public class Player extends AnimatedEntity {
                 sensor.getDoor().open();
             }
         }
-
     }
 
     private void addLightAroundPlayer(GameContext context) {

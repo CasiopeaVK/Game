@@ -28,6 +28,7 @@ public abstract class InteractiveAnimatedEntity extends AnimatedEntity {
         world.step(Gdx.graphics.getDeltaTime(), 6, 6);
         body.setLinearVelocity(IsoUtils.IsoTo2d(new Vector2(xFactor * speed * Gdx.graphics.getDeltaTime(), yFactor * speed * Gdx.graphics.getDeltaTime())));
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
+        this.setPosition(sprite.getX(), sprite.getY());
     }
 
 

@@ -18,5 +18,6 @@ public class Constants {
     public static final float SINPI4 = (float)Math.sin(Math.PI / 4);
     public static final float NOTICE_TIME = 1f;
     public static final float ENVIRONMENT_OBJECTS_SCALE = 0.5f;
+    public static final float DOOR_OBJECTS_SCALE = 0.25f;
     public static final Vector2 OBJECT_SETTLING_PADDLE = new Vector2(70,15);
 }

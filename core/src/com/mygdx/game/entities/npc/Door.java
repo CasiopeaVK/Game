@@ -13,6 +13,8 @@ public class Door {
     private Body door;
     @Getter
     private Body doorTrigger;
+    @Getter
+    private boolean isOpen = false;
 
     private SingleDoor leftDoor;
     private SingleDoor rightDoor;
@@ -47,19 +49,17 @@ public class Door {
         return null;
     }
 
-    public boolean isOpen() {
-        return door.getFixtureList().get(0).isSensor();
-    }
-
     public void open() {
-        System.out.println("OPEN");
         door.getFixtureList().get(0).setSensor(true);
         leftDoor.open();
+        rightDoor.open();
+        isOpen = true;
     }
 
     public void close() {
-        System.out.println("CLOSE");
         door.getFixtureList().get(0).setSensor(false);
+        leftDoor.close();
         rightDoor.close();
+        isOpen = false;
     }
 }

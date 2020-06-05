@@ -5,9 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Constants;
 import com.mygdx.game.entities.Entity;
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.mygdx.game.Constants.DOOR_OBJECTS_SCALE;
 
 
 public class SingleDoor extends Entity {
@@ -17,30 +20,32 @@ public class SingleDoor extends Entity {
     @Getter
     private Sprite closeDoor;
 
-    @Getter
-    @Setter
-    private Vector2 position;
-
-    public SingleDoor(World world, Camera camera, String texturePath, String texturePathOfOpenState) {
+    public SingleDoor(World world, Camera camera, String texturePath, String texturePathOfOpenState,
+                      Vector2 isoPositionOfCloseState, Vector2 isoPositionOfOpenState) {
         super(world, camera, texturePath);
         this.closeDoor = new Sprite(new Texture(texturePath));
         this.openDoor = new Sprite(new Texture(texturePathOfOpenState));
-        this.closeDoor.setScale(1 / 4f);
-        this.openDoor.setScale(1 / 4f);
+        initializeAnimationSprite(closeDoor, isoPositionOfCloseState);
+        initializeAnimationSprite(openDoor, isoPositionOfOpenState);
+        this.sprite.set(closeDoor);
+    }
+
+    private void initializeAnimationSprite(Sprite sprite, Vector2 isoPosition) {
+        sprite.setScale(DOOR_OBJECTS_SCALE);
+        sprite.setPosition(isoPosition.x - sprite.getWidth() * 2 * DOOR_OBJECTS_SCALE,
+                isoPosition.y - sprite.getHeight() * DOOR_OBJECTS_SCALE - 31);
     }
 
     protected void open() {
-        this.getSprite().set(openDoor);
-        this.getSprite().setPosition(position.x, position.y);
+        this.sprite.set(openDoor);
     }
 
     protected void close() {
-        this.getSprite().set(closeDoor);
-        this.getSprite().setPosition(position.x, position.y);
+        this.sprite.set(closeDoor);
     }
 
     @Override
     public void update() {
-
+        this.setPosition(sprite.getX(), sprite.getY() + DOOR_OBJECTS_SCALE * this.sprite.getHeight());
     }
 }

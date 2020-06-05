@@ -3,12 +3,12 @@ package com.mygdx.game.map;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FileTextureData;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
@@ -16,9 +16,12 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.utils.IsoUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Map;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import static com.badlogic.gdx.graphics.g2d.Batch.*;
 
@@ -33,16 +36,16 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
     private Vector2 topLeft = new Vector2();
     private Vector2 bottomRight = new Vector2();
 
-    private HashMap<Entity, Vector2> entities;
+    private List<Pair<Entity, Vector2>> entities;
 
     public IsometricOrderRenderer(TiledMap map, float UNIT_SCALE, SpriteBatch spriteBatch) {
         super(map, UNIT_SCALE, spriteBatch);
-        entities = new HashMap<>();
+        entities = new ArrayList<>();
         init();
     }
 
     public void addEntity(Entity entity) {
-        entities.put(entity, new Vector2());
+        entities.add(Pair.of(entity, new Vector2()));
     }
 
     public void removeEntity(Entity entity) {
@@ -50,7 +53,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
     }
 
     public Entity getPlayer() {
-        for (Map.Entry<Entity, Vector2> entry : entities.entrySet()) {
+        for (Pair<Entity, Vector2> entry : entities) {
             if (entry.getKey() instanceof Player) return entry.getKey();
         }
         return null;
@@ -84,18 +87,19 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
     @Override
     public void render() {
         beginRender();
+        sortObjects();
         for (MapLayer layer : map.getLayers()) {
             if (layer.isVisible()) {
                 if (layer instanceof TiledMapTileLayer) {
                     if (layer.getName().equals("Walls")) {
-                        drawSprites();
+                        //drawSprites();
                         renderTileLayer((TiledMapTileLayer) layer);
                     } else {
                         super.renderTileLayer((TiledMapTileLayer) layer);
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {
-                        renderObject(object);
+                        //renderObject(object);
                     }
                 }
             }
@@ -260,9 +264,9 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
 
                     batch.draw(region.getTexture(), vertices, 0, NUM_VERTICES);
 
-                    for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
+                    for (Pair<Entity, Vector2> entry : entities) {
 
-                        if (entry.getValue().x >= col * tileWidth + entry.getKey().getSprite().getWidth()/2 && entry.getValue().y <= row * tileWidth) {
+                        if (entry.getValue().x >= col * tileWidth && entry.getValue().y <= row * tileWidth) {
                             entry.getKey().getSprite().draw(batch);
                         }
                     }
@@ -272,22 +276,27 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
     }
 
     private void drawSprites() {
-        List<Entity> entityList = new ArrayList<>(entities.keySet());
-        Collections.sort(entityList, new Comparator<Entity>() {
+        sortObjects();
+        System.out.println("----------");
+
+    }
+
+    private void sortObjects() {
+        Collections.sort(entities, new Comparator<Pair<Entity, Vector2>>() {
             @Override
-            public int compare(Entity o1, Entity o2) {
-                return (int) (o2.getSprite().getY() - o1.getSprite().getY());
+            public int compare(Pair<Entity, Vector2> firstEntity, Pair<Entity, Vector2> secondEntity) {
+                return (int) (secondEntity.getKey().getY() - firstEntity.getKey().getY());
             }
         });
-        for (Entity entity : entityList) {
-            entity.getSprite().draw(batch);
+        for (Pair<Entity, Vector2> pair : entities) {
+            System.out.println(((FileTextureData) pair.getKey().getSprite().getTexture().getTextureData()).getFileHandle().path() + " y:" + pair.getKey().getY());
         }
     }
 
     private void calculateCord() {
-        for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
-            float xCord = entry.getKey().getSprite().getX() + 10;
-            float yCord = entry.getKey().getSprite().getY() + 10;
+        for (Pair<Entity, Vector2> entry : entities) {
+            float xCord = entry.getKey().getX() + 10;
+            float yCord = entry.getKey().getY() + 10;
             entry.getValue().set(IsoUtils.Vector3ToVector2(translateScreenToIso(xCord, yCord)));
         }
     }

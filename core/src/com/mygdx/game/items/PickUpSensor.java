@@ -3,14 +3,12 @@ package com.mygdx.game.items;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.npc.Door;
-import com.mygdx.game.entities.npc.SingleDoor;
 import com.mygdx.game.entities.npc.EvilNPC;
 import lombok.Getter;
 
 public class PickUpSensor implements ContactListener {
-
     @Getter
-    private boolean isTriggered = false;
+    private boolean isNearItem   = false;
     @Getter
     private Item item = null;
     @Getter
@@ -22,20 +20,23 @@ public class PickUpSensor implements ContactListener {
     public void beginContact(Contact contact) {
         Fixture A = contact.getFixtureA();
         Fixture B = contact.getFixtureB();
+
         if (A.getUserData() == null || B.getUserData() == null) {
             return;
         }
         item = isItemContact(A, B);
         if (item != null) {
-            isTriggered = true;
+            isNearItem = true;
             item.setZoomToSprite(true);
         }
         activateTrigger(A, B);
         activateDoorTrigger(A, B);
+        System.out.println("BEGIN");
     }
 
     @Override
     public void endContact(Contact contact) {
+
         Fixture A = contact.getFixtureA();
         Fixture B = contact.getFixtureB();
         if (A.getUserData() == null || B.getUserData() == null) {
@@ -43,16 +44,17 @@ public class PickUpSensor implements ContactListener {
         }
         item = isItemContact(A, B);
         if (item != null) {
-            isTriggered = false;
+            isNearItem = false;
             item.setZoomToSprite(false);
         }
         deactivateTrigger(A, B);
         deactivateDoorTrigger(A, B);
+        System.out.println("END CONTACT " + contact.getFriction());
     }
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
-
+        System.out.println("START");
     }
 
     @Override
@@ -98,12 +100,12 @@ public class PickUpSensor implements ContactListener {
     }
 
     private void activateDoorTrigger(Fixture a, Fixture b) {
-        if (a.getUserData() instanceof SingleDoor) {
+        if (a.getUserData() instanceof Door) {
             if (b.getUserData() instanceof Player) {
                 isNearDoor = true;
                 door = (Door) a.getUserData();
             }
-        } else if (b.getUserData() instanceof SingleDoor) {
+        } else if (b.getUserData() instanceof Door) {
             if (a.getUserData() instanceof Player) {
                 isNearDoor = true;
                 door = (Door) b.getUserData();
@@ -112,15 +114,17 @@ public class PickUpSensor implements ContactListener {
     }
 
     private void deactivateDoorTrigger(Fixture a, Fixture b) {
-        if (a.getUserData() instanceof SingleDoor) {
+        if (a.getUserData() instanceof Door) {
             if (b.getUserData() instanceof Player) {
                 isNearDoor = false;
                 door = null;
+                System.out.println("Deactivate");
             }
-        } else if (b.getUserData() instanceof SingleDoor) {
+        } else if (b.getUserData() instanceof Door) {
             if (a.getUserData() instanceof Player) {
                 isNearDoor = false;
                 door = null;
+                System.out.println("Deactivate");
             }
         }
     }

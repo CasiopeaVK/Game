@@ -1,5 +1,6 @@
 package com.mygdx.game.utils;
 
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Constants;
@@ -19,10 +20,14 @@ public class IsoUtils {
         return new Vector2(x, y);
     }
 
-    public static Vector2 LocalToIso(Vector2 local){
-        float y = (2*local.y+local.x)/(2*Constants.UNIT_SCALE);
-        float x = (local.x/Constants.UNIT_SCALE) - y;
-        return new Vector2(x,y);
+    public static Vector2 IsoTo2d(TiledMapTileMapObject object) {
+        return IsoTo2d(new Vector2(object.getX(), object.getY()));
+    }
+
+    public static Vector2 LocalToIso(Vector2 local) {
+        float y = (2 * local.y + local.x) / (2 * Constants.UNIT_SCALE);
+        float x = (local.x / Constants.UNIT_SCALE) - y;
+        return new Vector2(x, y);
     }
 
     public static boolean Vector3Equals(Vector3 v1, Vector3 v2) {
@@ -33,12 +38,12 @@ public class IsoUtils {
         return new Vector2(vector3.x, vector3.y);
     }
 
-    public static double CalculateVector2Length(Vector2 vector2){
-        return Math.sqrt(Math.pow(vector2.x,2)+Math.pow(vector2.y,2));
+    public static double CalculateVector2Length(Vector2 vector2) {
+        return Math.sqrt(Math.pow(vector2.x, 2) + Math.pow(vector2.y, 2));
     }
 
-    public static Vector2 getDirection(Vector2 vector2){
+    public static Vector2 getDirection(Vector2 vector2) {
         float length = (float) CalculateVector2Length(vector2);
-        return new Vector2(vector2.x/length, vector2.y/length);
+        return new Vector2(vector2.x / length, vector2.y / length);
     }
 }

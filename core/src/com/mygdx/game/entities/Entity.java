@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.Constants;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.utils.IsoUtils;
 import lombok.Getter;
@@ -89,7 +90,7 @@ public abstract class Entity extends Actor {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = polygonShape;
-        fixtureDef.density = 1f;
+        fixtureDef.density = 0f;
 
         body.createFixture(fixtureDef).setUserData(this);
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getWidth() / 2);
@@ -109,5 +110,9 @@ public abstract class Entity extends Actor {
 
     abstract public void update();
 
+    @Override
+    public float getY() {
+        return this.sprite.getY() + this.sprite.getHeight() * Constants.UNIT_SCALE;
+    }
 }
 
