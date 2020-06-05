@@ -42,7 +42,6 @@ public class Tunel extends InteractiveEntity {
         this.itemBuilder = itemBuilder;
         this.player = player;
         this.setTouchable(Touchable.enabled);
-
         tunnels = new ArrayList<Sprite>();
         tunnels.add(new Sprite(new Texture("environmentTextures/tunnel0.png")));
         tunnels.add(new Sprite(new Texture("environmentTextures/tunnel1.png")));
