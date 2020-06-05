@@ -1,6 +1,7 @@
 package com.mygdx.game.map;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
@@ -12,8 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.*;
 import com.mygdx.game.utils.IsoUtils;
 
 import java.util.Map;
@@ -254,7 +254,9 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
                     batch.draw(region.getTexture(), vertices, 0, NUM_VERTICES);
 
                     for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
-                        if (entry.getValue().x >= col * tileWidth+entry.getKey().getWidth()/2 && entry.getValue().y <= row * tileWidth) {
+                        if (entry.getKey() instanceof InteractiveEntity && !(entry.getKey() instanceof Toilet))
+                            continue;
+                        if (entry.getValue().x >= col * tileWidth + entry.getKey().getWidth() / 2 && entry.getValue().y <= row * tileWidth) {
                             entry.getKey().getSprite().draw(batch);
                         }
                     }
@@ -268,7 +270,9 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
         Collections.sort(entityList, new Comparator<Entity>() {
             @Override
             public int compare(Entity o1, Entity o2) {
-                return (int) (o2.getSprite().getY() - o1.getSprite().getY());
+                Sprite s1 = o1.getSprite();
+                Sprite s2 = o2.getSprite();
+                return (int) (s2.getY() + s2.getHeight() * o2.getSpriteScale() - (s1.getY() + s1.getHeight() * o1.getSpriteScale()));
             }
         });
         for (Entity entity : entityList) {

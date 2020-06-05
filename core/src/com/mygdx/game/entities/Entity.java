@@ -115,5 +115,8 @@ public abstract class Entity extends Actor {
         return sprite.getWidth()*spriteScale;
     }
 
+    public float getSpriteScale() {
+        return spriteScale;
+    }
 }
 

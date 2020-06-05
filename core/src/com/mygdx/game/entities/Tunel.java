@@ -19,7 +19,7 @@ import com.mygdx.game.items.improves.ImproveItem;
 
 import java.util.ArrayList;
 
-import static com.mygdx.game.Constants.FLOOR_OBJECTS_SCALE;
+import static com.mygdx.game.Constants.ENVIRONMENT_OBJECTS_SCALE;
 
 enum TunnelState {
     START, BETWEEN, END;
@@ -39,7 +39,7 @@ public class Tunel extends InteractiveEntity {
 
     public Tunel(World world, Camera camera, Sprite sprite, Inventory inventory, ItemBuilder itemBuilder, Player player, Vector2 isoPosition) {
         super(world, camera, sprite);
-        this.coords = new Vector2(isoPosition.x - sprite.getWidth() * 2 * FLOOR_OBJECTS_SCALE, isoPosition.y - sprite.getHeight() * FLOOR_OBJECTS_SCALE);
+        this.coords = new Vector2(isoPosition.x - sprite.getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - sprite.getHeight() * ENVIRONMENT_OBJECTS_SCALE);
         this.inventory = inventory;
         this.itemBuilder = itemBuilder;
         this.player = player;
@@ -50,7 +50,7 @@ public class Tunel extends InteractiveEntity {
         tunnels.add(new Sprite(new Texture("environmentTextures/tunnel2.png")));
         tunnels.add(new Sprite(new Texture("environmentTextures/tunnel3.png")));
         for (Sprite sprite1 : tunnels) {
-            sprite1.setScale(FLOOR_OBJECTS_SCALE);
+            sprite1.setScale(ENVIRONMENT_OBJECTS_SCALE);
             sprite1.setPosition(coords.x, coords.y);
         }
         currentTunnel = 0;

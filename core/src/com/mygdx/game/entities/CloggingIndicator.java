@@ -5,12 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
-import javax.swing.*;
 import java.util.ArrayList;
 
-import static com.mygdx.game.Constants.FLOOR_OBJECTS_SCALE;
+import static com.mygdx.game.Constants.ENVIRONMENT_OBJECTS_SCALE;
 
 public class CloggingIndicator extends Entity {
     ArrayList<Sprite> numbers;
@@ -20,7 +17,7 @@ public class CloggingIndicator extends Entity {
 
     public CloggingIndicator(World world, OrthographicCamera camera, Sprite sprite, Player player, Vector2 isoPosition) {
         super(world, camera, sprite);
-        this.coords = new Vector2(isoPosition.x - sprite.getWidth() * 2 * FLOOR_OBJECTS_SCALE, isoPosition.y - sprite.getHeight() * FLOOR_OBJECTS_SCALE);
+        this.coords = new Vector2(isoPosition.x - sprite.getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - sprite.getHeight() * ENVIRONMENT_OBJECTS_SCALE);
         this.player = player;
         numbers = new ArrayList<Sprite>();
         numbers.add(new Sprite(new Texture("environmentTextures/zero.png")));
@@ -29,7 +26,7 @@ public class CloggingIndicator extends Entity {
         numbers.add(new Sprite(new Texture("environmentTextures/three.png")));
         numbers.add(new Sprite(new Texture("environmentTextures/four.png")));
         for (Sprite sprite1 : numbers) {
-            sprite1.setScale(FLOOR_OBJECTS_SCALE);
+            sprite1.setScale(ENVIRONMENT_OBJECTS_SCALE);
             sprite1.setPosition(coords.x, coords.y);
         }
         sprite.set(numbers.get(0));

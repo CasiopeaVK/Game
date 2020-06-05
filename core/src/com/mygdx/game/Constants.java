@@ -17,7 +17,7 @@ public class Constants {
     public static final float COSPI4 = (float) Math.cos(Math.PI / 4);
     public static final float SINPI4 = (float)Math.sin(Math.PI / 4);
     public static final float NOTICE_TIME = 1f;
-    public static final float ENVIRONMENT_OBJECTS_SCALE = 0.5f;
-    public static final float FLOOR_OBJECTS_SCALE = 0.25f;
-    public static final Vector2 OBJECT_SETTLING_PADDLE = new Vector2(70,15);
+    public static final float ENVIRONMENT_OBJECTS_SCALE = 0.25f;
+    public static final float TOILET_SCALE = 0.5f;
+    public static final Vector2 TOILET_SETTLING_PADDLE = new Vector2(70,15);
 }
