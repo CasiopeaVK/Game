@@ -1,0 +1,30 @@
+[
+  {
+    "text": "Hi sweaty ... You are so slim",
+    "answers": [
+      {
+        "text": "You know, I have cholera. My organism does not keep food for a long time.",
+        "target": 1,
+        "phase": 1
+      },
+      {
+        "text": "You know, I`ve learned all PEPs by hard. My organism does not keep food for a long time.",
+        "target": 1,
+        "phase": 1
+      },
+      {
+        "text": "one portion of rice please",
+        "target": -1
+      }
+    ]
+  },
+  {
+    "text": "lol wtf stupid not-nigga",
+    "answers": [
+      {
+        "text": "Gimme 4 portions sis",
+        "target": -2
+      }
+    ]
+  }
+]
