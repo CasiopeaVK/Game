@@ -10,9 +10,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.*;
+import com.mygdx.game.inventory.InventoryCell;
+import com.mygdx.game.items.sample.PlateFood;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 import com.mygdx.game.view.GameRenderer;
+
+import java.util.function.Predicate;
 
 import static com.mygdx.game.Constants.*;
 
@@ -75,7 +79,15 @@ public class ObjectsRenderer {
                     InteractiveEntity table = new InteractiveEntity(world, camera, new Sprite(new Texture("environmentTextures/table1.png"))) {
                         @Override
                         protected void onClick(InputEvent event, float x, float y) {
-                            System.out.println("table clicked");
+                            int count = (int) player.getInventory().getListCells().stream().filter(new Predicate<InventoryCell>() {
+                                @Override
+                                public boolean test(InventoryCell inventoryCell) {
+                                    return inventoryCell.getItem() instanceof PlateFood;
+                                }
+                            }).count();
+                            if (count == 4) {
+                                ((SmartStage) stage).incrementCurrentQuestIndex();
+                            }
                         }
 
                         @Override

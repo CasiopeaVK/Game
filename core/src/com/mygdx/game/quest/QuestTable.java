@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
 import lombok.Getter;
+import lombok.Setter;
 
 public class QuestTable extends Table {
     private final int TABLE_WIDTH = 250;

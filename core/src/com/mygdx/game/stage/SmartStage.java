@@ -37,4 +37,7 @@ public class SmartStage extends Stage {
     public int getCurrentQuestIndex(){
         return gameUI.getQuestTable().getQuestLine().getCurrentQuestIndex();
     }
+    public void incrementCurrentQuestIndex(){
+        gameUI.getQuestTable().getQuestLine().incrementQuest();
+    }
 }

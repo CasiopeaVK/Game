@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
+import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Inventory extends Table {
 
@@ -67,12 +72,20 @@ public class Inventory extends Table {
     public InventoryCell getSellectedCell() {
         return cells[currentCell];
     }
-    public Item getItemInSelectedCell(){return cells[currentCell].getItem();}
-    public InventoryCell getCellWithImprovesItem(){
-        for(InventoryCell cell:cells){
-            if(cell.getItem() !=null && cell.getItem().isImproves())
+
+    public Item getItemInSelectedCell() {
+        return cells[currentCell].getItem();
+    }
+
+    public InventoryCell getCellWithImprovesItem() {
+        for (InventoryCell cell : cells) {
+            if (cell.getItem() != null && cell.getItem().isImproves())
                 return cell;
         }
         return null;
+    }
+
+    public List<InventoryCell> getListCells() {
+        return Arrays.asList(cells);
     }
 }
