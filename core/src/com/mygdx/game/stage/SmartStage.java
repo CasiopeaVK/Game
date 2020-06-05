@@ -5,6 +5,7 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.screenUI.GameUI;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class SmartStage extends Stage {
     private List<Entity> entityList = new ArrayList<>();
     @Setter
     private GameUI gameUI;
-    @Setter
+    @Setter @Getter
     private Player player;
 
     public void update(){
@@ -40,4 +41,5 @@ public class SmartStage extends Stage {
     public void incrementCurrentQuestIndex(){
         gameUI.getQuestTable().getQuestLine().incrementQuest();
     }
+
 }

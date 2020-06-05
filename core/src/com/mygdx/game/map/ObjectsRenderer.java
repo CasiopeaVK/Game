@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.*;
 import com.mygdx.game.inventory.InventoryCell;
+import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.sample.PlateFood;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
@@ -47,7 +48,7 @@ public class ObjectsRenderer {
                         public void update() {
                         }
                     };
-                    addEntityToTheMap(isoPosition, objEntity, stage, context.getGameRenderer(), new Vector2(0, 0));
+                    addEntityToTheMap(isoPosition, objEntity, stage, context.getGameRenderer(), new Vector2(0, 10));
                 }
 
             }
@@ -87,6 +88,11 @@ public class ObjectsRenderer {
                             }).count();
                             if (count == 4) {
                                 ((SmartStage) stage).incrementCurrentQuestIndex();
+                                for (InventoryCell cell:player.getInventory().getListCells()){
+                                    if (cell.getItem() instanceof PlateFood){
+                                        cell.setItem(player.getInventory().getItemBuilder().createItem(GameItems.PLATE));
+                                    }
+                                }
                             }
                         }
 

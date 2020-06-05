@@ -15,6 +15,7 @@ import com.mygdx.game.entities.InteractiveEntity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.Tunel;
 import com.mygdx.game.entities.npc.EvilNPC;
+import com.mygdx.game.entities.npc.MovementDelayManager;
 import com.mygdx.game.entities.npc.Npc;
 import com.mygdx.game.entities.npc.NpcBuilder;
 import com.mygdx.game.items.GameItems;
@@ -76,6 +77,7 @@ public class GameScreen extends AbstractScreen {
         context.setItemBuilder(itemBuilder);
 
         player = new Player(context, map, "hero/hero.png", gameUI, sensor);
+        player.getInventory().setItemBuilder(itemBuilder);
         context.setPlayer(player);
         stage.setPlayer(player);
         evilNPC = new EvilNPC("testEvilNpc", context, map, "hero/hero.png");
@@ -84,20 +86,23 @@ public class GameScreen extends AbstractScreen {
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("nurse", world, map, camera, "hero/hero.png"),
+                new Npc("cooker", world, map, camera, "hero/hero.png", new MovementDelayManager() {
+                    @Override
+                    public boolean preMovePredicate() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean postMovePredicate() {
+                        return false;
+                    }
+                }),
                 NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000));
-        for(int i = 0; i <4;i++){
-        item = itemBuilder.createItem(GameItems.SCREWDRIVER);
-        stage.addItem(item);
-        }
-        item = itemBuilder.createItem(GameItems.HAMER);
-        stage.addItem(item);
-        item = itemBuilder.createItem(GameItems.SPOON);
-        stage.addItem(item);
+
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);
         npcList.stream().forEach(this::addEntity);
-        addEntity(item);
         ObjectsRenderer.renderEnvironment(map, stage, player, context);
         Gdx.input.setInputProcessor(stage);
     }

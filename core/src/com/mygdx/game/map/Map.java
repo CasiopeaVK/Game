@@ -62,7 +62,6 @@ public class Map {
         final MapObjects mapObjects = collisionLayer.getObjects();
         for (MapObject mapObj : mapObjects) {
             if (mapObj instanceof PolygonMapObject) {
-                System.out.println(mapObj.getName());
                 Shape shape = getPolygon((PolygonMapObject) mapObj);
 
                 BodyDef bodyDef = new BodyDef();
@@ -94,7 +93,6 @@ public class Map {
         last.x-=1;
         last.y-=1;
         worldVertices.add(last);
-        System.out.println(worldVertices);
         ChainShape chain = new ChainShape();
         chain.createChain(worldVertices.toArray(Vector2[]::new));
         return chain;

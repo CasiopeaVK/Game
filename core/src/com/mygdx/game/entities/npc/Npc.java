@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.Constants;
+import com.mygdx.game.Time.TimeManager;
 import com.mygdx.game.entities.InteractiveAnimatedEntity;
 import com.mygdx.game.entities.npc.dialog.DialogLine;
 import com.mygdx.game.map.Map;
@@ -41,7 +42,7 @@ public class Npc extends InteractiveAnimatedEntity {
     }
 
     public Npc(String name, World world, Map map, Camera camera, String texturePath, MovementDelayManager movementDelayManager) {
-        this(name,world,map,camera,texturePath);
+        this(name, world, map, camera, texturePath);
         this.movementDelayManager = movementDelayManager;
     }
 
@@ -52,14 +53,14 @@ public class Npc extends InteractiveAnimatedEntity {
         calculateSpawnPosition();
         calculateDirection();
         initCharacterBody(BodyDef.BodyType.KinematicBody);
-        dialogLine = new DialogLine(Gdx.files.internal("dialogs/"+name+".json"), Constants.APP_SKIN);
+        dialogLine = new DialogLine(Gdx.files.internal("dialogs/" + name + ".json"), Constants.APP_SKIN);
     }
 
 
     @Override
     public void setStage(Stage stage) {
         super.setStage(stage);
-        dialogLine.setStage((SmartStage)stage);
+        dialogLine.setStage((SmartStage) stage);
     }
 
     @Override
@@ -81,9 +82,9 @@ public class Npc extends InteractiveAnimatedEntity {
         float x = path.getIsoCurrent().x - getIsoPosition().x;
         float y = path.getIsoCurrent().y - getIsoPosition().y;
         if (Math.abs(x) < 10 && Math.abs(y) < 10) {
-            if (movementDelayManager.preMovePredicate()){
+            if (movementDelayManager.preMovePredicate()) {
                 path.moveNext();
-            }else {
+            } else {
                 xFactor = 0;
                 yFactor = 0;
                 return;

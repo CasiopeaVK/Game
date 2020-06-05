@@ -66,7 +66,6 @@ public class GameUI extends Table {
 
         Batch batch = stage.getBatch();
         batch.begin();
-        //System.out.println(Gdx.input.getX() + " "+Gdx.input.getY());
         Constants.APP_SKIN.getDrawable(Item.selectedItem.getName()).draw(batch,Gdx.input.getX()-15,Gdx.graphics.getHeight() - Gdx.input.getY()-15, 30,30);
         batch.end();
     }

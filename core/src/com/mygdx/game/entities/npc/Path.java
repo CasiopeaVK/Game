@@ -18,7 +18,6 @@ public class Path {
         PolylineMapObject polygon = (PolylineMapObject) map.getObject("Paths", pathName);
         Polyline polyline = polygon.getPolyline();
         buildPoints(polyline);
-        System.out.println(points);
     }
 
     private void buildPoints(Polyline polyline) {

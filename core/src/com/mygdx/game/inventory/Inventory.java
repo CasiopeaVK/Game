@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
+import com.mygdx.game.items.ItemBuilder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +18,8 @@ public class Inventory extends Table {
 
     private InventoryCell[] cells;
     private int currentCell = 0;
+    @Getter @Setter
+    private ItemBuilder itemBuilder;
 
     public Inventory() {
         cells = new InventoryCell[COUNT_CELL];

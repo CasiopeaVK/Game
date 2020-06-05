@@ -79,11 +79,11 @@ public class Tunel extends InteractiveEntity {
             tunnelState = TunnelState.BETWEEN;
             if (currentTunnel == 3)
                 tunnelState = TunnelState.END;
-
+            itemBuilder.createItem(GameItems.DIRT);
         } else if (tunnelState != TunnelState.START && item == null) {
             cell.setItem(itemBuilder.createItem(GameItems.DIRT));
             currentTunnel--;
-            if(currentTunnel == 0)
+            if (currentTunnel == 0)
                 tunnelState = TunnelState.START;
         }
         if (healthPoint == 0) {

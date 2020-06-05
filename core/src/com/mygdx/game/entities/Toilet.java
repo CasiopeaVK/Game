@@ -24,10 +24,6 @@ public class Toilet extends InteractiveEntity {
         super(context.getWorld(), context.getCamera(), texturePath);
         inventory = context.getPlayer().getInventory();
         player = context.getPlayer();
-        inventory.addItem(context.getItemBuilder().createItem(GameItems.DIRT));
-        inventory.addItem(context.getItemBuilder().createItem(GameItems.DIRT));
-        inventory.addItem(context.getItemBuilder().createItem(GameItems.DIRT));
-        inventory.addItem(context.getItemBuilder().createItem(GameItems.PLUNGER));
     }
 
     @Override

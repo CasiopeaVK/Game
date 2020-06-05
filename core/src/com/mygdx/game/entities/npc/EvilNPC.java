@@ -96,7 +96,6 @@ public class EvilNPC extends Npc {
     }
 
     public void triggerNpc() {
-        System.out.println("Dead zone");
         isTriggered = true;
         initializeNoticedUI();
         //TODO stop enemy

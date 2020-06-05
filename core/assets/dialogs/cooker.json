@@ -8,7 +8,7 @@
         "phase": 1
       },
       {
-        "text": "You know, I`ve learned all PEPs by hard. My organism does not keep food for a long time.",
+        "text": "You know, I`ve learned all PEPs by hard.\n My organism does not keep food for a long time.",
         "target": 1,
         "phase": 1
       },
@@ -23,7 +23,7 @@
     "answers": [
       {
         "text": "Gimme 4 portions sis",
-        "target": -2
+        "target": -3
       }
     ]
   }

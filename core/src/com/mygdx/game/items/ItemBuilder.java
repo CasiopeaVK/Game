@@ -2,6 +2,7 @@ package com.mygdx.game.items;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.items.digging.EmptyPlate;
 import com.mygdx.game.items.digging.Fork;
 import com.mygdx.game.items.digging.Screwdriver;
 import com.mygdx.game.items.digging.Spoon;

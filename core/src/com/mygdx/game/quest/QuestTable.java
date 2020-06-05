@@ -34,6 +34,7 @@ public class QuestTable extends Table {
     public QuestTable(QuestLine questLine) {
         super(Constants.APP_SKIN);
         this.questLine = questLine;
+        questLine.setQuestTable(this);
         initialization();
     }
 
@@ -55,17 +56,16 @@ public class QuestTable extends Table {
 
     }
 
-
     public void updateQuest() {
         if (!currentQuest.isEnd()) {
-            questLine.performQuest();
+//            questLine.performQuest();
             this.currentQuest = questLine.getQuest();
             if (currentQuest != null) {
                 currentName.setText(currentQuest.getName());
                 currentDescription.setText(currentQuest.getDescription());
             }
         }else{
-            questLine.performQuest();
+//            questLine.performQuest();
         }
     }
 }
