@@ -59,15 +59,6 @@ public abstract class Entity extends Actor {
         sprite.setPosition(vector2.x, vector2.y);
     }
 
-
-    public float getHeight() {
-        return sprite.getHeight() * spriteScale;
-    }
-
-    public float getWidth() {
-        return sprite.getWidth() * spriteScale;
-    }
-
     public PolygonShape createHeptagonPolygonShape() {
         int STEPS = 7;
         Vector2[] vertices = new Vector2[STEPS + 1];
@@ -112,6 +103,17 @@ public abstract class Entity extends Actor {
     }
 
     abstract public void update();
+
+
+    @Override
+    public float getHeight() {
+        return sprite.getHeight()*spriteScale;
+    }
+
+    @Override
+    public float getWidth() {
+        return sprite.getWidth()*spriteScale;
+    }
 
 }
 

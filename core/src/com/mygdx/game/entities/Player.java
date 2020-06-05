@@ -35,10 +35,13 @@ public class Player extends AnimatedEntity {
     }
 
     private void initialize(Map map, GameContext context) {
+        System.out.println("inw "+sprite.getWidth());
         sprite.setScale(spriteScale);
+        System.out.println("act w "+sprite.getWidth());
         calculateSpawnPosition(map, "spawn");
         initCharacterBody(BodyDef.BodyType.DynamicBody);
     }
+
 
     public void update() {
         update(this::handleClickedButtons);
