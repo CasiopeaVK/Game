@@ -1,6 +1,8 @@
 package com.mygdx.game.map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Vector2;
@@ -13,6 +15,7 @@ import com.mygdx.game.view.GameRenderer;
 
 import static com.mygdx.game.Constants.ENVIRONMENT_OBJECTS_SCALE;
 import static com.mygdx.game.Constants.OBJECT_SETTLING_PADDLE;
+import static com.mygdx.game.Constants.FLOOR_OBJECTS_SCALE;
 
 public class ObjectsRenderer {
     public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context) {
@@ -32,16 +35,17 @@ public class ObjectsRenderer {
             if (interactiveObject.getName().equals("2")) {
                 Toilet entity = new Toilet(context, "environmentTextures/" + interactiveObject.getName() + ".png");
                 addEntityToTheMap(interactiveObject, entity, stage, context.getGameRenderer());
-            } else if (interactiveObject.getName().equals("cloggingText")) {
+            } else {
                 Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) interactiveObject).getX(), ((TiledMapTileMapObject) interactiveObject).getY()));
-                CloggingIndicator cloggingIndicator = new CloggingIndicator(world, camera, new Vector2(isoPosition.x - OBJECT_SETTLING_PADDLE.x - OBJECT_SETTLING_PADDLE.y, isoPosition.y - 8 * OBJECT_SETTLING_PADDLE.y),player);
-                addEntityToTheMap(interactiveObject, cloggingIndicator, stage, context.getGameRenderer());
-                cloggingIndicator.setPosition(isoPosition.x - OBJECT_SETTLING_PADDLE.x - OBJECT_SETTLING_PADDLE.y, isoPosition.y - 8 * OBJECT_SETTLING_PADDLE.y);
-            }else if (interactiveObject.getName().equals("tunnel")){
-                Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) interactiveObject).getX(), ((TiledMapTileMapObject) interactiveObject).getY()));
-                Tunel entity = new Tunel(world, camera, "environmentTextures/tunnel0.png", player.getInventory(), context.getItemBuilder(), player, new Vector2(isoPosition.x - 2.25f*OBJECT_SETTLING_PADDLE.x, isoPosition.y -2.58f*OBJECT_SETTLING_PADDLE.y));
-                addEntityToTheMap(interactiveObject, entity, stage, context.getGameRenderer());
-                entity.setPosition(isoPosition.x-2.25f*OBJECT_SETTLING_PADDLE.x, isoPosition.y -2.58f*OBJECT_SETTLING_PADDLE.y);
+                if (interactiveObject.getName().equals("cloggingText")) {
+                    CloggingIndicator cloggingIndicator = new CloggingIndicator(world, camera, new Sprite(new Texture("environmentTextures/one.png")), player, isoPosition);
+                    addEntityToTheMap(interactiveObject, cloggingIndicator, stage, context.getGameRenderer());
+                    cloggingIndicator.setPosition(isoPosition.x - cloggingIndicator.getSprite().getWidth() * 2 * FLOOR_OBJECTS_SCALE, isoPosition.y - cloggingIndicator.getSprite().getHeight() * FLOOR_OBJECTS_SCALE);
+                } else if (interactiveObject.getName().equals("tunnel")) {
+                    Tunel entity = new Tunel(world, camera, new Sprite(new Texture("environmentTextures/tunnel0.png")), player.getInventory(), context.getItemBuilder(), player, isoPosition);
+                    addEntityToTheMap(interactiveObject, entity, stage, context.getGameRenderer());
+                    entity.setPosition(isoPosition.x - entity.getSprite().getWidth() * 2 * FLOOR_OBJECTS_SCALE, isoPosition.y - entity.getSprite().getHeight() * FLOOR_OBJECTS_SCALE);
+                }
             }
         }
     }

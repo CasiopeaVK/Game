@@ -27,6 +27,8 @@ import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.screen.GameScreen;
 import com.mygdx.game.screen.ScreenType;
 import com.mygdx.game.view.GameRenderer;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.EnumMap;
 
@@ -34,16 +36,26 @@ public class GameContext extends Game {
     private static final String TAG = GameContext.class.getSimpleName();
     private EnumMap<ScreenType, AbstractScreen> screenCache;
 
+    @Getter
     private FitViewport viewport;
+    @Getter
     private AssetManager assetManager;
+    @Getter
     private OrthographicCamera camera;
+    @Getter @Setter
     private SpriteBatch batch;
     private Skin skin;
+    @Getter
     private World world;
+    @Getter
     private MapManager mapManager;
+    @Getter
     private GameRenderer gameRenderer;
+    @Getter
     private RayHandler rayHandler;
+    @Getter @Setter
     private ItemBuilder itemBuilder;
+    @Getter @Setter
     private Player player;
 
 
@@ -71,54 +83,6 @@ public class GameContext extends Game {
 
         initializeSkin();
         setScreen(ScreenType.MENU);
-    }
-
-    public FitViewport getScreenViewport() {
-        return viewport;
-    }
-
-    public AssetManager getAssetManager() {
-        return assetManager;
-    }
-
-    public SpriteBatch getSpriteBatch() {
-        return this.batch;
-    }
-
-    public OrthographicCamera getCamera() {
-        return camera;
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public MapManager getMapManager() {
-        return mapManager;
-    }
-
-    public GameRenderer getGameRenderer() {
-        return gameRenderer;
-    }
-
-    public RayHandler getRayHandler() {
-        return rayHandler;
-    }
-
-    public void setItemBuilder(ItemBuilder itemBuilder) {
-        this.itemBuilder = itemBuilder;
-    }
-
-    public ItemBuilder getItemBuilder() {
-        return itemBuilder;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public void setScreen(final ScreenType screenType) {

@@ -33,9 +33,9 @@ public class GameRenderer implements Disposable, MapListener {
 
     public GameRenderer(GameContext context) {
         assetManager = context.getAssetManager();
-        viewport = context.getScreenViewport();
+        viewport = context.getViewport();
         camera = context.getCamera();
-        batch = context.getSpriteBatch();
+        batch = context.getBatch();
         mapRenderer = new IsometricOrderRenderer(null, UNIT_SCALE, batch);
         context.getMapManager().addMapListener(this);
         box2DDebugRenderer = new Box2DDebugRenderer();

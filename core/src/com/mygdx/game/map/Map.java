@@ -15,6 +15,10 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.utils.IsoUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Map {
     private final TiledMap tiledMap;
@@ -58,6 +62,7 @@ public class Map {
         final MapObjects mapObjects = collisionLayer.getObjects();
         for (MapObject mapObj : mapObjects) {
             if (mapObj instanceof PolygonMapObject) {
+                System.out.println(mapObj.getName());
                 Shape shape = getPolygon((PolygonMapObject) mapObj);
 
                 BodyDef bodyDef = new BodyDef();
@@ -72,23 +77,26 @@ public class Map {
         return bodies;
     }
 
-    private ChainShape getPolygon(PolygonMapObject polygonObject) {
+    private Shape getPolygon(PolygonMapObject polygonObject) {
         float[] vertices = polygonObject.getPolygon().getTransformedVertices();
-        Vector2[] worldVertices = new Vector2[vertices.length / 2];
-
+        List<Vector2> worldVertices = Stream.generate(Vector2::new).limit(vertices.length/2).collect(Collectors.toList());
         for (int i = 0; i < vertices.length / 2; i++) {
-            worldVertices[i] = new Vector2();
-            worldVertices[i].x = vertices[i * 2] / ppt;
-            worldVertices[i].y = -vertices[i * 2 + 1] / ppt;
+            worldVertices.set(i,new Vector2(vertices[i * 2] / ppt, -vertices[i * 2 + 1] / ppt));
 
             // Set 2d vertices to Iso + deal with the offset
-            Vector2 vel = IsoUtils.TwoDToIso(new Vector2(worldVertices[i].x, worldVertices[i].y));
-            worldVertices[i].x = vel.x;
-            worldVertices[i].y = vel.y + 20;
+            Vector2 vel = IsoUtils.TwoDToIso(worldVertices.get(i));
+            vel.y+=20;
+            worldVertices.set(i,vel);
         }
-
+        //hack to fix libgdx bug when polygon is not closed
+        Vector2 last = worldVertices.get(0);
+        //Avoiding error when last point cannot be the same as first in chain
+        last.x-=1;
+        last.y-=1;
+        worldVertices.add(last);
+        System.out.println(worldVertices);
         ChainShape chain = new ChainShape();
-        chain.createChain(worldVertices);
+        chain.createChain(worldVertices.toArray(Vector2[]::new));
         return chain;
     }
     private void addBigLight(GameContext context){

@@ -34,11 +34,15 @@ public abstract class Entity extends Actor {
         this.texturePath = texturePath;
         initialize(texturePath);
     }
+    public Entity(World world, Camera camera,Sprite sprite){
+        this.world = world;
+        this.camera = camera;
+        this.sprite = sprite;
+    }
 
     private void initialize(String texturePath) {
         img = new Texture(texturePath);
         sprite = new Sprite(img);
-
     }
 
     protected void calculateSpawnPosition(Map map, String markerName) {
@@ -53,15 +57,6 @@ public abstract class Entity extends Actor {
 
     protected void setPosition(Vector2 vector2) {
         sprite.setPosition(vector2.x, vector2.y);
-    }
-
-
-    public float getHeight() {
-        return sprite.getHeight() * spriteScale;
-    }
-
-    public float getWidth() {
-        return sprite.getWidth() * spriteScale;
     }
 
     public PolygonShape createHeptagonPolygonShape() {
@@ -108,6 +103,17 @@ public abstract class Entity extends Actor {
     }
 
     abstract public void update();
+
+
+    @Override
+    public float getHeight() {
+        return sprite.getHeight()*spriteScale;
+    }
+
+    @Override
+    public float getWidth() {
+        return sprite.getWidth()*spriteScale;
+    }
 
 }
 
