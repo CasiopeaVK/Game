@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.map.Map;
+import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public abstract class Entity extends Actor {
     protected Body body;
     @Getter
     protected World world;
+    @Getter
     protected float spriteScale = 0.6f;
     private String texturePath;
 
@@ -115,8 +117,10 @@ public abstract class Entity extends Actor {
         return sprite.getWidth()*spriteScale;
     }
 
-    public float getSpriteScale() {
-        return spriteScale;
+    @Override
+    public boolean remove() {
+        ((SmartStage)getStage()).remove(this);
+        return false;
     }
 }
 
