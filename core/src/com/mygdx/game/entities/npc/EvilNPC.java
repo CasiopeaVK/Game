@@ -7,12 +7,14 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Constants;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.screen.ScreenType;
 import com.mygdx.game.screenUI.NoticedUI;
+import com.mygdx.game.stage.SmartStage;
 
 import java.util.Iterator;
 
@@ -29,7 +31,7 @@ public class EvilNPC extends Npc {
     private boolean isTriggered = false;
     private float triggerAccumulator = 0;
 
-    private NoticedUI noticedUI;
+    private NoticedUI noticedUI = new NoticedUI();
 
     public EvilNPC(String name, GameContext context, Map map, String texturePath) {
         super(name, context.getWorld(), map, context.getCamera(), texturePath);
@@ -105,5 +107,11 @@ public class EvilNPC extends Npc {
         isTriggered = false;
         triggerAccumulator = 0;
         noticedUI.setVisible(false);
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        super.setStage(stage);
+        stage.addActor(noticedUI);
     }
 }
