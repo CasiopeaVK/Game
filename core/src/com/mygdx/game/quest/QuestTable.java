@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
+import com.mygdx.game.GameContext;
+import com.mygdx.game.screen.ScreenType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,9 +32,11 @@ public class QuestTable extends Table {
     Label header = new Label("Current quest:", Constants.APP_SKIN, "RobotoTime");
     Label currentName;
     Label currentDescription;
+    GameContext context;
 
-    public QuestTable(QuestLine questLine) {
+    public QuestTable(QuestLine questLine, GameContext context) {
         super(Constants.APP_SKIN);
+        this.context = context;
         this.questLine = questLine;
         questLine.setQuestTable(this);
         initialization();
@@ -47,8 +51,6 @@ public class QuestTable extends Table {
         this.currentName = new Label(currentQuest.getName(), Constants.APP_SKIN, NAME_STYLE);
         this.currentDescription = new Label(currentQuest.getDescription(), Constants.APP_SKIN, DESCRIPTION_STYLE);
 
-//        this.add(header).left();
-//        this.row();
         this.add(currentName).left();
         this.row();
         this.add(currentDescription).left();
@@ -58,14 +60,13 @@ public class QuestTable extends Table {
 
     public void updateQuest() {
         if (!currentQuest.isEnd()) {
-//            questLine.performQuest();
             this.currentQuest = questLine.getQuest();
             if (currentQuest != null) {
                 currentName.setText(currentQuest.getName());
                 currentDescription.setText(currentQuest.getDescription());
             }
         }else{
-//            questLine.performQuest();
+            context.setScreen(ScreenType.WIN);
         }
     }
 }

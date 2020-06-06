@@ -71,8 +71,8 @@ public class GameScreen extends AbstractScreen {
         context.setMap(map);
         camera = context.getCamera();
         stage = new SmartStage();
+        QuestTable questTable = GenerateQuests.generateQuests(context);
         context.setStage(stage);
-        QuestTable questTable = GenerateQuests.generateQuests();
         gameUI = new GameUI(questTable);
         context.setGameUI(gameUI);
         stage.setGameUI(gameUI);
@@ -104,15 +104,12 @@ public class GameScreen extends AbstractScreen {
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);
-        npcList.stream().forEach(this::addEntity);
-        ObjectsRenderer.renderEnvironment(map, stage, player, context);
 
-        stage.addEntity(new HackingArcade(new Sprite(new Texture("sypringe.png")), new Consumer<Boolean>() {
-            @Override
-            public void accept(Boolean aBoolean) {
-                System.out.println(aBoolean);
-            }
-        }));
+        player.addItem(itemBuilder.createItem(GameItems.SPOON));
+        npcList.stream().forEach(this::addEntity);
+        ObjectsRenderer.renderEnvironment(map, stage, player, context, questTable.getQuestLine());
+
+
         timeLoop = new TimeLoop(npcList, context);
         Gdx.input.setInputProcessor(stage);
     }
