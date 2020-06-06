@@ -21,6 +21,7 @@ public class Npc extends InteractiveAnimatedEntity {
     @Getter
     private Path path;
     private DialogLine dialogLine;
+    @Getter
     private String name;
     @Setter
     protected MovementDelayManager movementDelayManager = new MovementDelayManager() {

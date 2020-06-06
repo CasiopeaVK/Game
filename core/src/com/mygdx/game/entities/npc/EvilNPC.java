@@ -24,19 +24,46 @@ public class EvilNPC extends Npc {
 
     private float deadZoneRadius = 200f;
     private float deadZoneAngle = (float) (Math.PI / 2);
-    private Vector2[] vertices;
-    private FixtureDef deadZoneFixture;
-    private Body deadZoneBody;
+    protected FixtureDef deadZoneFixture;
+    protected Body deadZoneBody;
 
     private boolean isTriggered = false;
     private float triggerAccumulator = 0;
 
     private NoticedUI noticedUI = new NoticedUI();
+    private MovementDelayManager activeDelayManager;
+    private MovementDelayManager idleDelayManager;
 
     public EvilNPC(String name, GameContext context, Map map, String texturePath) {
         super(name, context.getWorld(), map, context.getCamera(), texturePath);
         this.context = context;
-        initializeDeadZone();
+        initializeDeadZone(createDeadZoneVertices());
+        idleDelayManager = new MovementDelayManager() {
+            @Override
+            public boolean preMovePredicate() {
+                return false;
+            }
+
+            @Override
+            public boolean postMovePredicate() {
+                return false;
+            }
+        };
+        activeDelayManager = new MovementDelayManager() {
+            @Override
+            public boolean preMovePredicate() {
+                return true;
+            }
+
+            @Override
+            public boolean postMovePredicate() {
+                return true;
+            }
+        };
+    }
+    protected EvilNPC(String name, String texturePath, GameContext context, Map map) {
+        super(name, context.getWorld(), map, context.getCamera(), texturePath);
+        this.context = context;
     }
 
     public void initializeNoticedUI() {
@@ -49,7 +76,7 @@ public class EvilNPC extends Npc {
         }
     }
 
-    private void initializeDeadZone() {
+    protected void initializeDeadZone(Vector2[] vertices) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
         bodyDef.fixedRotation = true;
@@ -57,7 +84,6 @@ public class EvilNPC extends Npc {
 
         deadZoneBody = world.createBody(bodyDef);
         PolygonShape sector = new PolygonShape();
-        createDeadZoneVertices();
         sector.set(vertices);
         deadZoneFixture = new FixtureDef();
         deadZoneFixture.shape = sector;
@@ -70,9 +96,9 @@ public class EvilNPC extends Npc {
         deadZoneBody.setTransform(body.getPosition(), (float) rotateAngle);
     }
 
-    public void createDeadZoneVertices() {
+    protected Vector2[] createDeadZoneVertices() {
         int STEPS = 5;
-        vertices = new Vector2[STEPS + 3];
+        Vector2[] vertices = new Vector2[STEPS + 3];
         vertices[0] = new Vector2(0f, 0f);
         float angle = -deadZoneAngle / 2;
         for (int i = 1; i < vertices.length; i++) {
@@ -80,12 +106,17 @@ public class EvilNPC extends Npc {
             angle += deadZoneAngle / STEPS;
         }
         vertices[STEPS + 2] = new Vector2(0f, 0f);
+        return vertices;
     }
 
     @Override
     public void update() {
         super.update();
         updateDeadZone();
+        checkTrigger();
+    }
+
+    protected void checkTrigger() {
         if (isTriggered) {
             triggerAccumulator += Gdx.graphics.getDeltaTime();
             if (triggerAccumulator >= Constants.NOTICE_TIME) {
@@ -100,13 +131,14 @@ public class EvilNPC extends Npc {
     public void triggerNpc() {
         isTriggered = true;
         initializeNoticedUI();
-        //TODO stop enemy
+        setMovementDelayManager(idleDelayManager);
     }
 
     public void cancelTrigger() {
         isTriggered = false;
         triggerAccumulator = 0;
         noticedUI.setVisible(false);
+        setMovementDelayManager(activeDelayManager);
     }
 
     @Override

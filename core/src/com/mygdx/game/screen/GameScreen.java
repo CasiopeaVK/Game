@@ -13,10 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.*;
-import com.mygdx.game.entities.npc.EvilNPC;
-import com.mygdx.game.entities.npc.MovementDelayManager;
-import com.mygdx.game.entities.npc.Npc;
-import com.mygdx.game.entities.npc.NpcBuilder;
+import com.mygdx.game.entities.npc.*;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.items.ItemBuilder;
@@ -50,6 +47,7 @@ public class GameScreen extends AbstractScreen {
     GameUI gameUI;
     PickUpSensor sensor;
     EvilNPC evilNPC;
+    CustomEvilNpc madNpc;
 
     public GameScreen(final GameContext context) {
         super(context);
@@ -89,7 +87,18 @@ public class GameScreen extends AbstractScreen {
                         return false;
                     }
                 }),
-                NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000));
+                NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000),
+                new CustomEvilNpc("madNpc", context, map, "hero/hero.png", new MovementDelayManager() {
+                    @Override
+                    public boolean preMovePredicate() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean postMovePredicate() {
+                        return false;
+                    }
+                }));
 
         gameRenderer = context.getGameRenderer();
 
