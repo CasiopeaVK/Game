@@ -13,6 +13,7 @@ import com.mygdx.game.entities.*;
 import com.mygdx.game.inventory.InventoryCell;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.sample.PlateFood;
+import com.mygdx.game.quest.QuestLine;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 import com.mygdx.game.view.GameRenderer;
@@ -22,7 +23,7 @@ import java.util.function.Predicate;
 import static com.mygdx.game.Constants.*;
 
 public class ObjectsRenderer {
-    public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context) {
+    public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context, QuestLine questLine) {
         World world = context.getWorld();
         OrthographicCamera camera = context.getCamera();
 
@@ -67,7 +68,7 @@ public class ObjectsRenderer {
                     cloggingIndicator.setPosition(isoPosition.x - cloggingIndicator.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE - 10, isoPosition.y - cloggingIndicator.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 10);
                     break;
                 case "tunnel":
-                    Tunel entity = new Tunel(world, camera, new Sprite(new Texture("environmentTextures/tunnel0.png")), player.getInventory(), context.getItemBuilder(), player, isoPosition);
+                    Tunel entity = new Tunel(world, camera, new Sprite(new Texture("environmentTextures/tunnel0.png")), player.getInventory(), context.getItemBuilder(), player, isoPosition, questLine);
                     entity.setPosition(isoPosition.x - entity.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - entity.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE);
                     addEntityToTheMapWithCustomPositionAndScale(entity, stage, context.getGameRenderer());
                     break;
@@ -102,6 +103,8 @@ public class ObjectsRenderer {
                         }
                     };
                     addEntityToTheMap(isoPosition, table, stage, context.getGameRenderer(), new Vector2(0, 0));
+                    break;
+
             }
         }
     }

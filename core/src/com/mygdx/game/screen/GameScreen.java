@@ -97,7 +97,7 @@ public class GameScreen extends AbstractScreen {
 
         player.addItem(itemBuilder.createItem(GameItems.SPOON));
         npcList.stream().forEach(this::addEntity);
-        ObjectsRenderer.renderEnvironment(map, stage, player, context);
+        ObjectsRenderer.renderEnvironment(map, stage, player, context, questTable.getQuestLine());
 
         stage.addEntity(new HackingArcade(new Sprite(new Texture("sypringe.png")), new Consumer<Boolean>() {
             @Override

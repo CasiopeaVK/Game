@@ -66,7 +66,7 @@ public class QuestTable extends Table {
                 currentDescription.setText(currentQuest.getDescription());
             }
         }else{
-            context.setScreen(ScreenType.RESTART);
+            context.setScreen(ScreenType.WIN);
         }
     }
 }
