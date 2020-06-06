@@ -59,6 +59,8 @@ public class SmartBed extends Bed {
             TimeManager.setTIME_SCALE(30);
             sleeping = true;
             player.setSpritesScale(0);
+            player.getSprite().set(player.getSprites().get(0).get(0));
+            player.setSleeping(true);
         }
 
     }
