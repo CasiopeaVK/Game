@@ -104,12 +104,7 @@ public class GameScreen extends AbstractScreen {
         npcList.stream().forEach(this::addEntity);
         ObjectsRenderer.renderEnvironment(map, stage, player, context, questTable.getQuestLine());
 
-        stage.addEntity(new HackingArcade(new Sprite(new Texture("sypringe.png")), new Consumer<Boolean>() {
-            @Override
-            public void accept(Boolean aBoolean) {
-                System.out.println(aBoolean);
-            }
-        }));
+
         timeLoop = new TimeLoop(npcList, context);
         Gdx.input.setInputProcessor(stage);
     }

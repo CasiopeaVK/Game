@@ -14,9 +14,11 @@ import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.inventory.InventoryTable;
 import com.mygdx.game.items.GameItems;
 import com.mygdx.game.items.ItemBuilder;
+import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import static com.mygdx.game.Constants.ENVIRONMENT_OBJECTS_SCALE;
 
@@ -25,9 +27,13 @@ public class Chest extends InteractiveEntity {
     InventoryTable inventoryTable;
     Vector2 coords;
     ArrayList<Sprite> sprites;
-    Stage stage;
-    public Chest(World world, Camera camera, String texturePath, Vector2 isoPosition, Stage stage, GameContext gameContext) {
+    SmartStage stage;
+    Player player;
+    boolean hacked = false;
+
+    public Chest(World world, Camera camera, String texturePath, Vector2 isoPosition, SmartStage stage, GameContext gameContext) {
         super(world, camera, texturePath);
+        player = gameContext.getPlayer();
         this.stage = stage;
         this.coords = new Vector2  (isoPosition.x - sprite.getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - sprite.getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
         sprites = new ArrayList<Sprite>();
@@ -53,14 +59,33 @@ public class Chest extends InteractiveEntity {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
-
+        if(!hacked){
+            hacked = true;
+            stage.addEntity(new HackingArcade(new Sprite(new Texture("sypringe.png")), new Consumer<Boolean>() {
+                @Override
+                public void accept(Boolean aBoolean) {
+                    if(aBoolean){
+                        hacked = true;
+                        stage.addActor(inventoryTable);
+                    }else {hacked = false;}
+                }
+            }));
+        }
     }
 
     @Override
     public void update() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.T)){
-            sprite.set(sprites.get(1));
-            stage.addActor(inventoryTable);
+        updateClickListener();
+        if(hacked && Gdx.input.isKeyJustPressed(Input.Keys.F) && Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) < 500){
+            inventoryTable.setVisible(!inventoryTable.isVisible());
+            if(inventoryTable.isVisible()){
+                sprite.set(sprites.get(1));
+            }else{
+                sprite.set(sprites.get(0));
+            }
+        }else if(Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) >= 500){
+            inventoryTable.setVisible(false);
+            sprite.set(sprites.get(0));
         }
     }
 }
