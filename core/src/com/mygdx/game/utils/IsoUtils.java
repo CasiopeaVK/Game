@@ -25,6 +25,11 @@ public class IsoUtils {
         return new Vector2(x,y);
     }
 
+
+    public static Vector2 multiplyVector(Vector2 v, float scalar){
+        return new Vector2(v.x*scalar,v.y*scalar);
+    }
+
     public static boolean Vector3Equals(Vector3 v1, Vector3 v2) {
         return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
     }
