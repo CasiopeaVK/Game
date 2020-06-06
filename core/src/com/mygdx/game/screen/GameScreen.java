@@ -60,7 +60,7 @@ public class GameScreen extends AbstractScreen {
         map = new Map(tiledMap, context);
         camera = context.getCamera();
         stage = new SmartStage();
-        QuestTable questTable = GenerateQuests.generateQuests();
+        QuestTable questTable = GenerateQuests.generateQuests(context);
         gameUI = new GameUI(questTable);
         stage.setGameUI(gameUI);
 
@@ -92,12 +92,10 @@ public class GameScreen extends AbstractScreen {
                 NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000));
 
         gameRenderer = context.getGameRenderer();
-        player.addItem(itemBuilder.createItem(GameItems.DIRT));
-        player.addItem(itemBuilder.createItem(GameItems.DIRT));
-        player.addItem(itemBuilder.createItem(GameItems.DIRT));
-        player.addItem(itemBuilder.createItem(GameItems.PLUNGER));
 
         addEntity(player);
+
+        player.addItem(itemBuilder.createItem(GameItems.SPOON));
         npcList.stream().forEach(this::addEntity);
         ObjectsRenderer.renderEnvironment(map, stage, player, context);
 

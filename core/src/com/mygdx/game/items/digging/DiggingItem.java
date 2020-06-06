@@ -10,7 +10,7 @@ import lombok.Getter;
 public class DiggingItem extends Item {
 
     @Getter
-    private int power;
+    private int power = 3;
 
     public DiggingItem(World world, Camera camera, GameRenderer renderer, GameItems item) {
         super(world, camera, renderer, item);
