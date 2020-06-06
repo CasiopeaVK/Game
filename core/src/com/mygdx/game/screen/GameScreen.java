@@ -2,6 +2,8 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
@@ -10,10 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.GameContext;
-import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.InteractiveEntity;
-import com.mygdx.game.entities.Player;
-import com.mygdx.game.entities.Tunel;
+import com.mygdx.game.entities.*;
 import com.mygdx.game.entities.npc.EvilNPC;
 import com.mygdx.game.entities.npc.MovementDelayManager;
 import com.mygdx.game.entities.npc.Npc;
@@ -31,13 +30,11 @@ import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.screenUI.NoticedUI;
 import com.mygdx.game.stage.SmartStage;
-import com.mygdx.game.utils.IsoUtils;
 import com.mygdx.game.view.GameRenderer;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class GameScreen extends AbstractScreen {
 
@@ -51,12 +48,8 @@ public class GameScreen extends AbstractScreen {
     Player player;
     List<Npc> npcList;
     GameUI gameUI;
-    Item item;
     PickUpSensor sensor;
     EvilNPC evilNPC;
-
-    //TODO remove
-    NoticedUI noticedUI;
 
     public GameScreen(final GameContext context) {
         super(context);
@@ -71,7 +64,6 @@ public class GameScreen extends AbstractScreen {
         gameUI = new GameUI(questTable);
         stage.setGameUI(gameUI);
 
-        noticedUI = new NoticedUI();
         gameRenderer = context.getGameRenderer();
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
         context.setItemBuilder(itemBuilder);
@@ -104,6 +96,13 @@ public class GameScreen extends AbstractScreen {
         addEntity(player);
         npcList.stream().forEach(this::addEntity);
         ObjectsRenderer.renderEnvironment(map, stage, player, context);
+
+        stage.addEntity(new HackingArcade(new Sprite(new Texture("sypringe.png")), new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) {
+                System.out.println(aBoolean);
+            }
+        }));
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -121,8 +120,6 @@ public class GameScreen extends AbstractScreen {
         camera.setToOrtho(false, w, h);
         camera.update();
         stage.addActor(gameUI);
-        //TODO remove
-        stage.addActor(noticedUI);
         evilNPC.initializeNoticedUI();
     }
 
