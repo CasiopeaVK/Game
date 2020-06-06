@@ -98,7 +98,6 @@ public class Tunel extends InteractiveEntity {
 
     private void endGame(){
         if(healthPoint <= 0){
-            System.out.println(1);
             questLine.incrementQuest();
         }
     }
@@ -108,6 +107,5 @@ public class Tunel extends InteractiveEntity {
             work();
         sprite.set(tunnels.get(currentTunnel));
         endGame();
-        System.out.println(healthPoint);
     }
 }

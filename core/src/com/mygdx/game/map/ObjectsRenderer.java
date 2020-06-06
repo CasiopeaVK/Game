@@ -109,7 +109,10 @@ public class ObjectsRenderer {
                     };
                     addEntityToTheMap(isoPosition, table, stage, context.getGameRenderer(), new Vector2(0, 0));
                     break;
-
+                case "canibet3":
+                    Chest chest = new Chest(world,camera,"environmentTextures/canibet3.png",isoPosition,stage,context);
+                    chest.setPosition(isoPosition.x - chest.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - chest.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
+                    addEntityToTheMapWithCustomPositionAndScale(chest,stage,context.getGameRenderer());
             }
         }
     }
