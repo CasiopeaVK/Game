@@ -22,10 +22,14 @@ import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.items.ItemBuilder;
+import com.mygdx.game.items.PickUpSensor;
+import com.mygdx.game.map.Map;
 import com.mygdx.game.map.MapManager;
 import com.mygdx.game.screen.AbstractScreen;
 import com.mygdx.game.screen.GameScreen;
 import com.mygdx.game.screen.ScreenType;
+import com.mygdx.game.screenUI.GameUI;
+import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,6 +61,14 @@ public class GameContext extends Game {
     private ItemBuilder itemBuilder;
     @Getter @Setter
     private Player player;
+    @Getter @Setter
+    private SmartStage stage;
+    @Getter @Setter
+    private Map map;
+    @Getter @Setter
+    PickUpSensor sensor;
+    @Getter @Setter
+    GameUI gameUI;
 
 
     @Override
@@ -77,7 +89,7 @@ public class GameContext extends Game {
         world = new World(new Vector2(0, 0), true);
         mapManager = new MapManager(this);
         rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0, 0, 0, 0.6f);
+        rayHandler.setAmbientLight(0, 0, 0, 0.8f);
         gameRenderer = new GameRenderer(this);
 
 

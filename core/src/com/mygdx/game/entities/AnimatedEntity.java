@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.utils.Executor;
+import lombok.Getter;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ abstract public class AnimatedEntity extends Entity {
     private int idleNumber;
     private int animationStep;
     private float animationAccumulator = 0;
+    @Getter
     private ArrayList<ArrayList<Sprite>> sprites;
 
 
@@ -195,5 +197,13 @@ abstract public class AnimatedEntity extends Entity {
             idleNumber = ++idleNumber % 8;
         }
 
+    }
+
+    public void setSpritesScale(float scale) {
+        for (ArrayList<Sprite> al : sprites) {
+            for (Sprite sprite : al) {
+                sprite.setScale(scale);
+            }
+        }
     }
 }

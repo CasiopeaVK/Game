@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.GameContext;
+import com.mygdx.game.Time.TimeLoop;
 import com.mygdx.game.entities.*;
 import com.mygdx.game.entities.npc.EvilNPC;
 import com.mygdx.game.entities.npc.MovementDelayManager;
@@ -50,18 +51,23 @@ public class GameScreen extends AbstractScreen {
     GameUI gameUI;
     PickUpSensor sensor;
     EvilNPC evilNPC;
+    TimeLoop timeLoop;
 
     public GameScreen(final GameContext context) {
         super(context);
         sensor = new PickUpSensor();
+        context.setSensor(sensor);
         world = context.getWorld();
         world.setContactListener(sensor);
         tiledMap = this.assetManager.get("Water.tmx", TiledMap.class);
         map = new Map(tiledMap, context);
+        context.setMap(map);
         camera = context.getCamera();
         stage = new SmartStage();
         QuestTable questTable = GenerateQuests.generateQuests(context);
+        context.setStage(stage);
         gameUI = new GameUI(questTable);
+        context.setGameUI(gameUI);
         stage.setGameUI(gameUI);
 
         gameRenderer = context.getGameRenderer();
@@ -90,7 +96,6 @@ public class GameScreen extends AbstractScreen {
                     }
                 }),
                 NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000));
-
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);
@@ -105,6 +110,7 @@ public class GameScreen extends AbstractScreen {
                 System.out.println(aBoolean);
             }
         }));
+        timeLoop = new TimeLoop(npcList, context);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -127,8 +133,8 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-        TimeManager.getTime();
         camera.update();
+        timeLoop.processTimeChange();
         gameRenderer.render(1f);
         stage.update();
     }
