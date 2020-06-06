@@ -17,12 +17,16 @@ import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 import com.mygdx.game.view.GameRenderer;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import static com.mygdx.game.Constants.*;
 
 public class ObjectsRenderer {
+    public static ArrayList<Bed> beds;
+
     public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context) {
+        beds = new ArrayList<>();
         World world = context.getWorld();
         OrthographicCamera camera = context.getCamera();
 
@@ -41,6 +45,7 @@ public class ObjectsRenderer {
                 Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
                 if (object.getName().equals("empty_bed")) {
                     Bed bed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
+                    beds.add(bed);
                     addEntityToTheMap(isoPosition, bed, stage, context.getGameRenderer(), new Vector2(0, 20));
                 } else {
                     Entity objEntity = new Entity(world, camera, new Sprite(new Texture("environmentTextures/" + object.getName() + ".png"))) {
@@ -72,7 +77,7 @@ public class ObjectsRenderer {
                     addEntityToTheMapWithCustomPositionAndScale(entity, stage, context.getGameRenderer());
                     break;
                 case "bed":
-                    SmartBed bed = new SmartBed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")), player, isoPosition);
+                    SmartBed bed = new SmartBed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")), player, isoPosition, context);
                     bed.setPosition(isoPosition.x - bed.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - bed.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 20);
                     addEntityToTheMapWithCustomPositionAndScale(bed, stage, context.getGameRenderer());
                     break;
@@ -88,8 +93,8 @@ public class ObjectsRenderer {
                             }).count();
                             if (count == 4) {
                                 ((SmartStage) stage).incrementCurrentQuestIndex();
-                                for (InventoryCell cell:player.getInventory().getListCells()){
-                                    if (cell.getItem() instanceof PlateFood){
+                                for (InventoryCell cell : player.getInventory().getListCells()) {
+                                    if (cell.getItem() instanceof PlateFood) {
                                         cell.setItem(player.getInventory().getItemBuilder().createItem(GameItems.PLATE));
                                     }
                                 }
