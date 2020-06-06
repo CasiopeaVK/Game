@@ -15,6 +15,7 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.utils.IsoUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.mygdx.game.Constants.*;
 
@@ -22,7 +23,8 @@ public class Player extends AnimatedEntity {
     public Light light;
     public GameUI gameUI;
     public PickUpSensor sensor;
-    long l = System.currentTimeMillis();
+    @Setter
+    boolean sleeping = false;
     @Getter
     Inventory inventory;
 
@@ -44,11 +46,13 @@ public class Player extends AnimatedEntity {
 
 
     public void update() {
-        update(this::handleClickedButtons);
-        world.step(Gdx.graphics.getDeltaTime(), 6, 6);
-        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime(), -yFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime())));
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
-        camera.position.set(body.getPosition().x, body.getPosition().y, 0);
+        if (!sleeping) {
+            update(this::handleClickedButtons);
+            world.step(Gdx.graphics.getDeltaTime(), 6, 6);
+            body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime(), -yFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime())));
+            sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
+            camera.position.set(body.getPosition().x, body.getPosition().y, 0);
+        }
     }
 
 
@@ -136,5 +140,4 @@ public class Player extends AnimatedEntity {
     public boolean addItem(Item item) {
         return inventory.addItem(item);
     }
-
 }

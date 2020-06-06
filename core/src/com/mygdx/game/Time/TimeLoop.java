@@ -75,6 +75,7 @@ public class TimeLoop {
         TimeManager.setTIME_SCALE(0.7f);
         rayHandler.setAmbientLight(0, 0, 0, 0.8f);
         map.removeNightLight();
+        context.getPlayer().setSleeping(false);
         //change beds
         for (Bed bed : beds) {
             Sprite oldSprite = bed.getSprite();
@@ -83,6 +84,7 @@ public class TimeLoop {
             newSprite.setPosition(oldSprite.getX(), oldSprite.getY());
             bed.getSprite().set(newSprite);
         }
+        //add NPCs
         npcList = new ArrayList<>();
         for (String name : npcNames) {
             if (name.equals("testEvilNpc")) {
@@ -120,11 +122,9 @@ public class TimeLoop {
             stage.remove(npc);
             gameRenderer.removeEntity(npc);
             world.destroyBody(npc.getBody());
-//            for (Fixture fixture : npc.getBody().getFixtureList())
-//                npc.getBody().destroyFixture(fixture);
         }
         //update light
-        rayHandler.setAmbientLight(0, 0, 0, 0.35f);
+        rayHandler.setAmbientLight(0, 0, 0, 0.2f);
         map.addNightLight();
     }
 
