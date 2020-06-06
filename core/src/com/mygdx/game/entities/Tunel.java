@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.mygdx.game.GameContext;
 import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.inventory.InventoryCell;
 import com.mygdx.game.items.GameItems;
@@ -16,6 +17,7 @@ import com.mygdx.game.items.Item;
 import com.mygdx.game.items.ItemBuilder;
 import com.mygdx.game.items.digging.DiggingItem;
 import com.mygdx.game.items.improves.ImproveItem;
+import com.mygdx.game.quest.QuestLine;
 
 import java.util.ArrayList;
 
@@ -28,17 +30,19 @@ enum TunnelState {
 public class Tunel extends InteractiveEntity {
 
 
-    int healthPoint = 100;
+    int healthPoint = 10;
     Inventory inventory;
     ItemBuilder itemBuilder;
     Player player;
     ArrayList<Sprite> tunnels;
     Vector2 coords;
     TunnelState tunnelState;
+    QuestLine questLine;
     int currentTunnel;
 
-    public Tunel(World world, Camera camera, Sprite sprite, Inventory inventory, ItemBuilder itemBuilder, Player player, Vector2 isoPosition) {
+    public Tunel(World world, Camera camera, Sprite sprite, Inventory inventory, ItemBuilder itemBuilder, Player player, Vector2 isoPosition, QuestLine questLine) {
         super(world, camera, sprite);
+        this.questLine = questLine;
         this.coords = new Vector2(isoPosition.x - sprite.getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - sprite.getHeight() * ENVIRONMENT_OBJECTS_SCALE);
         this.inventory = inventory;
         this.itemBuilder = itemBuilder;
@@ -92,10 +96,16 @@ public class Tunel extends InteractiveEntity {
         System.out.println(healthPoint);
     }
 
+    private void endGame(){
+        if(healthPoint <= 0){
+            questLine.incrementQuest();
+        }
+    }
     @Override
     public void update() {
         if (Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) < 200 && Gdx.input.isKeyJustPressed(Input.Keys.R))
             work();
         sprite.set(tunnels.get(currentTunnel));
+        endGame();
     }
 }

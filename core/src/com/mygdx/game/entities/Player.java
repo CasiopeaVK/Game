@@ -15,6 +15,7 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.screenUI.GameUI;
 import com.mygdx.game.utils.IsoUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.mygdx.game.Constants.*;
 
@@ -22,7 +23,8 @@ public class Player extends AnimatedEntity {
     public Light light;
     public GameUI gameUI;
     public PickUpSensor sensor;
-
+    @Setter
+    boolean sleeping = false;
     @Getter
     Inventory inventory;
 
@@ -35,9 +37,9 @@ public class Player extends AnimatedEntity {
     }
 
     private void initialize(Map map, GameContext context) {
-        System.out.println("inw "+sprite.getWidth());
+        System.out.println("inw " + sprite.getWidth());
         sprite.setScale(spriteScale);
-        System.out.println("act w "+sprite.getWidth());
+        System.out.println("act w " + sprite.getWidth());
         calculateSpawnPosition(map, "spawn");
         initCharacterBody(BodyDef.BodyType.DynamicBody);
     }
@@ -49,7 +51,15 @@ public class Player extends AnimatedEntity {
         body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime(), -yFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime())));
         sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
         camera.position.set(body.getPosition().x, body.getPosition().y, 0);
-        System.out.println(sprite.getX() + " " + sprite.getY());
+
+        if (!sleeping) {
+            update(this::handleClickedButtons);
+            world.step(Gdx.graphics.getDeltaTime(), 6, 6);
+            body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime(), -yFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime())));
+            sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
+            camera.position.set(body.getPosition().x, body.getPosition().y, 0);
+        }
+
     }
 
 
@@ -88,7 +98,7 @@ public class Player extends AnimatedEntity {
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (sensor.isTriggered() && sensor.getItem() != null) {
-                if(inventory.addItem(sensor.getItem()))
+                if (inventory.addItem(sensor.getItem()))
                     sensor.getItem().hideItem();
             }
         }
@@ -107,28 +117,34 @@ public class Player extends AnimatedEntity {
         light.setIgnoreAttachedBody(true);
     }
 
-    private void addInventory(){
+    private void addInventory() {
         inventory = new Inventory();
         gameUI.row();
         gameUI.addActor(inventory);
     }
 
-    public void setCurrentCell(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+    public void setCurrentCell() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
             inventory.setCurrentCell(0);
-        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
             inventory.setCurrentCell(1);
-        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
             inventory.setCurrentCell(2);
-        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)){
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
             inventory.setCurrentCell(3);
-        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)){
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
             inventory.setCurrentCell(4);
-        }if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)){
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
             inventory.setCurrentCell(5);
         }
     }
 
-    public boolean addItem(Item item){return inventory.addItem(item);}
-
+    public boolean addItem(Item item) {
+        return inventory.addItem(item);
+    }
 }

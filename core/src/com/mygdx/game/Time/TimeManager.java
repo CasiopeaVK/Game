@@ -2,6 +2,8 @@ package com.mygdx.game.Time;
 
 import com.badlogic.gdx.Gdx;
 import lombok.Getter;
+import lombok.Setter;
+
 public class TimeManager {
     private static String currentTime = "";
 
@@ -9,11 +11,13 @@ public class TimeManager {
     private static String hoursBlock = "";
 
     @Getter
-    private static int minutes = 0;
-    private static int hours = 0;
+    private static int minutes = 30;
+    @Getter
+    private static int hours = 22;
 
     private static float accumulator = 0;
-    private static final float TIME_SCALE = 0.7f;
+    @Setter
+    private static float TIME_SCALE = 0.7f;
 
     public static String getTime() {
         accumulate();
@@ -23,39 +27,39 @@ public class TimeManager {
     private static void accumulate() {
         accumulator += Gdx.graphics.getDeltaTime() * TIME_SCALE;
         int converted = (int) accumulator;
-        minutes += converted;
-
+        if (converted != 0) {
+            minutes += converted;
+        }
         calculateHours();
         generateBlock();
         check(converted);
-        currentTime = hoursBlock +" : "+minuteBlock;
+        currentTime = hoursBlock + " : " + minuteBlock;
     }
 
     private static void generateBlock() {
-        if(minutes < 10){
+        if (minutes < 10)
             minuteBlock = "0" + minutes;
-        }else{
-            minuteBlock = ""+minutes;
-        }
+        else
+            minuteBlock = "" + minutes;
 
-        if(hours < 10){
-            hoursBlock = "0"+hours;
-        }else{
-            hoursBlock = ""+hours;
-        }
+
+        if (hours < 10)
+            hoursBlock = "0" + hours;
+        else
+            hoursBlock = "" + hours;
     }
 
-    private static void calculateHours(){
-        if(minutes >= 60){
+    private static void calculateHours() {
+        if (minutes >= 60) {
             hours += 1;
             minutes = 0;
         }
-        if(hours >=24){
+        if (hours >= 24) {
             hours = 0;
         }
     }
 
-    private static void check(int converted){
+    private static void check(int converted) {
         if (converted >= 1)
             accumulator = 0;
     }

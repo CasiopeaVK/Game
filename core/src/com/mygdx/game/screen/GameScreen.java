@@ -1,6 +1,7 @@
 package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.GameContext;
+import com.mygdx.game.Time.TimeLoop;
 import com.mygdx.game.entities.*;
 import com.mygdx.game.entities.npc.*;
 import com.mygdx.game.items.GameItems;
@@ -29,6 +31,7 @@ import com.mygdx.game.screenUI.NoticedUI;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -48,18 +51,28 @@ public class GameScreen extends AbstractScreen {
     PickUpSensor sensor;
     EvilNPC evilNPC;
     CustomEvilNpc madNpc;
+    TimeLoop timeLoop;
+    Music music;
 
     public GameScreen(final GameContext context) {
         super(context);
+        music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.2f);
+        music.play();
         sensor = new PickUpSensor();
+        context.setSensor(sensor);
         world = context.getWorld();
         world.setContactListener(sensor);
         tiledMap = this.assetManager.get("Water.tmx", TiledMap.class);
         map = new Map(tiledMap, context);
+        context.setMap(map);
         camera = context.getCamera();
         stage = new SmartStage();
-        QuestTable questTable = GenerateQuests.generateQuests();
+        QuestTable questTable = GenerateQuests.generateQuests(context);
+        context.setStage(stage);
         gameUI = new GameUI(questTable);
+        context.setGameUI(gameUI);
         stage.setGameUI(gameUI);
 
         gameRenderer = context.getGameRenderer();
@@ -86,6 +99,7 @@ public class GameScreen extends AbstractScreen {
                     public boolean postMovePredicate() {
                         return false;
                     }
+
                 }),
                 NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000),
                 new CustomEvilNpc("madNpc", context, map, "hero/hero.png", new MovementDelayManager() {
@@ -99,19 +113,16 @@ public class GameScreen extends AbstractScreen {
                         return false;
                     }
                 }));
-
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);
-        npcList.stream().forEach(this::addEntity);
-        ObjectsRenderer.renderEnvironment(map, stage, player, context);
 
-        stage.addEntity(new HackingArcade(new Sprite(new Texture("sypringe.png")), new Consumer<Boolean>() {
-            @Override
-            public void accept(Boolean aBoolean) {
-                System.out.println(aBoolean);
-            }
-        }));
+        player.addItem(itemBuilder.createItem(GameItems.SPOON));
+        npcList.stream().forEach(this::addEntity);
+        ObjectsRenderer.renderEnvironment(map, stage, player, context, questTable.getQuestLine());
+
+
+        timeLoop = new TimeLoop(npcList, context);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -129,13 +140,13 @@ public class GameScreen extends AbstractScreen {
         camera.setToOrtho(false, w, h);
         camera.update();
         stage.addActor(gameUI);
-        evilNPC.initializeNoticedUI();
+//        evilNPC.initializeNoticedUI();
     }
 
     @Override
     public void render(float delta) {
-        TimeManager.getTime();
         camera.update();
+        timeLoop.processTimeChange();
         gameRenderer.render(1f);
         stage.update();
     }

@@ -15,6 +15,7 @@ import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 public abstract class Entity extends Actor {
@@ -23,6 +24,7 @@ public abstract class Entity extends Actor {
     @Getter
     protected Sprite sprite;
     protected Texture img;
+    @Getter @Setter
     protected Body body;
     @Getter
     protected World world;

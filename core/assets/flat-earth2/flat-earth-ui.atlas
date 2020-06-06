@@ -70,7 +70,7 @@ RobotoSlab-Regular
   index: -1
 button
   rotate: false
-  xy: 251, 36
+  xy: 509, 508
   size: 56, 42
   split: 18, 18, 0, 0
   pad: 13, 14, 3, 2
@@ -79,14 +79,14 @@ button
   index: -1
 button-close
   rotate: false
-  xy: 1293, 1848
+  xy: 335, 102
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 button-pressed
   rotate: false
-  xy: 509, 627
+  xy: 1730, 1992
   size: 56, 42
   split: 18, 18, 0, 0
   pad: 13, 14, 3, 2
@@ -144,7 +144,7 @@ font-button-export
   index: -1
 font-export
   rotate: false
-  xy: 509, 755
+  xy: 644, 755
   size: 88, 88
   orig: 88, 88
   offset: 0, 0
@@ -158,21 +158,21 @@ font-title-export
   index: -1
 fork
   rotate: false
-  xy: 1733, 1961
+  xy: 1619, 1961
   size: 109, 73
   orig: 109, 73
   offset: 0, 0
   index: -1
 hamer
   rotate: false
-  xy: 1619, 1949
+  xy: 251, 128
   size: 112, 85
   orig: 112, 85
   offset: 0, 0
   index: -1
 list
   rotate: false
-  xy: 733, 899
+  xy: 738, 899
   size: 39, 39
   split: 1, 1, 1, 1
   pad: 2, 2, 2, 2
@@ -193,16 +193,9 @@ plateFood
   orig: 180, 137
   offset: 0, 0
   index: -1
-plunger
-  rotate: false
-  xy: 251, 80
-  size: 137, 133
-  orig: 137, 133
-  offset: 0, 0
-  index: -1
 radio-pressed
   rotate: false
-  xy: 1844, 2010
+  xy: 644, 729
   size: 29, 24
   orig: 29, 24
   offset: 0, 0
@@ -216,14 +209,14 @@ screwdriver
   index: -1
 scrollbar
   rotate: false
-  xy: 1374, 1944
+  xy: 1371, 1931
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 scrollbar-android
   rotate: false
-  xy: 1733, 1956
+  xy: 1111, 1823
   size: 3, 3
   orig: 3, 3
   offset: 0, 0
@@ -262,7 +255,7 @@ slider-fancy-knob
   index: -1
 slider-horizontal
   rotate: false
-  xy: 1882, 2036
+  xy: 1374, 1943
   size: 17, 11
   split: 4, 4, 0, 0
   pad: 0, 0, 0, 0
@@ -271,7 +264,7 @@ slider-horizontal
   index: -1
 slider-knob
   rotate: false
-  xy: 509, 607
+  xy: 528, 488
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
@@ -287,7 +280,7 @@ slider-vertical
   index: -1
 splitpane-horizontal
   rotate: false
-  xy: 593, 742
+  xy: 365, 202
   size: 4, 11
   split: 1, 1, 1, 1
   pad: 0, 0, 0, 0
@@ -296,7 +289,7 @@ splitpane-horizontal
   index: -1
 splitpane-vertical
   rotate: false
-  xy: 1111, 1822
+  xy: 1882, 2043
   size: 11, 4
   split: 1, 1, 1, 1
   pad: 0, 0, 0, 0
@@ -312,9 +305,16 @@ spoon
   index: -1
 sypringe
   rotate: false
-  xy: 603, 837
+  xy: 509, 552
   size: 128, 101
   orig: 128, 101
+  offset: 0, 0
+  index: -1
+tableBG
+  rotate: false
+  xy: 603, 1330
+  size: 285, 285
+  orig: 285, 285
   offset: 0, 0
   index: -1
 textfield
@@ -337,7 +337,7 @@ tooltip
   index: -1
 touchpad
   rotate: false
-  xy: 509, 671
+  xy: 251, 44
   size: 82, 82
   orig: 82, 82
   offset: 0, 0
@@ -351,21 +351,21 @@ touchpad-knob
   index: -1
 tree-minus
   rotate: false
-  xy: 785, 994
+  xy: 1293, 1855
   size: 22, 17
   orig: 22, 17
   offset: 0, 0
   index: -1
 tree-plus
   rotate: false
-  xy: 309, 60
+  xy: 785, 993
   size: 21, 18
   orig: 21, 18
   offset: 0, 0
   index: -1
 white
   rotate: false
-  xy: 374, 215
+  xy: 890, 1331
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -379,10 +379,24 @@ window
   orig: 76, 67
   offset: 0, 0
   index: -1
-tableBG
+plunger
   rotate: false
-  xy: 603, 1330
-  size: 285, 285
-  orig: 285, 285
+  xy: 509, 655
+  size: 133, 93
+  orig: 133, 93
+  offset: 0, 0
+  index: -1
+plunger1
+  rotate: false
+  xy: 603, 845
+  size: 133, 93
+  orig: 133, 93
+  offset: 0, 0
+  index: -1
+plunger2
+  rotate: false
+  xy: 509, 750
+  size: 133, 93
+  orig: 133, 93
   offset: 0, 0
   index: -1

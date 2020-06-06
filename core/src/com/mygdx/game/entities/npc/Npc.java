@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.Constants;
-import com.mygdx.game.Time.TimeManager;
 import com.mygdx.game.entities.InteractiveAnimatedEntity;
 import com.mygdx.game.entities.npc.dialog.DialogLine;
 import com.mygdx.game.map.Map;

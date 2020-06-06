@@ -9,11 +9,11 @@ public class Quest {
     private String description;
     @Setter
     private boolean performed = false;
-    private boolean isEnd;
+    private boolean end;
 
-    public Quest(String name, String description, boolean isEnd){
+    public Quest(String name, String description, boolean end){
         this.name = name;
         this.description = description;
-        this.isEnd = isEnd;
+        this.end = end;
     }
 }
