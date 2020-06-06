@@ -13,9 +13,18 @@ public class Plunger extends Item {
     }
     public void decreaseCapacity(){
         capacity--;
+        switch (capacity){
+            case 2:
+                this.name = "plunger1";
+                break;
+            case 1:
+                this.name = "plunger2";
+        }
     }
 
     public int getCapacity() {
         return capacity;
     }
+
+
 }

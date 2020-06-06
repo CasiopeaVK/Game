@@ -92,6 +92,10 @@ public class GameScreen extends AbstractScreen {
                 NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000));
 
         gameRenderer = context.getGameRenderer();
+        player.addItem(itemBuilder.createItem(GameItems.DIRT));
+        player.addItem(itemBuilder.createItem(GameItems.DIRT));
+        player.addItem(itemBuilder.createItem(GameItems.DIRT));
+        player.addItem(itemBuilder.createItem(GameItems.PLUNGER));
 
         addEntity(player);
         npcList.stream().forEach(this::addEntity);
