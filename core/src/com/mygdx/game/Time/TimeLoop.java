@@ -119,8 +119,9 @@ public class TimeLoop {
         for (Npc npc : npcList) {
             stage.remove(npc);
             gameRenderer.removeEntity(npc);
-            for (Fixture fixture : npc.getBody().getFixtureList())
-                npc.getBody().destroyFixture(fixture);
+            world.destroyBody(npc.getBody());
+//            for (Fixture fixture : npc.getBody().getFixtureList())
+//                npc.getBody().destroyFixture(fixture);
         }
         //update light
         rayHandler.setAmbientLight(0, 0, 0, 0.35f);

@@ -22,7 +22,7 @@ public class Player extends AnimatedEntity {
     public Light light;
     public GameUI gameUI;
     public PickUpSensor sensor;
-
+    long l = System.currentTimeMillis();
     @Getter
     Inventory inventory;
 
@@ -44,7 +44,6 @@ public class Player extends AnimatedEntity {
 
 
     public void update() {
-        System.out.println(sprite.getX() + " " + sprite.getY());
         update(this::handleClickedButtons);
         world.step(Gdx.graphics.getDeltaTime(), 6, 6);
         body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime(), -yFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime())));

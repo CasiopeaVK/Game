@@ -9,7 +9,9 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.physics.box2d.*;
@@ -109,21 +111,39 @@ public class Map {
     }
 
     public void addNightLight() {
-        lights.add(createNightLight(600, 2750, -300));
-        lights.add(createNightLight(600, 3100, -450));
-        lights.add(createNightLight(800, 3650, -685));
-        lights.add(createNightLight(650, 3930, 65));
-        lights.add(createNightLight(900, 5100, -230));
-        lights.add(createNightLight(900, 5000, -830));
-        lights.add(createNightLight(400, 6100, -330));
-        lights.add(createNightLight(800, 6850, -725));
-        lights.add(createNightLight(800, 5680, -1450));
-        lights.add(createNightLight(700, 4450, 310));
+        for (MapObject point : getLayer("Lights").getObjects()) {
+            Rectangle rect = ((RectangleMapObject) point).getRectangle();
+            int size = 0;
+            switch (point.getName()) {
+                case "small":
+                    size = 400;
+                    break;
+                case "medium":
+                    size = 600;
+                    break;
+                case "big":
+                    size = 900;
+                    break;
+            }
+            Vector2 coords = IsoUtils.IsoTo2d(new Vector2(rect.x, rect.y));
+            lights.add(createNightLight(size, (int) coords.x, (int) coords.y));
+        }
+//        lights.add(createNightLight(600, 2750, -300));
+//        lights.add(createNightLight(600, 3100, -450));
+//        lights.add(createNightLight(800, 3650, -685));
+//        lights.add(createNightLight(650, 3930, 65));
+//        lights.add(createNightLight(900, 5100, -230));
+//        lights.add(createNightLight(900, 5000, -830));
+//        lights.add(createNightLight(400, 6100, -330));
+//        lights.add(createNightLight(800, 6850, -725));
+//        lights.add(createNightLight(800, 5680, -1450));
+//        lights.add(createNightLight(700, 4450, 310));
     }
-    public void removeNightLight(){
-        for (Light light: lights){
-            light.remove();
-            lights.remove(light);
+
+    public void removeNightLight() {
+        for (int i = 0; i < lights.size(); ) {
+            lights.get(i).remove();
+            lights.remove(i);
         }
     }
 }
