@@ -78,7 +78,7 @@ public class GameScreen extends AbstractScreen {
                 new Npc("englishNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
-                new Npc("nurse", world, map, camera, "hero/hero.png"),
+                new Npc("nurse", world, map, camera, "hero/nurse.png"),
                 new Npc("cooker", world, map, camera, "hero/hero.png", new MovementDelayManager() {
                     @Override
                     public boolean preMovePredicate() {

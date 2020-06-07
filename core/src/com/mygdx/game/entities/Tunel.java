@@ -93,7 +93,6 @@ public class Tunel extends InteractiveEntity {
         if (healthPoint == 0) {
             //TODO win game
         }
-        System.out.println(healthPoint);
     }
 
     private void endGame(){

@@ -90,10 +90,7 @@ public class TimeLoop {
         //add NPCs
         npcList.clear();
         for (String name : npcNames) {
-            if (name.equals("testEvilNpc")) {
-                //TODO specify npc name
-                npcList.add(NpcBuilder.setEndStartDelay(new EvilNPC(name, context, map, "hero/hero.png"), 5000, 5000));
-            } else if (name.equals("cooker")) {
+            if (name.equals("cooker")) {
                 npcList.add(new Npc("cooker", world, map, camera, "hero/hero.png", new MovementDelayManager() {
                     @Override
                     public boolean preMovePredicate() {
@@ -106,7 +103,7 @@ public class TimeLoop {
                     }
                 }));
             } else
-                npcList.add(new Npc(name, world, map, camera, "hero/hero.png"));
+                npcList.add(new Npc(name, world, map, camera, "hero/" + name + ".png"));
         }
         npcList.stream().forEach(this::addEntity);
     }
@@ -131,7 +128,7 @@ public class TimeLoop {
         rayHandler.setAmbientLight(0, 0, 0, 0.2f);
         map.addNightLight();
         //addEvilNPC
-        EvilNPC evilNPC = new EvilNPC("testEvilNpc", context, map, "hero/hero.png");
+        EvilNPC evilNPC = new EvilNPC("testEvilNpc", context, map, "hero/testEvilNpc.png");
         Npc npc = NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000);
         addEntity(npc);
         evilNPC.initializeNoticedUI();

@@ -45,7 +45,6 @@ public class SingleDoor extends Entity {
     @Override
     public void update() {
         this.setPosition(sprite.getX() - 1000, sprite.getY() - 800);
-        System.out.println("Door: " + sprite.getX() + " " + sprite.getY());
     }
 
     @Override

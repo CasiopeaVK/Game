@@ -51,7 +51,6 @@ public class Player extends AnimatedEntity {
             sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
             camera.position.set(body.getPosition().x, body.getPosition().y, 0);
             this.setPosition(sprite.getX(), sprite.getY());
-            System.out.println("Player: " + this.getSprite().getX() + " " + this.getSprite().getY());
         }
 
     }
