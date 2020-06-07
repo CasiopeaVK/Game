@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="isometric" renderorder="right-down" width="150" height="100" tilewidth="320" tileheight="160" infinite="0" nextlayerid="17" nextobjectid="1821">
+<map version="1.2" tiledversion="1.3.4" orientation="isometric" renderorder="right-down" width="150" height="100" tilewidth="320" tileheight="160" infinite="0" nextlayerid="17" nextobjectid="1825">
  <tileset firstgid="1" source="Water.tsx"/>
  <tileset firstgid="3" name="ground" tilewidth="319" tileheight="167" tilecount="4" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
@@ -335,7 +335,7 @@
   <object id="1757" name="big" x="12432" y="6688">
    <point/>
   </object>
-  <object id="1758" name="small" x="13836" y="10540">
+  <object id="1758" name="small" x="13952" y="10552">
    <point/>
   </object>
   <object id="1759" name="small" x="12118" y="8306">
@@ -344,19 +344,25 @@
   <object id="1760" name="small" x="12114" y="9982">
    <point/>
   </object>
-  <object id="1761" name="medium" x="15540" y="10508">
+  <object id="1761" name="medium" x="16564" y="9932">
    <point/>
   </object>
-  <object id="1762" name="medium" x="18352" y="10368">
+  <object id="1762" name="medium" x="17872" y="10048">
    <point/>
   </object>
-  <object id="1763" name="big" x="16752" y="4976">
+  <object id="1763" name="big" x="16156" y="5636">
    <point/>
   </object>
   <object id="1764" name="medium" x="13416" y="4568">
    <point/>
   </object>
   <object id="1765" name="medium" x="7788" y="5428">
+   <point/>
+  </object>
+  <object id="1823" name="small" x="15224" y="10232">
+   <point/>
+  </object>
+  <object id="1824" name="small" x="18500" y="5180">
    <point/>
   </object>
  </objectgroup>
