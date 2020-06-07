@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Bed;
 import com.mygdx.game.entities.SmartBed;
+import com.mygdx.game.entities.npc.Npc;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.map.ObjectsRenderer;
 import lombok.Getter;
@@ -47,6 +48,7 @@ public class QuestLine {
         currentQuestIndex++;
         questTable.updateQuest();
         if (currentQuestIndex == 3) {
+            //swap beds
             SmartBed smartBed = ObjectsRenderer.smartBed;
             Bed simpleBed = ObjectsRenderer.simpleBed;
             Vector2 smartBedCoords = new Vector2(smartBed.getSprite().getX(), smartBed.getSprite().getY());
@@ -55,6 +57,11 @@ public class QuestLine {
             smartBed.setSpritesPosition(simpleBedCoords);
             simpleBed.setPosition(smartBedCoords.x, smartBedCoords.y);
             simpleBed.getSprite().setPosition(smartBedCoords.x, smartBedCoords.y);
+            //delete evilNPC
+            Npc npc = context.getNpcList().stream().filter(npc1 -> npc1.getName().equals("madNpc1")).findFirst().get();
+            context.getStage().remove(npc);
+            context.getGameRenderer().removeEntity(npc);
+            context.getWorld().destroyBody(npc.getBody());
         }
     }
 

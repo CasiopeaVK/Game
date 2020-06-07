@@ -50,7 +50,10 @@ public class ObjectsRenderer {
                     Bed bed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
                     beds.add(bed);
                     addEntityToTheMap(isoPosition, bed, stage, context.getGameRenderer(), new Vector2(0, 20));
-                } else {
+                } else if (object.getName().equals("always_empty_bed")) {
+                    Bed bed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
+                    addEntityToTheMap(isoPosition, bed, stage, context.getGameRenderer(), new Vector2(0, 20));
+                }else {
                     Entity objEntity = new Entity(world, camera, new Sprite(new Texture("environmentTextures/" + object.getName() + ".png"))) {
                         @Override
                         public void update() {

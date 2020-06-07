@@ -22,8 +22,7 @@ public abstract class InteractiveAnimatedEntity extends AnimatedEntity {
     }
 
     public void update(float speed) {
-        super.update(() -> {
-        });
+        super.update(() -> {});
         updateClickListener();
         world.step(Gdx.graphics.getDeltaTime(), 6, 6);
         body.setLinearVelocity(IsoUtils.IsoTo2d(new Vector2(xFactor * speed * Gdx.graphics.getDeltaTime(), yFactor * speed * Gdx.graphics.getDeltaTime())));

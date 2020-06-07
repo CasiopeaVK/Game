@@ -52,7 +52,6 @@ abstract public class AnimatedEntity extends Entity {
     }
 
     public void update(Executor clickHandler) {
-        //TODO rewrite
         if (animationAccumulator >= 0.1) {
             clickHandler.execute();
             handleMovement();
