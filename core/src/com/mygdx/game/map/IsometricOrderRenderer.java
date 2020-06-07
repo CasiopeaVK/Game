@@ -270,7 +270,9 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
         Collections.sort(entityList, new Comparator<Entity>() {
             @Override
             public int compare(Entity o1, Entity o2) {
-                return (int) (o2.getY() + o2.getHeight() * o2.getSpriteScale() - (o1.getY() + o1.getHeight() * o1.getSpriteScale()));
+                Sprite s1 = o1.getSprite();
+                Sprite s2 = o2.getSprite();
+                return (int) (s2.getY() + s2.getHeight() * o2.getSpriteScale() - (s1.getY() + s1.getHeight() * o1.getSpriteScale()));
             }
         });
         for (Entity entity : entityList) {

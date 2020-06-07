@@ -25,7 +25,7 @@ public class SingleDoor extends Entity {
         this.openDoor = new Sprite(new Texture(texturePathOfOpenState));
         initializeAnimationSprite(closeDoor, isoPositionOfCloseState);
         initializeAnimationSprite(openDoor, isoPositionOfOpenState);
-        this.sprite.set(closeDoor);
+        this.sprite.set(openDoor);
     }
 
     private void initializeAnimationSprite(Sprite sprite, Vector2 isoPosition) {

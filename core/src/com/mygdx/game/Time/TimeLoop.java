@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Bed;
+import com.mygdx.game.entities.Door;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.TableFood;
 import com.mygdx.game.entities.npc.*;
@@ -69,6 +70,8 @@ public class TimeLoop {
 
     private void startDay() {
         TimeManager.setTIME_SCALE(0.7f);
+        //open door
+        ObjectsRenderer.doors.stream().forEach(Door::open);
         ObjectsRenderer.tables.stream().forEach(tableFood -> tableFood.updateInventory());
         rayHandler.setAmbientLight(0, 0, 0, 0.8f);
         map.removeNightLight();
@@ -109,6 +112,8 @@ public class TimeLoop {
     }
 
     private void startNight() {
+        //closeDoors
+        ObjectsRenderer.doors.stream().forEach(Door::close);
         //change beds
         for (Bed bed : beds) {
             Sprite oldSprite = bed.getSprite();

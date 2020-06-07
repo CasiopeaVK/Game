@@ -31,6 +31,7 @@ public class ObjectsRenderer {
     public static Bed simpleBed;
     public static SmartBed smartBed;
     public static ArrayList<TableFood> tables = new ArrayList<>();
+    public static ArrayList<Door> doors = new ArrayList<>();
 
     public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context, QuestLine questLine) {
         beds = new ArrayList<>();
@@ -157,7 +158,7 @@ public class ObjectsRenderer {
             addEntityToTheMapWithCustomPositionAndScale(rightDoor, stage, context.getGameRenderer());
             leftDoor.getSprite().setScale(1/4f);
             rightDoor.getSprite().setScale(1/4f);
-            Door door = new Door(map, leftDoor, rightDoor, doorObj, doorTrigger);
+            doors.add(new Door(map, leftDoor, rightDoor, doorObj, doorTrigger));
         }
     }
 

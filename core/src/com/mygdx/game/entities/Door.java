@@ -14,7 +14,7 @@ public class Door {
     @Getter
     private Body doorTrigger;
     @Getter
-    private boolean isOpen = false;
+    private boolean isOpen = true;
 
     private SingleDoor leftDoor;
     private SingleDoor rightDoor;
@@ -27,7 +27,7 @@ public class Door {
         this.rightDoor = rightDoor;
         this.map = map;
         this.world = leftDoor.getWorld();
-        door = initializeObject(doorObj, BodyDef.BodyType.StaticBody, false);
+        door = initializeObject(doorObj, BodyDef.BodyType.StaticBody, true);
         doorTrigger = initializeObject(triggerObj, BodyDef.BodyType.KinematicBody, true);
     }
 
