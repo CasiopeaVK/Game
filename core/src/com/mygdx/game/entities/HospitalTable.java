@@ -17,7 +17,7 @@ public class HospitalTable extends InteractiveEntity {
 
     public HospitalTable(World world, Camera camera, String texturePath, Vector2 isoPosition, Player player, ItemBuilder itemBuilder) {
         super(world, camera, texturePath);
-        this.coords = new Vector2  (isoPosition.x - sprite.getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - sprite.getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
+        this.coords = new Vector2(isoPosition.x - sprite.getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - sprite.getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
         this.player = player;
         this.itemBuilder = itemBuilder;
         sprite.setScale(ENVIRONMENT_OBJECTS_SCALE);
@@ -26,8 +26,7 @@ public class HospitalTable extends InteractiveEntity {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
-        if(!isGive){
-            player.getInventory().addItem(itemBuilder.createItem(GameItems.SYPRINGE));
+        if (!isGive && player.getInventory().addItem(itemBuilder.createItem(GameItems.SYPRINGE))) {
             isGive = true;
         }
     }

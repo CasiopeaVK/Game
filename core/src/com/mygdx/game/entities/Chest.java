@@ -13,6 +13,7 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.inventory.InventoryTable;
 import com.mygdx.game.items.GameItems;
+import com.mygdx.game.items.Item;
 import com.mygdx.game.items.ItemBuilder;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.utils.IsoUtils;
@@ -59,7 +60,8 @@ public class Chest extends InteractiveEntity {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
-        if(!hacked && player.getInventory().getSellectedCell().getItem().getName().equals(GameItems.SYPRINGE.getName())){
+        Item selectItem = player.getInventory().getItemInSelectedCell();
+        if(!hacked && selectItem != null && selectItem.getName().equals(GameItems.SYPRINGE.getName())){
             hacked = true;
             stage.addEntity(new HackingArcade(new Sprite(new Texture("sypringe.png")), new Consumer<Boolean>() {
                 @Override
