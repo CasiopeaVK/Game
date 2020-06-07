@@ -122,6 +122,11 @@ public class ObjectsRenderer {
                     Chest chest = new Chest(world, camera, "environmentTextures/canibet3.png", isoPosition, stage, context);
                     chest.setPosition(isoPosition.x - chest.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - chest.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
                     addEntityToTheMapWithCustomPositionAndScale(chest, stage, context.getGameRenderer());
+                    break;
+                case "hospitalTable2":
+                    HospitalTable hospitalTable = new HospitalTable(world,camera,"environmentTextures/hospitalTable2.png", isoPosition, player, context.getItemBuilder());
+                    hospitalTable.setPosition(isoPosition.x - hospitalTable.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - hospitalTable.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
+                    addEntityToTheMapWithCustomPositionAndScale(hospitalTable, stage, context.getGameRenderer());
             }
         }
     }

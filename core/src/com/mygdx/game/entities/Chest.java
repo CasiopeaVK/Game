@@ -59,7 +59,7 @@ public class Chest extends InteractiveEntity {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
-        if(!hacked){
+        if(!hacked && player.getInventory().getSellectedCell().getItem().getName().equals(GameItems.SYPRINGE.getName())){
             hacked = true;
             stage.addEntity(new HackingArcade(new Sprite(new Texture("sypringe.png")), new Consumer<Boolean>() {
                 @Override
@@ -67,6 +67,7 @@ public class Chest extends InteractiveEntity {
                     if(aBoolean){
                         hacked = true;
                         stage.addActor(inventoryTable);
+                        player.getInventory().getCellWithItem(GameItems.SYPRINGE).setItem(null);
                     }else {hacked = false;}
                 }
             }));
