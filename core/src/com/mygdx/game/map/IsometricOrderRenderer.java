@@ -282,6 +282,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
         for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
             float xCord = entry.getKey().getX() + 10;
             float yCord = entry.getKey().getY() + 10;
+            //TODO Dima sosi
             entry.getValue().set(IsoUtils.Vector3ToVector2(translateScreenToIso(xCord, yCord)));
         }
     }
