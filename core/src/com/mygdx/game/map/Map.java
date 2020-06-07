@@ -13,16 +13,16 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.utils.IsoUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.mygdx.game.Constants.IGNORE;
 
 public class Map {
     private final TiledMap tiledMap;
@@ -82,7 +82,7 @@ public class Map {
         return bodies;
     }
 
-    private Shape getPolygon(PolygonMapObject polygonObject) {
+    public Shape getPolygon(PolygonMapObject polygonObject) {
         float[] vertices = polygonObject.getPolygon().getTransformedVertices();
         List<Vector2> worldVertices = Stream.generate(Vector2::new).limit(vertices.length / 2).collect(Collectors.toList());
         for (int i = 0; i < vertices.length / 2; i++) {
@@ -106,6 +106,11 @@ public class Map {
 
     private Light createNightLight(int distance, int x, int y) {
         Light light = new PointLight(rayHandler, 128, color, distance, x, y);
+        Filter lightFilter = new Filter();
+        lightFilter.groupIndex = IGNORE;
+        lightFilter.categoryBits = IGNORE;
+        lightFilter.maskBits = IGNORE;
+        light.setContactFilter(lightFilter);
         light.setSoft(true);
         return light;
     }

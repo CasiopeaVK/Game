@@ -14,9 +14,10 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.screen.ScreenType;
 import com.mygdx.game.screenUI.NoticedUI;
-import com.mygdx.game.stage.SmartStage;
 
 import java.util.Iterator;
+
+import static com.mygdx.game.Constants.IGNORE;
 
 public class EvilNPC extends Npc {
 
@@ -86,6 +87,9 @@ public class EvilNPC extends Npc {
         deadZoneFixture = new FixtureDef();
         deadZoneFixture.shape = sector;
         deadZoneFixture.isSensor = true;
+        deadZoneFixture.filter.maskBits = IGNORE;
+        deadZoneFixture.filter.categoryBits = IGNORE;
+        deadZoneFixture.filter.groupIndex = IGNORE;
         deadZoneBody.createFixture(deadZoneFixture).setUserData(this);
     }
 
