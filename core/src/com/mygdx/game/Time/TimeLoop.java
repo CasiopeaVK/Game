@@ -4,11 +4,11 @@ import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Bed;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.entities.TableFood;
 import com.mygdx.game.entities.npc.*;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.map.ObjectsRenderer;
@@ -19,6 +19,7 @@ import static com.mygdx.game.Constants.ENVIRONMENT_OBJECTS_SCALE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TimeLoop {
     private List<Npc> npcList;
@@ -68,6 +69,7 @@ public class TimeLoop {
 
     private void startDay() {
         TimeManager.setTIME_SCALE(0.7f);
+        ObjectsRenderer.tables.stream().forEach(tableFood -> tableFood.updateInventory());
         rayHandler.setAmbientLight(0, 0, 0, 0.8f);
         map.removeNightLight();
         context.getPlayer().setSleeping(false);

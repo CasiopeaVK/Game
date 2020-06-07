@@ -37,7 +37,7 @@ public class TableFood extends InteractiveEntity {
         inventoryTable.setPosition((Gdx.graphics.getWidth() - inventoryTable.getWidth())/2, (Gdx.graphics.getHeight()-inventoryTable.getHeight())/2);
     }
 
-    private void updateInventory(){
+    public void updateInventory(){
         inventoryTable.setItem(itemBuilder.createItem(GameItems.SPOON),0);
         inventoryTable.setItem(itemBuilder.createItem(GameItems.FORK),1);
     }
@@ -51,14 +51,14 @@ public class TableFood extends InteractiveEntity {
 
     @Override
     public void update() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.R) && Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) < 500){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R) && Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) < 150){
             inventoryTable.setVisible(!inventoryTable.isVisible());
-        }else if(Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) >= 500){
+        }else if(Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) >= 150){
             inventoryTable.setVisible(false);
         }
-
-        if(TimeManager.getHours() == 7){
-            updateInventory();
-        }
+//
+//        if(TimeManager.getHours() == 7){
+//            updateInventory();
+//        }
     }
 }
