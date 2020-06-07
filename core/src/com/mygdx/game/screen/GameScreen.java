@@ -75,7 +75,7 @@ public class GameScreen extends AbstractScreen {
         gameUI = new GameUI(questTable);
         context.setGameUI(gameUI);
         stage.setGameUI(gameUI);
-
+        System.out.println(1);
         gameRenderer = context.getGameRenderer();
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
         context.setItemBuilder(itemBuilder);
