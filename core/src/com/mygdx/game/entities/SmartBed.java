@@ -78,4 +78,8 @@ public class SmartBed extends Bed {
         else
             sprite.set(sprites.get(0));
     }
+    public void setSpritesPosition(Vector2 position){
+        for (Sprite sprite:sprites)
+            sprite.setPosition(position.x, position.y);
+    }
 }

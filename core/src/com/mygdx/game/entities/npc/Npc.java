@@ -47,6 +47,7 @@ public class Npc extends InteractiveAnimatedEntity {
     }
 
     private void initialize(Map map) {
+        System.out.println(name);
         spriteScale = 0.6f;
         sprite.setScale(spriteScale);
         path = new Path(map, name);

@@ -292,7 +292,6 @@
  <objectgroup id="13" name="Environment" offsetx="-12" offsety="4">
   <object id="1701" name="empty_bed" gid="48" x="7807" y="11317" width="481" height="321"/>
   <object id="1702" name="empty_bed" gid="48" x="9084" y="11316" width="481" height="321"/>
-  <object id="1703" name="empty_bed" gid="48" x="9084" y="10680" width="481" height="321"/>
   <object id="1704" name="empty_bed" gid="48" x="11558.7" y="11317" width="481" height="321"/>
   <object id="1705" name="empty_bed" gid="48" x="11564.7" y="10680.6" width="481" height="321"/>
  </objectgroup>
@@ -348,6 +347,7 @@
   <object id="1686" name="bed" gid="48" x="6520.3" y="11318.5" width="481" height="321"/>
   <object id="1689" name="table1" gid="35" x="11200" y="11040" width="273" height="219"/>
   <object id="1767" name="canibet3" gid="58" x="15234" y="8648" width="469" height="395"/>
+  <object id="1703" name="first_bed" gid="48" x="9084" y="10680" width="481" height="321"/>
  </objectgroup>
  <objectgroup id="4" name="Collision">
   <object id="18" x="1760" y="800">

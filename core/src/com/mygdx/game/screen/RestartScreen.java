@@ -33,7 +33,7 @@ public class RestartScreen extends AbstractScreen {
 
         restart = new ImageTextButton("Restart", Constants.APP_SKIN, BUTTON_STYLE);
         menu = new ImageTextButton("Menu", Constants.APP_SKIN, BUTTON_STYLE);
-        dieText = new Label("You are die!", Constants.APP_SKIN,LABEL_STYLE);
+        dieText = new Label("You were noticed!", Constants.APP_SKIN,LABEL_STYLE);
         addButtonListener();
         restartTable.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         restartTable.setPosition(0,0);

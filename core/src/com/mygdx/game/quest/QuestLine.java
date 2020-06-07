@@ -1,7 +1,14 @@
 package com.mygdx.game.quest;
 
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.GameContext;
+import com.mygdx.game.entities.Bed;
+import com.mygdx.game.entities.SmartBed;
+import com.mygdx.game.map.Map;
+import com.mygdx.game.map.ObjectsRenderer;
 import lombok.Getter;
 import lombok.Setter;
+import org.w3c.dom.css.CSSImportRule;
 
 import java.util.ArrayList;
 
@@ -18,9 +25,11 @@ public class QuestLine {
     private QuestLineStatus questLineStatus = QuestLineStatus.IN_PROCESS;
     @Setter
     private QuestTable questTable;
+    GameContext context;
 
-    public QuestLine(String name) {
+    public QuestLine(String name, GameContext context) {
         this.name = name;
+        this.context = context;
         quests = new ArrayList<Quest>();
     }
 
@@ -37,6 +46,16 @@ public class QuestLine {
     public void incrementQuest() {
         currentQuestIndex++;
         questTable.updateQuest();
+        if (currentQuestIndex == 3) {
+            SmartBed smartBed = ObjectsRenderer.smartBed;
+            Bed simpleBed = ObjectsRenderer.simpleBed;
+            Vector2 smartBedCoords = new Vector2(smartBed.getSprite().getX(), smartBed.getSprite().getY());
+            Vector2 simpleBedCoords = new Vector2(simpleBed.getSprite().getX(), simpleBed.getSprite().getY());
+            smartBed.setPosition(simpleBedCoords.x, simpleBedCoords.y);
+            smartBed.setSpritesPosition(simpleBedCoords);
+            simpleBed.setPosition(smartBedCoords.x, smartBedCoords.y);
+            simpleBed.getSprite().setPosition(smartBedCoords.x, smartBedCoords.y);
+        }
     }
 
     public void performQuest() {

@@ -83,7 +83,6 @@ public class GameScreen extends AbstractScreen {
         player.getInventory().setItemBuilder(itemBuilder);
         context.setPlayer(player);
         stage.setPlayer(player);
-        evilNPC = new EvilNPC("testEvilNpc", context, map, "hero/hero.png");
         npcList = Arrays.asList(
                 new Npc("englishNeighbour", world, map, camera, "hero/hero.png"),
                 new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
@@ -101,18 +100,7 @@ public class GameScreen extends AbstractScreen {
                     }
 
                 }),
-                NpcBuilder.setEndStartDelay(evilNPC, 5000, 5000),
-                new CustomEvilNpc("madNpc", context, map, "hero/hero.png", new MovementDelayManager() {
-                    @Override
-                    public boolean preMovePredicate() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean postMovePredicate() {
-                        return false;
-                    }
-                }));
+                new CustomEvilNpc("madNpc", context, map, "hero/hero.png"));
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);

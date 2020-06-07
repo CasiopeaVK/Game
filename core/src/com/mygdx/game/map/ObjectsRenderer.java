@@ -25,6 +25,8 @@ import static com.mygdx.game.Constants.*;
 
 public class ObjectsRenderer {
     public static ArrayList<Bed> beds;
+    public static Bed simpleBed;
+    public static SmartBed smartBed;
 
     public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context, QuestLine questLine) {
         beds = new ArrayList<>();
@@ -44,7 +46,7 @@ public class ObjectsRenderer {
         for (MapObject object : map.getLayer("Environment").getObjects()) {
             if (object instanceof TiledMapTileMapObject) {
                 Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
-                if (object.getName().equals("empty_bed") || object.getName().equals("bed")) {
+                if (object.getName().equals("empty_bed")) {
                     Bed bed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
                     beds.add(bed);
                     addEntityToTheMap(isoPosition, bed, stage, context.getGameRenderer(), new Vector2(0, 20));
@@ -78,9 +80,16 @@ public class ObjectsRenderer {
                     addEntityToTheMapWithCustomPositionAndScale(entity, stage, context.getGameRenderer());
                     break;
                 case "first_bed":
-                    SmartBed bed = new SmartBed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")), player, isoPosition, context);
-                    bed.setPosition(isoPosition.x - bed.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - bed.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 20);
-                    addEntityToTheMapWithCustomPositionAndScale(bed, stage, context.getGameRenderer());
+                    SmartBed smartBed = new SmartBed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")), player, isoPosition, context);
+                    ObjectsRenderer.smartBed = smartBed;
+                    smartBed.setPosition(isoPosition.x - smartBed.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - smartBed.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 20);
+                    addEntityToTheMapWithCustomPositionAndScale(smartBed, stage, context.getGameRenderer());
+                    break;
+                case "bed":
+                    Bed simpleBed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
+                    ObjectsRenderer.simpleBed = simpleBed;
+                    beds.add(simpleBed);
+                    addEntityToTheMap(isoPosition, simpleBed, stage, context.getGameRenderer(), new Vector2(0, 20));
                     break;
                 case "table1":
                     InteractiveEntity table = new InteractiveEntity(world, camera, new Sprite(new Texture("environmentTextures/table1.png"))) {

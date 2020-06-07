@@ -11,7 +11,7 @@ public class TimeManager {
     private static String hoursBlock = "";
 
     @Getter
-    private static int minutes = 30;
+    private static int minutes = 0;
     @Getter
     private static int hours = 22;
 

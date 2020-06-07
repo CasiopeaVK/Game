@@ -9,10 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.entities.Bed;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.npc.EvilNPC;
-import com.mygdx.game.entities.npc.MovementDelayManager;
-import com.mygdx.game.entities.npc.Npc;
-import com.mygdx.game.entities.npc.NpcBuilder;
+import com.mygdx.game.entities.npc.*;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.map.ObjectsRenderer;
 import com.mygdx.game.stage.SmartStage;
@@ -108,6 +105,8 @@ public class TimeLoop {
                         return false;
                     }
                 }));
+            } else if (name.equals("madNpc")) {
+                npcList.add(new CustomEvilNpc("madNpc", context, map, "hero/hero.png"));
             } else
                 npcList.add(new Npc(name, world, map, camera, "hero/hero.png"));
         }
