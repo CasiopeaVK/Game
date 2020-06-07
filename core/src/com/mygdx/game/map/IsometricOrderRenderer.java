@@ -270,9 +270,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
         Collections.sort(entityList, new Comparator<Entity>() {
             @Override
             public int compare(Entity o1, Entity o2) {
-                Sprite s1 = o1.getSprite();
-                Sprite s2 = o2.getSprite();
-                return (int) (s2.getY() + s2.getHeight() * o2.getSpriteScale() - (s1.getY() + s1.getHeight() * o1.getSpriteScale()));
+                return (int) (o2.getY() + o2.getHeight() * o2.getSpriteScale() - (o1.getY() + o1.getHeight() * o1.getSpriteScale()));
             }
         });
         for (Entity entity : entityList) {
@@ -282,8 +280,8 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
 
     private void calculateCord() {
         for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
-            float xCord = entry.getKey().getSprite().getX() + 10;
-            float yCord = entry.getKey().getSprite().getY() + 10;
+            float xCord = entry.getKey().getX() + 10;
+            float yCord = entry.getKey().getY() + 10;
             entry.getValue().set(IsoUtils.Vector3ToVector2(translateScreenToIso(xCord, yCord)));
         }
     }

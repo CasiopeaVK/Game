@@ -17,6 +17,8 @@ import com.mygdx.game.screenUI.NoticedUI;
 
 import java.util.Iterator;
 
+import static com.mygdx.game.Constants.IGNORE;
+
 public class EvilNPC extends Npc {
 
     private GameContext context;
@@ -76,6 +78,9 @@ public class EvilNPC extends Npc {
         deadZoneFixture = new FixtureDef();
         deadZoneFixture.shape = sector;
         deadZoneFixture.isSensor = true;
+        deadZoneFixture.filter.maskBits = IGNORE;
+        deadZoneFixture.filter.categoryBits = IGNORE;
+        deadZoneFixture.filter.groupIndex = IGNORE;
         deadZoneBody.createFixture(deadZoneFixture).setUserData(this);
     }
 

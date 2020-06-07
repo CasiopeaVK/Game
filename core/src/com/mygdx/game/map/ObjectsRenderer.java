@@ -1,9 +1,11 @@
 package com.mygdx.game.map;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
@@ -34,7 +36,6 @@ public class ObjectsRenderer {
         beds = new ArrayList<>();
         World world = context.getWorld();
         OrthographicCamera camera = context.getCamera();
-        System.out.println(1);
         for (MapObject object : map.getLayer("Toilets").getObjects()) {
             Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
             Entity entity = new Entity(world, camera, new Sprite(new Texture("environmentTextures/" + object.getName() + ".png"))) {
@@ -142,6 +143,32 @@ public class ObjectsRenderer {
                     addEntityToTheMapWithCustomPositionAndScale(tableFood,stage,context.getGameRenderer());
             }
         }
+        renderDoors(map, stage, context, world, camera);
+    }
+
+    private static void renderDoors(Map map, SmartStage stage, GameContext context, World world, Camera camera) {
+        MapObjects objects = map.getLayer("Doors").getObjects();
+        for (int i = 1; i <= objects.getCount() / 6; i++) {
+            MapObject doorObj = objects.get("door" + i);
+            MapObject doorTrigger = objects.get("trigger" + i);
+            SingleDoor leftDoor = createSingleDoor(objects, world, camera, "leftDoor" + i, "leftOpenDoor" + i);
+            SingleDoor rightDoor = createSingleDoor(objects, world, camera, "rightDoor" + i, "rightOpenDoor" + i);
+            addEntityToTheMapWithCustomPositionAndScale(leftDoor, stage, context.getGameRenderer());
+            addEntityToTheMapWithCustomPositionAndScale(rightDoor, stage, context.getGameRenderer());
+            leftDoor.getSprite().setScale(1/4f);
+            rightDoor.getSprite().setScale(1/4f);
+            Door door = new Door(map, leftDoor, rightDoor, doorObj, doorTrigger);
+        }
+    }
+
+    private static SingleDoor createSingleDoor(MapObjects objects, World world, Camera camera, String closedName, String openName) {
+        TiledMapTileMapObject closedDoor = (TiledMapTileMapObject) objects.get(closedName);
+        TiledMapTileMapObject openDoor = (TiledMapTileMapObject) objects.get(openName);
+        String closedTexture = (String) closedDoor.getTile().getProperties().get("texture");
+        String openTexture = (String) openDoor.getTile().getProperties().get("texture");
+        Vector2 doorPos = IsoUtils.IsoTo2d(new Vector2(closedDoor.getX(), closedDoor.getY()));
+        Vector2 openDoorPos = IsoUtils.IsoTo2d(new Vector2(openDoor.getX(), openDoor.getY()));
+        return new SingleDoor(world, camera, closedTexture, openTexture, doorPos, openDoorPos);
     }
 
     private static void addEntityToTheMap(Vector2 isoPosition, Entity objEntity, SmartStage stage, GameRenderer
