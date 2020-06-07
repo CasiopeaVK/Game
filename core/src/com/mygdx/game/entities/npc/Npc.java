@@ -86,9 +86,8 @@ public class Npc extends InteractiveAnimatedEntity {
             if (movementDelayManager.preMovePredicate()) {
                 path.moveNext();
             } else {
-                xFactor = 0;
-                yFactor = 0;
-                return;
+                x = 0;
+                y = 0;
             }
 
         }
