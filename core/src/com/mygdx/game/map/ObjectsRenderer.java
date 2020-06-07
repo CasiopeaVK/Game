@@ -26,7 +26,7 @@ import static com.mygdx.game.Constants.*;
 public class ObjectsRenderer {
     public static ArrayList<Bed> beds;
 
-        public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context, QuestLine questLine) {
+    public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context, QuestLine questLine) {
         beds = new ArrayList<>();
         World world = context.getWorld();
         OrthographicCamera camera = context.getCamera();
@@ -44,7 +44,7 @@ public class ObjectsRenderer {
         for (MapObject object : map.getLayer("Environment").getObjects()) {
             if (object instanceof TiledMapTileMapObject) {
                 Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
-                if (object.getName().equals("empty_bed")) {
+                if (object.getName().equals("empty_bed") || object.getName().equals("bed")) {
                     Bed bed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
                     beds.add(bed);
                     addEntityToTheMap(isoPosition, bed, stage, context.getGameRenderer(), new Vector2(0, 20));
@@ -77,7 +77,7 @@ public class ObjectsRenderer {
                     entity.setPosition(isoPosition.x - entity.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - entity.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE);
                     addEntityToTheMapWithCustomPositionAndScale(entity, stage, context.getGameRenderer());
                     break;
-                case "bed":
+                case "first_bed":
                     SmartBed bed = new SmartBed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")), player, isoPosition, context);
                     bed.setPosition(isoPosition.x - bed.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - bed.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 20);
                     addEntityToTheMapWithCustomPositionAndScale(bed, stage, context.getGameRenderer());
@@ -110,9 +110,9 @@ public class ObjectsRenderer {
                     addEntityToTheMap(isoPosition, table, stage, context.getGameRenderer(), new Vector2(0, 0));
                     break;
                 case "canibet3":
-                    Chest chest = new Chest(world,camera,"environmentTextures/canibet3.png",isoPosition,stage,context);
+                    Chest chest = new Chest(world, camera, "environmentTextures/canibet3.png", isoPosition, stage, context);
                     chest.setPosition(isoPosition.x - chest.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - chest.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
-                    addEntityToTheMapWithCustomPositionAndScale(chest,stage,context.getGameRenderer());
+                    addEntityToTheMapWithCustomPositionAndScale(chest, stage, context.getGameRenderer());
             }
         }
     }

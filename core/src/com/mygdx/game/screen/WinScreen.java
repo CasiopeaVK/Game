@@ -29,7 +29,7 @@ public class WinScreen extends AbstractScreen {
         winStage = new Stage();
         winTable = new Table();
 
-        winLabel = new Label("You are win!", Constants.APP_SKIN, LABEL_STYLE);
+        winLabel = new Label("You won!", Constants.APP_SKIN, LABEL_STYLE);
         menuButton = new ImageTextButton("Menu", Constants.APP_SKIN, BUTTON_STYLE);
 
         menuButton.addListener(new ClickListener(){

@@ -6,7 +6,7 @@ import com.mygdx.game.items.GameItems;
 import com.mygdx.game.view.GameRenderer;
 
 public class Screwdriver extends DiggingItem {
-    public static final int SCREWDRIVER_POWER = 7;
+    public static final int SCREWDRIVER_POWER = 2;
 
     public Screwdriver(World world, Camera camera, GameRenderer renderer, GameItems item) {
         super(world, camera, renderer, item);

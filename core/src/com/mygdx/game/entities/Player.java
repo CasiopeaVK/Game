@@ -37,21 +37,13 @@ public class Player extends AnimatedEntity {
     }
 
     private void initialize(Map map, GameContext context) {
-        System.out.println("inw " + sprite.getWidth());
         sprite.setScale(spriteScale);
-        System.out.println("act w " + sprite.getWidth());
         calculateSpawnPosition(map, "spawn");
         initCharacterBody(BodyDef.BodyType.DynamicBody);
     }
 
 
     public void update() {
-        update(this::handleClickedButtons);
-        world.step(Gdx.graphics.getDeltaTime(), 6, 6);
-        body.setLinearVelocity(IsoUtils.TwoDToIso(new Vector2(xFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime(), -yFactor * PLAYER_SPEED * Gdx.graphics.getDeltaTime())));
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2 - 2, body.getPosition().y - sprite.getWidth() / 2 + 10);
-        camera.position.set(body.getPosition().x, body.getPosition().y, 0);
-
         if (!sleeping) {
             update(this::handleClickedButtons);
             world.step(Gdx.graphics.getDeltaTime(), 6, 6);

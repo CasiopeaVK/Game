@@ -8,10 +8,8 @@ public class Constants {
     public static final float UNIT_SCALE = 1 / 4f;
     public static final String SKIN_JSON = "flat-earth2/flat-earth-ui.json";
     public static final Skin APP_SKIN = new Skin(Gdx.files.internal(Constants.SKIN_JSON));
-    public static float PLAYER_SPEED = 4000;
+    public static final float PLAYER_SPEED = 4000;
     public static final float PLAYER_LOW_SPEED = 3000;
-    public static final int PLAYER_HEIGHT = 400;
-    public static final int PLAYER_WIDTH = 150;
     public static final double SUBAREA_COSINUS = Math.cos(Math.PI / 8);
     public static final double SUBAREA_SINUS = Math.sin(Math.PI / 8);
     public static final float COSPI4 = (float) Math.cos(Math.PI / 4);
