@@ -27,6 +27,7 @@ public class ObjectsRenderer {
     public static ArrayList<Bed> beds;
     public static Bed simpleBed;
     public static SmartBed smartBed;
+    public static ArrayList<TableFood> tables = new ArrayList<>();
 
     public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context, QuestLine questLine) {
         beds = new ArrayList<>();
@@ -136,6 +137,7 @@ public class ObjectsRenderer {
                 case "tableFood":
                     TableFood tableFood = new TableFood(world,camera,"environmentTextures/tableFood.png", isoPosition, player, context.getItemBuilder(), context.getStage());
                     tableFood.setPosition(isoPosition.x - tableFood.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - tableFood.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 10);
+                    tables.add(tableFood);
                     addEntityToTheMapWithCustomPositionAndScale(tableFood,stage,context.getGameRenderer());
             }
         }
