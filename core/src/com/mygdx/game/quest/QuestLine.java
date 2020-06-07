@@ -7,6 +7,7 @@ import com.mygdx.game.entities.SmartBed;
 import com.mygdx.game.entities.npc.Npc;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.map.ObjectsRenderer;
+import com.mygdx.game.screen.GameScreen;
 import lombok.Getter;
 import lombok.Setter;
 import org.w3c.dom.css.CSSImportRule;
@@ -47,7 +48,12 @@ public class QuestLine {
     public void incrementQuest() {
         currentQuestIndex++;
         questTable.updateQuest();
+        if (currentQuestIndex == 1)
+            GameScreen.showDialog("Room tour", "Let's take a brief look at rooms at this clinic.\n There are two psychos in a single rooms, nurse's room with some medical staff,\n kitchen, shower room, rest room, toilets and a pantry", context.getStage());
+        if(currentQuestIndex == 2)
+            GameScreen.showDialog("Tip", "Hmm, maybe nurse can be useful to push the escape forward", context.getStage());
         if (currentQuestIndex == 3) {
+            GameScreen.showDialog("Tip", "Looks like you have to dig a lot now.\nIt may be useful to check the nurse's room and try to find something that can speed you up", context.getStage());
             //swap beds
             SmartBed smartBed = ObjectsRenderer.smartBed;
             Bed simpleBed = ObjectsRenderer.simpleBed;

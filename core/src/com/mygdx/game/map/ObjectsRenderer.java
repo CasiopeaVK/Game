@@ -34,7 +34,6 @@ public class ObjectsRenderer {
         beds = new ArrayList<>();
         World world = context.getWorld();
         OrthographicCamera camera = context.getCamera();
-        System.out.println(1);
         for (MapObject object : map.getLayer("Toilets").getObjects()) {
             Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
             Entity entity = new Entity(world, camera, new Sprite(new Texture("environmentTextures/" + object.getName() + ".png"))) {

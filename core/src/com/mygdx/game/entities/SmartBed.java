@@ -55,7 +55,6 @@ public class SmartBed extends Bed {
     @Override
     protected void onClick(InputEvent event, float x, float y) {
         if ((TimeManager.getHours() >= 23 || TimeManager.getHours() < 7) && !sleeping) {
-            System.out.println(player.getSprite().getX() + "d " + player.getSprite().getY());
             TimeManager.setTIME_SCALE(30);
             sleeping = true;
             player.setSpritesScale(0);
