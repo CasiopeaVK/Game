@@ -16,10 +16,8 @@ import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 
 import static com.mygdx.game.Constants.ENVIRONMENT_OBJECTS_SCALE;
-import static com.mygdx.game.Constants.PLAYER_SPEED;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TimeLoop {

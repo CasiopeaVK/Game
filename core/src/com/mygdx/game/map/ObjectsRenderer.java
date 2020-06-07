@@ -53,7 +53,10 @@ public class ObjectsRenderer {
                 } else if (object.getName().equals("always_empty_bed")) {
                     Bed bed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
                     addEntityToTheMap(isoPosition, bed, stage, context.getGameRenderer(), new Vector2(0, 20));
-                }else {
+                } else if (object.getName().equals("always_not_empty_bed")) {
+                    Bed bed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/not_empty_bed.png")));
+                    addEntityToTheMap(isoPosition, bed, stage, context.getGameRenderer(), new Vector2(0, 20));
+                } else {
                     Entity objEntity = new Entity(world, camera, new Sprite(new Texture("environmentTextures/" + object.getName() + ".png"))) {
                         @Override
                         public void update() {
@@ -91,7 +94,6 @@ public class ObjectsRenderer {
                 case "bed":
                     Bed simpleBed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
                     ObjectsRenderer.simpleBed = simpleBed;
-                    beds.add(simpleBed);
                     addEntityToTheMap(isoPosition, simpleBed, stage, context.getGameRenderer(), new Vector2(0, 20));
                     break;
                 case "table1":
@@ -127,7 +129,7 @@ public class ObjectsRenderer {
                     addEntityToTheMapWithCustomPositionAndScale(chest, stage, context.getGameRenderer());
                     break;
                 case "hospitalTable2":
-                    HospitalTable hospitalTable = new HospitalTable(world,camera,"environmentTextures/hospitalTable2.png", isoPosition, player, context.getItemBuilder());
+                    HospitalTable hospitalTable = new HospitalTable(world, camera, "environmentTextures/hospitalTable2.png", isoPosition, player, context.getItemBuilder());
                     hospitalTable.setPosition(isoPosition.x - hospitalTable.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - hospitalTable.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
                     addEntityToTheMapWithCustomPositionAndScale(hospitalTable, stage, context.getGameRenderer());
                     break;
