@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="isometric" renderorder="right-down" width="150" height="100" tilewidth="320" tileheight="160" infinite="0" nextlayerid="17" nextobjectid="1838">
+<map version="1.2" tiledversion="1.3.4" orientation="isometric" renderorder="right-down" width="150" height="100" tilewidth="320" tileheight="160" infinite="0" nextlayerid="17" nextobjectid="1844">
  <tileset firstgid="1" source="Water.tsx"/>
  <tileset firstgid="3" name="ground" tilewidth="319" tileheight="167" tilecount="4" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
@@ -315,8 +315,11 @@
   <object id="1828" name="madNpc1" x="6720" y="11520">
    <polyline points="0,0 0,-800"/>
   </object>
-  <object id="1833" name="testEvilNpc" x="10720" y="4000">
-   <polyline points="0,0 160,2880 3360,2880"/>
+  <object id="1841" name="testEvilNpc1" x="10240" y="3840">
+   <polyline points="0,160 640,160 640,3040 2720,3040 2880,3040 3040,3040 3040,3520 3040,3680 3040,3040 3520,3040 3520,2240 3520,3040 4000,3040 4000,3680 4800,3680 4800,3840 4800,3680 6560,3680 6647.88,3678.18 6720,3680 6720,6080 6720,3680 6720,2720 6720,3680"/>
+  </object>
+  <object id="1843" name="testEvilNpc" x="11200" y="4480">
+   <polyline points="0,0 0,480"/>
   </object>
  </objectgroup>
  <objectgroup id="13" name="Environment" offsetx="-12" offsety="4">
@@ -686,6 +689,15 @@
   </object>
   <object id="1837" x="8640" y="7520">
    <polygon points="0,0 480,0 480,-320 0,-320"/>
+  </object>
+  <object id="1838" x="12320" y="5760">
+   <polygon points="0,0 -160,0 -160,-160 0,-160"/>
+  </object>
+  <object id="1839" x="7840" y="6240">
+   <polygon points="0,0 0,-320 -320,-320 -320,0"/>
+  </object>
+  <object id="1840" x="7360" y="6240">
+   <polygon points="0,0 0,-320 160,-320 160,0"/>
   </object>
  </objectgroup>
  <objectgroup id="16" name="TriggerArea">
