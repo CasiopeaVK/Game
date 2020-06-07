@@ -77,7 +77,7 @@ public class Chest extends InteractiveEntity {
     @Override
     public void update() {
         updateClickListener();
-        if(hacked && Gdx.input.isKeyJustPressed(Input.Keys.F) && Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) < 500){
+        if(hacked && Gdx.input.isKeyJustPressed(Input.Keys.R) && Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) < 500){
             inventoryTable.setVisible(!inventoryTable.isVisible());
             if(inventoryTable.isVisible()){
                 sprite.set(sprites.get(1));
