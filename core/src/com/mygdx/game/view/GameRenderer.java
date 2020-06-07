@@ -53,7 +53,7 @@ public class GameRenderer implements Disposable, MapListener {
             mapRenderer.render();
         }
 
-        box2DDebugRenderer.render(world, camera.combined);
+        /*box2DDebugRenderer.render(world, camera.combined);*/
         rayHandler.setCombinedMatrix(camera);
         rayHandler.updateAndRender();
     }

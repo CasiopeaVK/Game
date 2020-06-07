@@ -106,8 +106,6 @@ public class GameScreen extends AbstractScreen {
         gameRenderer = context.getGameRenderer();
         context.setNpcList(npcList);
         addEntity(player);
-
-        player.addItem(itemBuilder.createItem(GameItems.SPOON));
         npcList.stream().forEach(this::addEntity);
         ObjectsRenderer.renderEnvironment(map, stage, player, context, questTable.getQuestLine());
         timeLoop = new TimeLoop(npcList.stream().filter(npc -> !npc.getName().contains("madNpc")).collect(Collectors.toList()), context);
