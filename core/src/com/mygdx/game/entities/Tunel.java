@@ -30,7 +30,7 @@ enum TunnelState {
 public class Tunel extends InteractiveEntity {
 
 
-    int healthPoint = 10;
+    int healthPoint = 30;
     Inventory inventory;
     ItemBuilder itemBuilder;
     Player player;

@@ -56,9 +56,5 @@ public class TableFood extends InteractiveEntity {
         }else if(Math.abs(player.getSprite().getX() - coords.x) + Math.abs(player.getSprite().getY() - coords.y) >= 150){
             inventoryTable.setVisible(false);
         }
-//
-//        if(TimeManager.getHours() == 7){
-//            updateInventory();
-//        }
     }
 }
