@@ -32,20 +32,11 @@ public class EvilNPC extends Npc {
     private float triggerAccumulator = 0;
 
     private NoticedUI noticedUI = new NoticedUI();
-    protected MovementDelayManager activeDelayManager = new MovementDelayManager() {
+    private MovementDelayManager normalMovementDelayManager;
+    protected MovementDelayManager idleMovementDelayManager = new MovementDelayManager() {
         @Override
         public boolean preMovePredicate() {
-            return true;
-        }
-
-        @Override
-        public boolean postMovePredicate() {
-            return true;
-        }
-    };
-    protected MovementDelayManager idleDelayManager = new MovementDelayManager() {
-        @Override
-        public boolean preMovePredicate() {
+            System.out.println("pre");;
             return false;
         }
 
@@ -112,35 +103,42 @@ public class EvilNPC extends Npc {
     }
 
     @Override
+    public void setMovementDelayManager(MovementDelayManager movementDelayManager) {
+        super.setMovementDelayManager(movementDelayManager);
+        normalMovementDelayManager = movementDelayManager;
+    }
+
+    @Override
     public void update() {
+        checkTrigger();
         super.update();
         updateDeadZone();
-        checkTrigger();
     }
 
     protected void checkTrigger() {
         if (isTriggered) {
+            movementDelayManager.preMovePredicate();
             triggerAccumulator += Gdx.graphics.getDeltaTime();
-            if (triggerAccumulator >= Constants.NOTICE_TIME) {
+            if (triggerAccumulator >= Constants.NOTICE_TIME*2) {
                 context.setScreen(ScreenType.RESTART);
             } else {
                 noticedUI.setVisible(true);
-                noticedUI.setProgressBar(triggerAccumulator / Constants.NOTICE_TIME);
+                noticedUI.setProgressBar(triggerAccumulator / Constants.NOTICE_TIME*2);
             }
         }
     }
 
     public void triggerNpc() {
+        movementDelayManager = idleMovementDelayManager;
         isTriggered = true;
         initializeNoticedUI();
-        this.movementDelayManager = idleDelayManager;
     }
 
     public void cancelTrigger() {
+        movementDelayManager = normalMovementDelayManager;
         isTriggered = false;
         triggerAccumulator = 0;
         noticedUI.setVisible(false);
-        this.movementDelayManager = activeDelayManager;
     }
 
     @Override
