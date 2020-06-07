@@ -18,18 +18,7 @@ public class CustomEvilNpc extends EvilNPC {
     public CustomEvilNpc(String name, GameContext context, Map map, String texturePath) {
         super(name, texturePath, context, map);
         this.map = map;
-        this.movementDelayManager = new MovementDelayManager() {
-            @Override
-            public boolean preMovePredicate() {
-                return false;
-            }
-
-            @Override
-            public boolean postMovePredicate() {
-                return false;
-            }
-        };
-
+        setMovementDelayManager(idleDelayManager);
         initializeDeadZone();
     }
 
@@ -67,7 +56,6 @@ public class CustomEvilNpc extends EvilNPC {
 
     @Override
     public void update() {
-        update(Constants.PLAYER_LOW_SPEED);
         checkTrigger();
     }
 }
