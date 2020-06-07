@@ -283,7 +283,6 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
             float xCord = entry.getKey().getX() + 10;
             float yCord = entry.getKey().getY() + 10;
             entry.getValue().set(IsoUtils.Vector3ToVector2(translateScreenToIso(xCord, yCord)));
-            System.out.println(1);
         }
     }
 }
