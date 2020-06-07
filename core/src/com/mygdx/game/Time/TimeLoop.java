@@ -105,8 +105,6 @@ public class TimeLoop {
                         return false;
                     }
                 }));
-            } else if (name.equals("madNpc")) {
-                npcList.add(new CustomEvilNpc("madNpc", context, map, "hero/hero.png"));
             } else
                 npcList.add(new Npc(name, world, map, camera, "hero/hero.png"));
         }

@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.npc.Npc;
 import com.mygdx.game.items.ItemBuilder;
 import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
@@ -35,7 +36,9 @@ import com.mygdx.game.view.GameRenderer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 
 public class GameContext extends Game {
     private static final String TAG = GameContext.class.getSimpleName();
@@ -70,6 +73,8 @@ public class GameContext extends Game {
     PickUpSensor sensor;
     @Getter @Setter
     GameUI gameUI;
+    @Getter @Setter
+    List<Npc> npcList;
 
 
     @Override

@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class GameScreen extends AbstractScreen {
 
@@ -58,7 +59,7 @@ public class GameScreen extends AbstractScreen {
         super(context);
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
         music.setLooping(true);
-        music.setVolume(0.2f);
+        music.setVolume(0.1f);
         music.play();
         sensor = new PickUpSensor();
         context.setSensor(sensor);
@@ -100,15 +101,14 @@ public class GameScreen extends AbstractScreen {
                     }
 
                 }),
-                new CustomEvilNpc("madNpc", context, map, "hero/hero.png"));
+                new CustomEvilNpc("madNpc", context, map, "hero/hero.png"),
+                new CustomEvilNpc("madNpc1", context, map, "hero/hero.png"));
         gameRenderer = context.getGameRenderer();
-
+        context.setNpcList(npcList);
         addEntity(player);
         npcList.stream().forEach(this::addEntity);
         ObjectsRenderer.renderEnvironment(map, stage, player, context, questTable.getQuestLine());
-
-
-        timeLoop = new TimeLoop(npcList, context);
+        timeLoop = new TimeLoop(npcList.stream().filter(npc -> !npc.getName().contains("madNpc")).collect(Collectors.toList()), context);
         Gdx.input.setInputProcessor(stage);
     }
 
