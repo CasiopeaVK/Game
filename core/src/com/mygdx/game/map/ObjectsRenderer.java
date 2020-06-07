@@ -127,6 +127,11 @@ public class ObjectsRenderer {
                     HospitalTable hospitalTable = new HospitalTable(world,camera,"environmentTextures/hospitalTable2.png", isoPosition, player, context.getItemBuilder());
                     hospitalTable.setPosition(isoPosition.x - hospitalTable.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - hospitalTable.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
                     addEntityToTheMapWithCustomPositionAndScale(hospitalTable, stage, context.getGameRenderer());
+                    break;
+                case "tableFood":
+                    TableFood tableFood = new TableFood(world,camera,"environmentTextures/tableFood.png", isoPosition, player, context.getItemBuilder(), context.getStage());
+                    tableFood.setPosition(isoPosition.x - tableFood.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - tableFood.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 10);
+                    addEntityToTheMapWithCustomPositionAndScale(tableFood,stage,context.getGameRenderer());
             }
         }
     }

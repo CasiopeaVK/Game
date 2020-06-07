@@ -104,8 +104,6 @@ public class GameScreen extends AbstractScreen {
         gameRenderer = context.getGameRenderer();
 
         addEntity(player);
-
-        player.addItem(itemBuilder.createItem(GameItems.SPOON));
         npcList.stream().forEach(this::addEntity);
         ObjectsRenderer.renderEnvironment(map, stage, player, context, questTable.getQuestLine());
 
