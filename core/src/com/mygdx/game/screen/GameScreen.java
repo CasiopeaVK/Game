@@ -3,39 +3,32 @@ package com.mygdx.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.GameContext;
 import com.mygdx.game.Time.TimeLoop;
 import com.mygdx.game.entities.*;
 import com.mygdx.game.entities.npc.*;
-import com.mygdx.game.items.GameItems;
-import com.mygdx.game.items.Item;
 import com.mygdx.game.items.ItemBuilder;
 import com.mygdx.game.items.PickUpSensor;
 import com.mygdx.game.map.Map;
 
-import com.mygdx.game.Time.TimeManager;
 import com.mygdx.game.map.ObjectsRenderer;
 import com.mygdx.game.quest.GenerateQuests;
 import com.mygdx.game.quest.QuestTable;
 import com.mygdx.game.screenUI.GameUI;
-import com.mygdx.game.screenUI.NoticedUI;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import static com.mygdx.game.Constants.*;
 
 public class GameScreen extends AbstractScreen {
 
@@ -50,8 +43,6 @@ public class GameScreen extends AbstractScreen {
     List<Npc> npcList;
     GameUI gameUI;
     PickUpSensor sensor;
-    EvilNPC evilNPC;
-    CustomEvilNpc madNpc;
     TimeLoop timeLoop;
     Music music;
 
@@ -75,7 +66,6 @@ public class GameScreen extends AbstractScreen {
         gameUI = new GameUI(questTable);
         context.setGameUI(gameUI);
         stage.setGameUI(gameUI);
-
         gameRenderer = context.getGameRenderer();
         ItemBuilder itemBuilder = new ItemBuilder(world, camera, gameRenderer);
         context.setItemBuilder(itemBuilder);
@@ -126,7 +116,7 @@ public class GameScreen extends AbstractScreen {
         camera.setToOrtho(false, w, h);
         camera.update();
         stage.addActor(gameUI);
-//        evilNPC.initializeNoticedUI();
+        showDialog("Backstory", "A poor guy, Gvido van Furnace, accidentally got to a residential psychiatric facility.\nYour task is to help him escape from here by digging a way out!", stage);
     }
 
     @Override
@@ -160,5 +150,12 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void dispose() {
         this.dispose();
+    }
+
+    public static void showDialog(String name, String text, SmartStage stage) {
+        Dialog dialog = new Dialog(name, APP_SKIN, "default");
+        dialog.text(new Label(text, APP_SKIN, TEXT_STYLE));
+        dialog.button(new ImageTextButton("Ok", APP_SKIN, BUTTON_STYLE));
+        dialog.show(stage);
     }
 }

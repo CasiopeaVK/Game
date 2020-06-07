@@ -6,7 +6,7 @@ import com.mygdx.game.items.GameItems;
 import com.mygdx.game.view.GameRenderer;
 
 public class Fork extends DiggingItem {
-    public static final int FORK_POWER = 7;
+    public static final int FORK_POWER = 2;
 
     public Fork(World world, Camera camera, GameRenderer renderer, GameItems item) {
         super(world, camera, renderer, item);

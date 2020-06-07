@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -29,12 +30,12 @@ public class ObjectsRenderer {
     public static ArrayList<Bed> beds;
     public static Bed simpleBed;
     public static SmartBed smartBed;
+    public static ArrayList<TableFood> tables = new ArrayList<>();
 
     public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context, QuestLine questLine) {
         beds = new ArrayList<>();
         World world = context.getWorld();
         OrthographicCamera camera = context.getCamera();
-
         for (MapObject object : map.getLayer("Toilets").getObjects()) {
             Vector2 isoPosition = IsoUtils.IsoTo2d(new Vector2(((TiledMapTileMapObject) object).getX(), ((TiledMapTileMapObject) object).getY()));
             Entity entity = new Entity(world, camera, new Sprite(new Texture("environmentTextures/" + object.getName() + ".png"))) {
@@ -55,7 +56,10 @@ public class ObjectsRenderer {
                 } else if (object.getName().equals("always_empty_bed")) {
                     Bed bed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
                     addEntityToTheMap(isoPosition, bed, stage, context.getGameRenderer(), new Vector2(0, 20));
-                }else {
+                } else if (object.getName().equals("always_not_empty_bed")) {
+                    Bed bed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/not_empty_bed.png")));
+                    addEntityToTheMap(isoPosition, bed, stage, context.getGameRenderer(), new Vector2(0, 20));
+                } else {
                     Entity objEntity = new Entity(world, camera, new Sprite(new Texture("environmentTextures/" + object.getName() + ".png"))) {
                         @Override
                         public void update() {
@@ -93,7 +97,6 @@ public class ObjectsRenderer {
                 case "bed":
                     Bed simpleBed = new Bed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")));
                     ObjectsRenderer.simpleBed = simpleBed;
-                    beds.add(simpleBed);
                     addEntityToTheMap(isoPosition, simpleBed, stage, context.getGameRenderer(), new Vector2(0, 20));
                     break;
                 case "table1":
@@ -129,13 +132,14 @@ public class ObjectsRenderer {
                     addEntityToTheMapWithCustomPositionAndScale(chest, stage, context.getGameRenderer());
                     break;
                 case "hospitalTable2":
-                    HospitalTable hospitalTable = new HospitalTable(world,camera,"environmentTextures/hospitalTable2.png", isoPosition, player, context.getItemBuilder());
+                    HospitalTable hospitalTable = new HospitalTable(world, camera, "environmentTextures/hospitalTable2.png", isoPosition, player, context.getItemBuilder());
                     hospitalTable.setPosition(isoPosition.x - hospitalTable.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - hospitalTable.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 30);
                     addEntityToTheMapWithCustomPositionAndScale(hospitalTable, stage, context.getGameRenderer());
                     break;
                 case "tableFood":
                     TableFood tableFood = new TableFood(world,camera,"environmentTextures/tableFood.png", isoPosition, player, context.getItemBuilder(), context.getStage());
                     tableFood.setPosition(isoPosition.x - tableFood.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - tableFood.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE - 10);
+                    tables.add(tableFood);
                     addEntityToTheMapWithCustomPositionAndScale(tableFood,stage,context.getGameRenderer());
             }
         }

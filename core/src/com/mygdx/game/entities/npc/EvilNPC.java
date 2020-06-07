@@ -133,14 +133,14 @@ public class EvilNPC extends Npc {
     public void triggerNpc() {
         isTriggered = true;
         initializeNoticedUI();
-        setMovementDelayManager(idleDelayManager);
+        this.movementDelayManager = idleDelayManager;
     }
 
     public void cancelTrigger() {
         isTriggered = false;
         triggerAccumulator = 0;
         noticedUI.setVisible(false);
-        setMovementDelayManager(activeDelayManager);
+        this.movementDelayManager = activeDelayManager;
     }
 
     @Override
