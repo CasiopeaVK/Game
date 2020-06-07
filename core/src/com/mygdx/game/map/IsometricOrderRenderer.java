@@ -284,6 +284,7 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
             float yCord = entry.getKey().getY() + 10;
             //TODO Dima sosi
             entry.getValue().set(IsoUtils.Vector3ToVector2(translateScreenToIso(xCord, yCord)));
+            System.out.println(1);
         }
     }
 }
