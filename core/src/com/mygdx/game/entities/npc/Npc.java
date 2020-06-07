@@ -71,6 +71,7 @@ public class Npc extends InteractiveAnimatedEntity {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
+        System.out.println("clicked npc");
         dialogLine.runDialog(name);
     }
 

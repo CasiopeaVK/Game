@@ -91,8 +91,8 @@ public class GameScreen extends AbstractScreen {
                     }
 
                 }),
-                new CustomEvilNpc("madNpc", context, map, "hero/hero.png"),
-                new CustomEvilNpc("madNpc1", context, map, "hero/hero.png"));
+                new CustomEvilNpc("madNpc", context, map, "hero/madNpc.png"),
+                new CustomEvilNpc("madNpc1", context, map, "hero/madNpc1.png"));
         gameRenderer = context.getGameRenderer();
         context.setNpcList(npcList);
         addEntity(player);

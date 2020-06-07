@@ -13,7 +13,7 @@ public class TimeManager {
     @Getter
     private static int minutes = 50;
     @Getter
-    private static int hours = 22;
+    private static int hours = 8;
 
     private static float accumulator = 0;
     @Setter
