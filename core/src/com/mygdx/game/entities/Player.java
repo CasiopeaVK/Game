@@ -102,7 +102,7 @@ public class Player extends AnimatedEntity {
             }
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.R) && sensor.isNearDoor()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.E) && sensor.isNearDoor()) {
             if (sensor.getDoor().isOpen()) {
                 sensor.getDoor().close();
             } else {
