@@ -19,10 +19,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mygdx.game.Constants.*;
+
 public class DialogLine {
-    private final String DIALOG_STYLE = "white";
-    private final String TEXT_STYLE = "LoraButtonBlack";
-    private final String BUTTON_STYLE = "LoraButton";
     private static final int NEXT_QUEST = -2;
     private static final int ADD_4_PLATES = -3;
     private final int ALWAYS_AVAILABLE = -1;
