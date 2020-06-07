@@ -18,7 +18,7 @@ public class CustomEvilNpc extends EvilNPC {
     public CustomEvilNpc(String name, GameContext context, Map map, String texturePath) {
         super(name, texturePath, context, map);
         this.map = map;
-        setMovementDelayManager(idleDelayManager);
+        setMovementDelayManager(idleMovementDelayManager);
         initializeDeadZone();
     }
 
