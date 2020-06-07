@@ -31,35 +31,33 @@ public class EvilNPC extends Npc {
     private float triggerAccumulator = 0;
 
     private NoticedUI noticedUI = new NoticedUI();
-    private MovementDelayManager activeDelayManager;
-    private MovementDelayManager idleDelayManager;
+    protected MovementDelayManager activeDelayManager = new MovementDelayManager() {
+        @Override
+        public boolean preMovePredicate() {
+            return true;
+        }
+
+        @Override
+        public boolean postMovePredicate() {
+            return true;
+        }
+    };
+    protected MovementDelayManager idleDelayManager = new MovementDelayManager() {
+        @Override
+        public boolean preMovePredicate() {
+            return false;
+        }
+
+        @Override
+        public boolean postMovePredicate() {
+            return false;
+        }
+    };
 
     public EvilNPC(String name, GameContext context, Map map, String texturePath) {
         super(name, context.getWorld(), map, context.getCamera(), texturePath);
         this.context = context;
         initializeDeadZone(createDeadZoneVertices());
-        idleDelayManager = new MovementDelayManager() {
-            @Override
-            public boolean preMovePredicate() {
-                return false;
-            }
-
-            @Override
-            public boolean postMovePredicate() {
-                return false;
-            }
-        };
-        activeDelayManager = new MovementDelayManager() {
-            @Override
-            public boolean preMovePredicate() {
-                return true;
-            }
-
-            @Override
-            public boolean postMovePredicate() {
-                return true;
-            }
-        };
     }
     protected EvilNPC(String name, String texturePath, GameContext context, Map map) {
         super(name, context.getWorld(), map, context.getCamera(), texturePath);
