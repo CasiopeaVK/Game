@@ -9,13 +9,8 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Game");
 		config.setWindowedMode(1600, 900);
-		config.setWindowPosition(100, 50);
-//		config.width = 1280;
-//		config.height = 720;
-//		config.title = "Game";
-//		config.x = 100;
-//		config.y = 50;
-//		config.forceExit = false;
+		config.setWindowPosition(150, 70);
+		config.setResizable(false);
 		new Lwjgl3Application(new GameContext(), config);
 	}
 }
