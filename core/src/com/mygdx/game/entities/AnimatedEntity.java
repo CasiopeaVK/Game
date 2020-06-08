@@ -195,7 +195,6 @@ abstract public class AnimatedEntity extends Entity {
             sprite.set(sprites.get(lastDirection - 1).get(idleNumber));
             idleNumber = ++idleNumber % 8;
         }
-
     }
 
     public void setSpritesScale(float scale) {

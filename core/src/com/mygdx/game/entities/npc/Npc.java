@@ -71,7 +71,6 @@ public class Npc extends InteractiveAnimatedEntity {
 
     @Override
     protected void onClick(InputEvent event, float x, float y) {
-        System.out.println("clicked npc");
         dialogLine.runDialog(name);
     }
 
@@ -89,7 +88,6 @@ public class Npc extends InteractiveAnimatedEntity {
                 x = 0;
                 y = 0;
             }
-
         }
         Vector2 res = IsoUtils.getDirection(new Vector2(x, y));
         xFactor = res.x;

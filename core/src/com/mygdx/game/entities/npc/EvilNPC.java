@@ -23,13 +23,15 @@ public class EvilNPC extends Npc {
 
     private GameContext context;
 
-    private float deadZoneRadius = 200f;
-    private float deadZoneAngle = (float) (Math.PI / 2);
+    private float deadZoneRadius = 450f;
+    private float deadZoneAngle = (float) (3 * Math.PI / 4);
     protected FixtureDef deadZoneFixture;
     protected Body deadZoneBody;
 
     private boolean isTriggered = false;
     private float triggerAccumulator = 0;
+
+    private Vector2 lastPosition = new Vector2(0, 0);
 
     private NoticedUI noticedUI = new NoticedUI();
     private MovementDelayManager normalMovementDelayManager;
@@ -50,6 +52,7 @@ public class EvilNPC extends Npc {
         this.context = context;
         initializeDeadZone(createDeadZoneVertices());
     }
+
     protected EvilNPC(String name, String texturePath, GameContext context, Map map) {
         super(name, context.getWorld(), map, context.getCamera(), texturePath);
         this.context = context;
@@ -118,11 +121,11 @@ public class EvilNPC extends Npc {
         if (isTriggered) {
             movementDelayManager.preMovePredicate();
             triggerAccumulator += Gdx.graphics.getDeltaTime();
-            if (triggerAccumulator >= Constants.NOTICE_TIME*2) {
+            if (triggerAccumulator >= Constants.NOTICE_TIME * 2) {
                 context.setScreen(ScreenType.RESTART);
             } else {
                 noticedUI.setVisible(true);
-                noticedUI.setProgressBar(triggerAccumulator / Constants.NOTICE_TIME*2);
+                noticedUI.setProgressBar(triggerAccumulator / Constants.NOTICE_TIME * 2);
             }
         }
     }
