@@ -7,10 +7,11 @@ import com.mygdx.game.GameContext;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setTitle("Game");
+		config.setTitle("Bedlamers");
 		config.setWindowedMode(1600, 900);
 		config.setWindowPosition(150, 70);
 		config.setResizable(false);
+		config.setWindowIcon("favicon.png");
 		new Lwjgl3Application(new GameContext(), config);
 	}
 }

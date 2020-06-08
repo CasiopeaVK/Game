@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GameContext;
-import com.mygdx.game.entities.Bed;
-import com.mygdx.game.entities.Door;
-import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.TableFood;
+import com.mygdx.game.entities.*;
 import com.mygdx.game.entities.npc.*;
+import com.mygdx.game.inventory.Inventory;
+import com.mygdx.game.items.GameItems;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.map.ObjectsRenderer;
+import com.mygdx.game.screen.ScreenType;
 import com.mygdx.game.stage.SmartStage;
 import com.mygdx.game.view.GameRenderer;
 
@@ -35,6 +35,8 @@ public class TimeLoop {
     private Map map;
     private OrthographicCamera camera;
     private RayHandler rayHandler;
+    Player player;
+    Inventory inventory;
 
     public TimeLoop(List<Npc> npcList, GameContext context) {
         this.npcNames = new ArrayList<>();
@@ -49,6 +51,8 @@ public class TimeLoop {
         map = context.getMap();
         camera = context.getCamera();
         rayHandler = context.getRayHandler();
+        player = context.getPlayer();
+        inventory = player.getInventory();
     }
 
     public void processTimeChange() {
@@ -70,6 +74,9 @@ public class TimeLoop {
 
     private void startDay() {
         TimeManager.setTIME_SCALE(0.7f);
+        if (inventory.getCellWithItem(GameItems.DIRT) != null || ObjectsRenderer.tunnel.getTunnelState() != TunnelState.START) {
+            context.setScreen(ScreenType.RESTART);
+        }
         //open door
         ObjectsRenderer.doors.stream().forEach(Door::open);
         ObjectsRenderer.tables.stream().forEach(tableFood -> tableFood.updateInventory());

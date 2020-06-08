@@ -18,14 +18,12 @@ import com.mygdx.game.items.ItemBuilder;
 import com.mygdx.game.items.digging.DiggingItem;
 import com.mygdx.game.items.improves.ImproveItem;
 import com.mygdx.game.quest.QuestLine;
+import lombok.Getter;
 
 import java.util.ArrayList;
 
 import static com.mygdx.game.Constants.ENVIRONMENT_OBJECTS_SCALE;
 
-enum TunnelState {
-    START, BETWEEN, END;
-}
 
 public class Tunel extends InteractiveEntity {
 
@@ -36,6 +34,7 @@ public class Tunel extends InteractiveEntity {
     Player player;
     ArrayList<Sprite> tunnels;
     Vector2 coords;
+    @Getter
     TunnelState tunnelState;
     QuestLine questLine;
     int currentTunnel;

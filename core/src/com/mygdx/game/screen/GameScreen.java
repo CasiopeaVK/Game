@@ -75,9 +75,9 @@ public class GameScreen extends AbstractScreen {
         context.setPlayer(player);
         stage.setPlayer(player);
         npcList = Arrays.asList(
-                new Npc("englishNeighbour", world, map, camera, "hero/hero.png"),
-                new Npc("jibaNeighbour", world, map, camera, "hero/hero.png"),
-                new Npc("napNeighbour", world, map, camera, "hero/hero.png"),
+                new Npc("englishNeighbour", world, map, camera, "hero/englishNeighbour.png"),
+                new Npc("jibaNeighbour", world, map, camera, "hero/jibaNeighbour.png"),
+                new Npc("napNeighbour", world, map, camera, "hero/napNeighbour.png"),
                 new Npc("nurse", world, map, camera, "hero/nurse.png"),
                 new Npc("cooker", world, map, camera, "hero/cooker.png", new MovementDelayManager() {
                     @Override

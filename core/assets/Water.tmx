@@ -294,14 +294,14 @@
   </data>
  </layer>
  <objectgroup id="11" name="Paths">
-  <object id="1598" name="englishNeighbour" x="9442" y="10230">
-   <polyline points="0,0 -482,10"/>
+  <object id="1598" name="englishNeighbour" x="9582.91" y="10555.8">
+   <polyline points="-462.909,-155.758 17.0909,-155.758 0,0 -482,10"/>
   </object>
   <object id="1599" name="jibaNeighbour" x="10700" y="11340">
-   <polyline points="0,0 340,20"/>
+   <polyline points="20,-620 0,0 340,20"/>
   </object>
-  <object id="1600" name="napNeighbour" x="9764" y="11356">
-   <polyline points="0,0 -324,4"/>
+  <object id="1600" name="napNeighbour" x="10400" y="11520">
+   <polyline points="0,0 -1224,4"/>
   </object>
   <object id="1612" name="nurse" x="7324" y="5380">
    <polyline points="0,0 1476,60 1476,-1380 2756,-1380 2916,5340 2916,3900 676,3900 676,5500 676,3900 -604,3900 -604,5660 -604,3900 1796,3900 1796,2300 -444,2300"/>

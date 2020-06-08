@@ -32,6 +32,7 @@ public class ObjectsRenderer {
     public static SmartBed smartBed;
     public static ArrayList<TableFood> tables = new ArrayList<>();
     public static ArrayList<Door> doors = new ArrayList<>();
+    public static Tunel tunnel;
 
     public static void renderEnvironment(Map map, SmartStage stage, Player player, GameContext context, QuestLine questLine) {
         beds = new ArrayList<>();
@@ -88,6 +89,7 @@ public class ObjectsRenderer {
                     Tunel entity = new Tunel(world, camera, new Sprite(new Texture("environmentTextures/tunnel0.png")), player.getInventory(), context.getItemBuilder(), player, isoPosition, questLine);
                     entity.setPosition(isoPosition.x - entity.getSprite().getWidth() * 2 * ENVIRONMENT_OBJECTS_SCALE, isoPosition.y - entity.getSprite().getHeight() * ENVIRONMENT_OBJECTS_SCALE);
                     addEntityToTheMapWithCustomPositionAndScale(entity, stage, context.getGameRenderer());
+                    ObjectsRenderer.tunnel = entity;
                     break;
                 case "first_bed":
                     SmartBed smartBed = new SmartBed(world, camera, new Sprite(new Texture("environmentTextures/empty_bed.png")), player, isoPosition, context);
