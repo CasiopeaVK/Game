@@ -1,5 +1,6 @@
 package com.mygdx.game.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Constants;
+import com.mygdx.game.utils.IsoUtils;
 
 import java.awt.event.MouseEvent;
 
@@ -36,7 +38,13 @@ abstract public class InteractiveEntity extends Entity {
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                onClick(event, x, y);
+                Vector2 distance = new Vector2(Gdx.input.getX()-Gdx.graphics.getWidth()/2,Gdx.input.getY()-Gdx.graphics.getHeight()/2);
+                double distanceLength = IsoUtils.CalculateVector2Length(distance);
+                System.out.println(distanceLength);
+                if(distanceLength<Constants.INTERACTION_DISTANCE){
+                    onClick(event,x,y);
+                }
+
             }
         });
     }

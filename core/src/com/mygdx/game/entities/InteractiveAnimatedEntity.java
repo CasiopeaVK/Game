@@ -40,7 +40,13 @@ public abstract class InteractiveAnimatedEntity extends AnimatedEntity {
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                onClick(event, x, y);
+                Vector2 distance = new Vector2(Gdx.input.getX()-Gdx.graphics.getWidth()/2,Gdx.input.getY()-Gdx.graphics.getHeight()/2);
+                double distanceLength = IsoUtils.CalculateVector2Length(distance);
+                System.out.println(distanceLength);
+                if(distanceLength<Constants.INTERACTION_DISTANCE){
+                    onClick(event,x,y);
+                }
+
             }
         });
 

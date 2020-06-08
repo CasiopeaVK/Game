@@ -22,4 +22,5 @@ public class Constants {
     public static final float TOILET_SCALE = 0.5f;
     public static final Vector2 TOILET_SETTLING_PADDLE = new Vector2(70,15);
     public  static final short IGNORE = 0x001;
+    public static double INTERACTION_DISTANCE = 200;
 }
