@@ -4,18 +4,27 @@
     "text": "Hi! New here? (Makes spinning sounds)\nDon't be shy! Let me introduce us. That man located in the South-West is Nap.\nHe`s from Manchester and his dream is to conquer Europe. Man on the South-East is Jiba.\n(Makes spinning sounds) He`s from chinatown, San Francisco. \nHe was trying to build a wall on the road. (Makes spinning sounds). \n I ... Guess who am I?",
     "answers": [
       {
-        "text": "Compass",
-        "target": 1
+        "phase": 1,
+        "text": "Alzheimer?",
+        "target":-1
       },
       {
+        "text": "Compass",
+        "target": 1,
+        "phase": 0
+      },
+      {
+        "phase": 0,
         "text": "Helicopter",
         "target": 3
       },
       {
+        "phase": 0,
         "text": "Idiot",
         "target": 2
       },
       {
+        "phase": 0,
         "text": "KPI Student",
         "target": 3
       }
