@@ -45,6 +45,7 @@ public class EvilNPC extends Npc {
     protected MovementDelayManager idleDelayManager = new MovementDelayManager() {
         @Override
         public boolean preMovePredicate() {
+            System.out.println("pre");;
             return false;
         }
 
