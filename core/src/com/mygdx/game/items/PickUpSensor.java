@@ -100,13 +100,11 @@ public class PickUpSensor implements ContactListener {
     private void activateDoorTrigger(Fixture a, Fixture b) {
         if (a.getUserData() instanceof Door) {
             if (b.getUserData() instanceof Player) {
-                System.out.println("ENTER");
                 isNearDoor = true;
                 door = (Door) a.getUserData();
             }
         } else if (b.getUserData() instanceof Door) {
-            if (a.getUserData() instanceof Player) {
-                System.out.println("ENTER");
+            if (a.getUserData() instanceof Player) { ;
                 isNearDoor = true;
                 door = (Door) b.getUserData();
             }

@@ -94,7 +94,7 @@ public class TimeLoop {
         npcList.clear();
         for (String name : npcNames) {
             if (name.equals("cooker")) {
-                npcList.add(new Npc("cooker", world, map, camera, "hero/hero.png", new MovementDelayManager() {
+                npcList.add(new Npc("cooker", world, map, camera, "hero/cooker.png", new MovementDelayManager() {
                     @Override
                     public boolean preMovePredicate() {
                         return false;

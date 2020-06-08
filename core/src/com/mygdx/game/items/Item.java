@@ -50,7 +50,6 @@ public class Item extends InteractiveEntity {
         this.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                System.out.println("ENTER");
                 Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
             }
 
@@ -61,7 +60,6 @@ public class Item extends InteractiveEntity {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Clicked");
                 //TODO draw info window
             }
         });
