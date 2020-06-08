@@ -11,9 +11,9 @@ public class TimeManager {
     private static String hoursBlock = "";
 
     @Getter
-    private static int minutes = 20;
+    private static int minutes = 0;
     @Getter
-    private static int hours = 22;
+    private static int hours = 8;
 
     private static float accumulator = 0;
     @Setter
