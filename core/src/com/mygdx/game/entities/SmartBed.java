@@ -19,6 +19,9 @@ import java.util.ArrayList;
 
 import static com.mygdx.game.Constants.ENVIRONMENT_OBJECTS_SCALE;
 
+/**
+ *
+ */
 public class SmartBed extends Bed {
     Vector2 coords;
     Player player;
