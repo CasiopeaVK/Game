@@ -44,6 +44,8 @@ public class IsoUtils {
 
     public static Vector2 getDirection(Vector2 vector2){
         float length = (float) CalculateVector2Length(vector2);
+        if (length == 0)
+            return new Vector2(0,0);
         return new Vector2(vector2.x/length, vector2.y/length);
     }
 }

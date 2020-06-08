@@ -18,7 +18,7 @@ public class CustomEvilNpc extends EvilNPC {
     public CustomEvilNpc(String name, GameContext context, Map map, String texturePath) {
         super(name, texturePath, context, map);
         this.map = map;
-        setMovementDelayManager(idleDelayManager);
+        setMovementDelayManager(idleMovementDelayManager);
         initializeDeadZone();
     }
 
@@ -34,7 +34,6 @@ public class CustomEvilNpc extends EvilNPC {
         Vector2[] vertices = new Vector2[verticesInRow.length / 2];
         for (int i = 0; i < vertices.length; i++) {
             vertices[i] = IsoUtils.IsoTo2d(new Vector2(verticesInRow[2 * i], verticesInRow[2 * i + 1]));
-            System.out.println(vertices[i].toString());
         }
         return vertices;
     }

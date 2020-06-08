@@ -282,8 +282,15 @@ public class IsometricOrderRenderer extends IsometricTiledMapRenderer {
 
     private void calculateCord() {
         for (HashMap.Entry<Entity, Vector2> entry : entities.entrySet()) {
-            float xCord = entry.getKey().getSprite().getX() + 10;
-            float yCord = entry.getKey().getSprite().getY() + 10;
+            float xCord;
+            float yCord;
+            if (entry.getKey() instanceof SingleDoor) {
+                xCord = entry.getKey().getX() + 10;
+                yCord = entry.getKey().getY() + 10;
+            } else {
+                xCord = entry.getKey().getSprite().getX() + 10;
+                yCord = entry.getKey().getSprite().getY() + 10;
+            }
             entry.getValue().set(IsoUtils.Vector3ToVector2(translateScreenToIso(xCord, yCord)));
         }
     }

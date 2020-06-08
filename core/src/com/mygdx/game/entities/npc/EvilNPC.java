@@ -14,35 +14,28 @@ import com.mygdx.game.GameContext;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.screen.ScreenType;
 import com.mygdx.game.screenUI.NoticedUI;
-import com.mygdx.game.stage.SmartStage;
 
 import java.util.Iterator;
+
+import static com.mygdx.game.Constants.IGNORE;
 
 public class EvilNPC extends Npc {
 
     private GameContext context;
 
-    private float deadZoneRadius = 200f;
-    private float deadZoneAngle = (float) (Math.PI / 2);
+    private float deadZoneRadius = 450f;
+    private float deadZoneAngle = (float) (3 * Math.PI / 4);
     protected FixtureDef deadZoneFixture;
     protected Body deadZoneBody;
 
     private boolean isTriggered = false;
     private float triggerAccumulator = 0;
 
-    private NoticedUI noticedUI = new NoticedUI();
-    protected MovementDelayManager activeDelayManager = new MovementDelayManager() {
-        @Override
-        public boolean preMovePredicate() {
-            return true;
-        }
+    private Vector2 lastPosition = new Vector2(0, 0);
 
-        @Override
-        public boolean postMovePredicate() {
-            return true;
-        }
-    };
-    protected MovementDelayManager idleDelayManager = new MovementDelayManager() {
+    private NoticedUI noticedUI = new NoticedUI();
+    private MovementDelayManager normalMovementDelayManager;
+    protected MovementDelayManager idleMovementDelayManager = new MovementDelayManager() {
         @Override
         public boolean preMovePredicate() {
             System.out.println("pre");;
@@ -60,6 +53,7 @@ public class EvilNPC extends Npc {
         this.context = context;
         initializeDeadZone(createDeadZoneVertices());
     }
+
     protected EvilNPC(String name, String texturePath, GameContext context, Map map) {
         super(name, context.getWorld(), map, context.getCamera(), texturePath);
         this.context = context;
@@ -87,6 +81,9 @@ public class EvilNPC extends Npc {
         deadZoneFixture = new FixtureDef();
         deadZoneFixture.shape = sector;
         deadZoneFixture.isSensor = true;
+        deadZoneFixture.filter.maskBits = IGNORE;
+        deadZoneFixture.filter.categoryBits = IGNORE;
+        deadZoneFixture.filter.groupIndex = IGNORE;
         deadZoneBody.createFixture(deadZoneFixture).setUserData(this);
     }
 
@@ -109,35 +106,42 @@ public class EvilNPC extends Npc {
     }
 
     @Override
+    public void setMovementDelayManager(MovementDelayManager movementDelayManager) {
+        super.setMovementDelayManager(movementDelayManager);
+        normalMovementDelayManager = movementDelayManager;
+    }
+
+    @Override
     public void update() {
+        checkTrigger();
         super.update();
         updateDeadZone();
-        checkTrigger();
     }
 
     protected void checkTrigger() {
         if (isTriggered) {
+            movementDelayManager.preMovePredicate();
             triggerAccumulator += Gdx.graphics.getDeltaTime();
-            if (triggerAccumulator >= Constants.NOTICE_TIME) {
+            if (triggerAccumulator >= Constants.NOTICE_TIME * 2) {
                 context.setScreen(ScreenType.RESTART);
             } else {
                 noticedUI.setVisible(true);
-                noticedUI.setProgressBar(triggerAccumulator / Constants.NOTICE_TIME);
+                noticedUI.setProgressBar(triggerAccumulator / Constants.NOTICE_TIME * 2);
             }
         }
     }
 
     public void triggerNpc() {
+        movementDelayManager = idleMovementDelayManager;
         isTriggered = true;
         initializeNoticedUI();
-        this.movementDelayManager = idleDelayManager;
     }
 
     public void cancelTrigger() {
+        movementDelayManager = normalMovementDelayManager;
         isTriggered = false;
         triggerAccumulator = 0;
         noticedUI.setVisible(false);
-        this.movementDelayManager = activeDelayManager;
     }
 
     @Override
